@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 강의 경쟁사 벤치마킹 리포트 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #16161f;
+    --surface: #1c1c28;
+    --surface2: #22222f;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --text: #e8e8f0;
+    --text2: #9090a8;
+    --text3: #5c5c7a;
+    --accent: #7c6fff;
+    --accent2: #5b8bff;
+    --accent3: #ff6b6b;
+    --green: #4ecdc4;
+    --amber: #ffd166;
+    --coral: #ff6b6b;
+    --purple: #a78bfa;
+    --cat1: #7c6fff;
+    --cat2: #4ecdc4;
+    --cat3: #ffd166;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  .report-header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border2);
+    padding: 56px 64px 48px;
+  }
+  .report-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .report-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .report-title {
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    letter-spacing: -.02em;
+  }
+  .report-sub {
+    font-size: 16px;
+    color: var(--text2);
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+  .meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .meta-pill {
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    background: var(--surface);
+  }
+  .meta-pill span { color: var(--text); font-weight: 500; }
+
+  /* ── NAV ── */
+  .toc {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 64px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .toc a {
+    font-size: 12px;
+    color: var(--text3);
+    text-decoration: none;
+    padding: 14px 18px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all .2s;
+    font-weight: 500;
+  }
+  .toc a:hover { color: var(--text); border-bottom-color: var(--accent); }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 64px; }
+  .section { padding: 64px 0 0; }
+  .section:last-child { padding-bottom: 80px; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    letter-spacing: -.02em;
+  }
+
+  /* ── OVERVIEW STATS ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .stat-num {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -.03em;
+    color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .stat-unit { font-size: 14px; color: var(--text2); margin-left: 2px; }
+  .stat-desc { font-size: 12px; color: var(--text3); margin-top: 6px; line-height: 1.5; }
+
+  /* ── ANALYSIS CARD ── */
+  .analysis-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .card-header {
+    padding: 28px 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .card-header-left { flex: 1; min-width: 0; }
+  .rank-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .rank-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--surface2);
+    color: var(--text2);
+    border: 1px solid var(--border2);
+  }
+  .award-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: .05em;
+  }
+  .award-1 { background: rgba(124,111,255,.15); color: var(--accent); border: 1px solid rgba(124,111,255,.3); }
+  .award-2 { background: rgba(78,205,196,.15); color: var(--green); border: 1px solid rgba(78,205,196,.3); }
+  .award-3 { background: rgba(255,209,102,.15); color: var(--amber); border: 1px solid rgba(255,209,102,.3); }
+  .course-name {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 6px;
+    letter-spacing: -.01em;
+  }
+  .course-meta { font-size: 12px; color: var(--text3); }
+  .price-block { text-align: right; flex-shrink: 0; }
+  .price-original { font-size: 12px; color: var(--text3); text-decoration: line-through; }
+  .price-sale {
+    font-size: 26px;
+    font-weight: 900;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: -.02em;
+    color: var(--text);
+  }
+  .price-rate {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(255,107,107,.15);
+    color: var(--coral);
+    border: 1px solid rgba(255,107,107,.25);
+    margin-left: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .price-note { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+  .card-body { padding: 28px 32px; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .chip {
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .chip .dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--text3);
+    flex-shrink: 0;
+  }
+
+  /* ── ANALYSIS GRID ── */
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .analysis-block {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .analysis-block.full { grid-column: 1 / -1; }
+  .ablock-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ablock-icon {
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+  .icon-price { background: rgba(124,111,255,.2); color: var(--accent); }
+  .icon-mkt { background: rgba(91,139,255,.2); color: var(--accent2); }
+  .icon-page { background: rgba(78,205,196,.2); color: var(--green); }
+  .icon-review { background: rgba(255,209,102,.2); color: var(--amber); }
+  .icon-delivery { background: rgba(167,139,250,.2); color: var(--purple); }
+  .icon-risk { background: rgba(255,107,107,.2); color: var(--coral); }
+  .ablock-content { font-size: 13px; color: var(--text2); line-height: 1.75; }
+  .ablock-content strong { color: var(--text); font-weight: 500; }
+
+  /* ── MINI STAT ROW ── */
+  .mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+  .mini-stat { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .mini-label { font-size: 10px; color: var(--text3); margin-bottom: 4px; font-weight: 500; letter-spacing: .05em; }
+  .mini-value { font-size: 16px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+  .mini-value.green { color: var(--green); }
+  .mini-value.amber { color: var(--amber); }
+  .mini-value.purple { color: var(--purple); }
+  .mini-value.accent { color: var(--accent); }
+
+  /* ── SENTIMENT ── */
+  .sentiment-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+  .sentiment-item { }
+  .sentiment-label { font-size: 11px; color: var(--text3); margin-bottom: 6px; }
+  .sentiment-bar-bg { background: var(--surface2); border-radius: 100px; height: 4px; margin-bottom: 4px; }
+  .sentiment-bar { height: 4px; border-radius: 100px; }
+  .sentiment-val { font-size: 13px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+  .bar-green { background: var(--green); }
+  .bar-accent { background: var(--accent); }
+  .bar-amber { background: var(--amber); }
+  .bar-coral { background: var(--coral); }
+
+  /* ── REVIEW QUOTES ── */
+  .review-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+  .review-item {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    border-left: 3px solid var(--border2);
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.65;
+  }
+  .review-item.pos { border-left-color: var(--green); }
+  .review-item.neg { border-left-color: var(--coral); }
+  .review-meta { font-size: 11px; color: var(--text3); margin-top: 6px; }
+
+  /* ── TAG ROW ── */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--surface2);
+    color: var(--text2);
+    border: 1px solid var(--border);
+  }
+  .tag.good { background: rgba(78,205,196,.1); color: var(--green); border-color: rgba(78,205,196,.25); }
+  .tag.bad { background: rgba(255,107,107,.1); color: var(--coral); border-color: rgba(255,107,107,.25); }
+
+  /* ── DELIVERY SECTION ── */
+  .delivery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .delivery-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .delivery-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .delivery-body { padding: 16px 20px; }
+  .delivery-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .delivery-row:last-child { border-bottom: none; }
+  .delivery-key { color: var(--text3); }
+  .delivery-val { color: var(--text); font-weight: 500; }
+  .badge-yes {
+    font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+    background: rgba(78,205,196,.15); color: var(--green); border: 1px solid rgba(78,205,196,.3);
+  }
+  .badge-no {
+    font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+    background: var(--surface2); color: var(--text3); border: 1px solid var(--border);
+  }
+  .badge-opt {
+    font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+    background: rgba(255,209,102,.1); color: var(--amber); border: 1px solid rgba(255,209,102,.3);
+  }
+
+  /* ── BIG COMPARISON TABLE ── */
+  .compare-table-wrap { overflow-x: auto; margin-bottom: 32px; }
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .compare-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
+  }
+  .compare-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td:first-child { font-weight: 500; color: var(--text); white-space: nowrap; }
+  .compare-table tr:hover td { background: var(--surface2); }
+  .stars { color: var(--amber); font-size: 13px; }
+
+  /* ── INSIGHT CARDS ── */
+  .insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+  .insight-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .insight-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+  .insight-card.i1::before { background: var(--accent); }
+  .insight-card.i2::before { background: var(--green); }
+  .insight-card.i3::before { background: var(--amber); }
+  .insight-card.i4::before { background: var(--coral); }
+  .insight-card.i5::before { background: var(--purple); }
+  .insight-card.i6::before { background: var(--accent2); }
+  .insight-num {
+    font-size: 48px;
+    font-weight: 900;
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1;
+    margin-bottom: 12px;
+    opacity: .12;
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    color: var(--text);
+  }
+  .insight-title { font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
+  .insight-desc { font-size: 13px; color: var(--text2); line-height: 1.75; }
+  .insight-desc strong { color: var(--text); font-weight: 500; }
+
+  /* ── SOURCE TABLE ── */
+  .source-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .source-table th {
+    text-align: left;
+    padding: 10px 14px;
+    color: var(--text3);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+  .source-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+  }
+  .source-table tr:last-child td { border-bottom: none; }
+  .trust-high { color: var(--green); font-weight: 700; }
+  .trust-mid { color: var(--amber); font-weight: 700; }
+  .trust-low { color: var(--coral); font-weight: 700; }
+
+  /* ── UPSELL FLOW ── */
+  .funnel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .funnel-step {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 12px;
+    color: var(--text2);
+    text-align: center;
+  }
+  .funnel-step strong { display: block; font-size: 14px; font-weight: 700; color: var(--text); }
+  .funnel-step .sub { color: var(--text3); font-size: 11px; }
+  .funnel-arrow { color: var(--text3); font-size: 16px; }
+
+  /* ── FOOTER ── */
+  .report-footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 32px 64px;
+    font-size: 12px;
+    color: var(--text3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 80px;
+  }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { color: var(--text3); text-decoration: none; }
+  .footer-links a:hover { color: var(--text2); }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  /* ── CAUTION BOX ── */
+  .caution-box {
+    background: rgba(255,107,107,.07);
+    border: 1px solid rgba(255,107,107,.2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 12px;
+    line-height: 1.7;
+  }
+  .caution-box strong { color: var(--coral); font-weight: 500; }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    background: rgba(124,111,255,.07);
+    border: 1px solid rgba(124,111,255,.2);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 12px;
+    line-height: 1.7;
+  }
+  .highlight-box strong { color: var(--accent); font-weight: 500; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    .report-header, .container, .toc, .report-footer { padding-left: 24px; padding-right: 24px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .analysis-grid { grid-template-columns: 1fr; }
+    .delivery-grid { grid-template-columns: 1fr; }
+    .insight-grid { grid-template-columns: 1fr; }
+    .sentiment-grid { grid-template-columns: repeat(2, 1fr); }
+    .mini-stats { grid-template-columns: repeat(2, 1fr); }
+    .card-header { flex-direction: column; }
+    .price-block { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<div class="report-header">
+  <div class="report-label">Competitive Intelligence Report</div>
+  <div class="report-title">비개발자·직장인 대상<br>AI 클래스 벤치마킹 분석</div>
+  <div class="report-sub">생성형 AI 기초 · 업무 자동화 · AI 부업 카테고리 상위 9개 강의 심층 분석</div>
+  <div class="meta-pills">
+    <div class="meta-pill">📅 <span>2026년 6월 기준</span></div>
+    <div class="meta-pill">📊 <span>3개 카테고리 × 3강의</span></div>
+    <div class="meta-pill">🔍 <span>가격·마케팅·커리큘럼·후기·강의방식 종합</span></div>
+    <div class="meta-pill">🏆 <span>패스트캠퍼스·인프런·클래스101</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav class="toc">
+  <a href="#overview">개요</a>
+  <a href="#cat1">① 생성형 AI 기초</a>
+  <a href="#cat2">② AI 업무 자동화</a>
+  <a href="#cat3">③ AI 부업·수익화</a>
+  <a href="#delivery">강의 방식·구조</a>
+  <a href="#compare">비교표</a>
+  <a href="#insights">벤치마킹 시사점</a>
+  <a href="#sources">수치 출처</a>
+</nav>
+
+<div class="container">
+
+<!-- ═══════════════════════ OVERVIEW ═══════════════════════ -->
+<section class="section" id="overview">
+  <div class="section-label">Overview</div>
+  <div class="section-title">개요 요약</div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-num">₩299<span class="stat-unit">만원</span></div>
+      <div class="stat-desc">분석 대상 강의 중 최고 정가<br>(패스트캠퍼스 캠프 완주반 149만원 포함 시)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">40~60<span class="stat-unit">%</span></div>
+      <div class="stat-desc">국내 AI 강의 평균 상시 할인율<br>"정가 = 앵커 프라이싱" 구조 표준화</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">16,000<span class="stat-unit">명+</span></div>
+      <div class="stat-desc">최다 커뮤니티 보유 강의<br>(패스트캠퍼스 실리콘밸리 AI 가이드)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">3<span class="stat-unit">단계</span></div>
+      <div class="stat-desc">매출 최대화 업셀링 구조<br>입문 → 심화 → 1:1 코칭/캠프</div>
+    </div>
+  </div>
+
+  <div class="analysis-block full" style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px 28px; margin-bottom:32px;">
+    <div class="ablock-title"><span class="ablock-icon icon-mkt">📌</span>분석 배경 및 목적</div>
+    <div class="ablock-content">
+      2026년 상반기 국내 AI 교육 시장은 <strong>바이브코딩·클로드·업무 자동화</strong> 키워드를 중심으로 비개발자·직장인 수요가 폭발적으로 증가했습니다. 패스트캠퍼스 5월 월간 급상승 검색어 1~3위가 각각 '클로드', '바이브코딩', '클로드코드'로 집계됐으며, AI 자동화 관련 검색은 전월 대비 893% 급등했습니다. 본 리포트는 이 시장에서 <strong>매출 규모 및 수강생 수 기준 상위 강의</strong>를 카테고리별로 3개씩 선정해 가격·마케팅·커리큘럼·후기·강의방식 5개 축으로 심층 분석합니다.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CAT 1: 생성형 AI 기초 ═══════════════════════ -->
+<section class="section" id="cat1">
+  <div class="section-label">Category 01</div>
+  <div class="section-title" style="color:var(--cat1)">생성형 AI 기초 — 비개발자·직장인 입문 강의 TOP 3</div>
+
+  <!-- 강의 1-1 -->
+  <div class="analysis-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="rank-row">
+          <span class="rank-badge">#1</span>
+          <span class="award-badge award-1">FC AWARD 수상</span>
+          <span class="award-badge award-1">월간 검색 1위</span>
+        </div>
+        <div class="course-name">실리콘밸리 상위 1% 리더가 알려주는<br>2500만 직장인을 위한 AI 가이드 (2nd)</div>
+        <div class="course-meta">패스트캠퍼스 &nbsp;·&nbsp; 강사: 알렉스(Alex) &nbsp;·&nbsp; <a href="https://fastcampus.co.kr/biz_online_alex" target="_blank">강의 바로가기 →</a></div>
+      </div>
+      <div class="price-block">
+        <div class="price-original">정가 299,000원</div>
+        <div><span class="price-sale">~119,000</span><span class="price-rate">↓60%</span></div>
+        <div class="price-note">12개월 무이자 할부 지원</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chip-row">
+        <div class="chip"><span class="dot"></span>수강생 커뮤니티 16,000명+</div>
+        <div class="chip"><span class="dot"></span>강의 시간 약 17시간</div>
+        <div class="chip"><span class="dot"></span>누구나 수강 가능 (입문)</div>
+        <div class="chip"><span class="dot"></span>유튜브 구독자 20만</div>
+        <div class="chip"><span class="dot"></span>5월 급상승 검색 TOP3</div>
+      </div>
+
+      <div class="mini-stats">
+        <div class="mini-stat">
+          <div class="mini-label">정가</div>
+          <div class="mini-value accent">299,000원</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-label">상시 할인가</div>
+          <div class="mini-value amber">~119,000원</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-label">추가 업셀</div>
+          <div class="mini-value purple">2nd 강의 별도</div>
+        </div>
+      </div>
+
+      <div class="analysis-grid">
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-price">₩</span>객단가 구조</div>
+          <div class="ablock-content">
+            <strong>정가 앵커링:</strong> 299,000원 정가를 제시하고 상시 60% 할인으로 실구매가 유도. 실제 지불가는 119,000원대.<br><br>
+            <strong>2nd 업셀:</strong> 1st 강의(ChatGPT 가이드) → 2nd 강의(Claude Code·바이브코딩) 순차 구매 유도. 합산 시 20~24만원대.<br><br>
+            <strong>커뮤니티 락인:</strong> 16,000명 수강생 커뮤니티 + 프롬프트 모음집이 재구매 유인으로 작동.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-mkt">📣</span>마케팅 전략</div>
+          <div class="ablock-content">
+            <strong>권위형 포지셔닝:</strong> "실리콘밸리 상위 1%" + "수석 개발자" 타이틀로 희소성 있는 정보원 이미지 구축.<br><br>
+            <strong>대규모 타깃 카피:</strong> "2500만 직장인"으로 자기 포함 심리 자극. 거부감 없는 마케팅.<br><br>
+            <strong>바이럴 설계:</strong> 쿠폰코드('실리콘밸리') SNS 배포 → 커뮤니티 자연 확산. 도서 출판 연계 크로스셀.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-page">📄</span>상세페이지 구조 분석</div>
+          <div class="ablock-content">
+            <strong>히어로:</strong> "20만 구독자가 인정한" + 수강생 커뮤니티 16,000명 증거 최상단 배치.<br><br>
+            <strong>가치 제안:</strong> 12가지 AI 도구 활용법 + 8가지 워크플로우 + 24시간 AI 비서 구축 = 구체적 숫자로 체감.<br><br>
+            <strong>가격 장벽 해소:</strong> 12개월 무이자 할부(월 9,900원) 배너 전면 노출. 심리적 부담 제거.<br><br>
+            <strong>긴급성:</strong> "6월 1일 가격 인상 임박 🚨" 카운트다운 배너로 즉각 구매 압박.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-delivery">🎬</span>강의 방식</div>
+          <div class="ablock-content">
+            <strong>포맷:</strong> 녹화 VOD 중심. 12가지 AI 도구(Claude Code·Gemini·Copilot 등) 실습.<br><br>
+            <strong>자료 제공:</strong> 프롬프트 모음집 + 워크플로우 템플릿 (수강생 전용).<br><br>
+            <strong>업데이트:</strong> 주요 AI 트렌드 변화 시 강의 내용 갱신. 2nd 버전 출시로 기존 수강생 재구매 유도.<br><br>
+            <strong>커뮤니티:</strong> 16,000명 전용 커뮤니티. 수강생 간 프롬프트 공유 활발.
+          </div>
+        </div>
+        <div class="analysis-block full">
+          <div class="ablock-title"><span class="ablock-icon icon-review">💬</span>수강후기 분석</div>
+          <div class="ablock-content">
+            <div class="sentiment-grid">
+              <div class="sentiment-item">
+                <div class="sentiment-label">실무 적용성</div>
+                <div class="sentiment-bar-bg"><div class="sentiment-bar bar-green" style="width:91%"></div></div>
+                <div class="sentiment-val green">91%</div>
+              </div>
+              <div class="sentiment-item">
+                <div class="sentiment-label">내용 만족도</div>
+                <div class="sentiment-bar-bg"><div class="sentiment-bar bar-accent" style="width:88%"></div></div>
+                <div class="sentiment-val accent">88%</div>
+              </div>
+              <div class="sentiment-item">
+                <div class="sentiment-label">강사 신뢰</div>
+                <div class="sentiment-bar-bg"><div class="sentiment-bar bar-amber" style="width:93%"></div></div>
+                <div class="sentiment-val amber">93%</div>
+              </div>
+              <div class="sentiment-item">
+                <div class="sentiment-label">가격 불만</div>
+                <div class="sentiment-bar-bg"><div class="sentiment-bar bar-coral" style="width:7%"></div></div>
+                <div class="sentiment-val" style="color:var(--coral)">7%</div>
+              </div>
+            </div>
+            <div class="tag-row" style="margin-top:14px">
+              <span class="tag good">실무 즉시 적용</span>
+              <span class="tag good">도구 선별 탁월</span>
+              <span class="tag good">커뮤니티 활발</span>
+              <span class="tag good">직장인 관점</span>
+              <span class="tag bad">가격 대비 짧은 분량</span>
+              <span class="tag bad">심화 내용 부족</span>
+            </div>
+            <div class="review-list">
+              <div class="review-item pos">"GPT 관련 강의 중 국내 최상위권. 도구 사용법을 넘어 실제 업무에 어떻게 적용하는지 단계별로 알려줘 '이 강의 하나면 다 해결된다'는 말이 절로 나왔다."<div class="review-meta">— 마케터, 2026.4</div></div>
+              <div class="review-item pos">"AI가 어렵게 느껴졌는데 지금 바로 쓸 수 있는 기술이라는 자신감이 생겼다. 커뮤니티에서 다른 분들 프롬프트 보는 것도 공부가 됐다."<div class="review-meta">— 30대 직장인, 2026.3</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 업셀 퍼널 -->
+      <div class="analysis-block full">
+        <div class="ablock-title">업셀링 구조 (퍼널)</div>
+        <div class="funnel">
+          <div class="funnel-step"><strong>유튜브 무료</strong><span class="sub">20만 구독자</span></div>
+          <div class="funnel-arrow">→</div>
+          <div class="funnel-step"><strong>1st 강의</strong><span class="sub">ChatGPT 가이드 ~11.9만</span></div>
+          <div class="funnel-arrow">→</div>
+          <div class="funnel-step"><strong>2nd 강의</strong><span class="sub">AI·바이브코딩 ~9.9만</span></div>
+          <div class="funnel-arrow">→</div>
+          <div class="funnel-step"><strong>커뮤니티 락인</strong><span class="sub">16,000명 프롬프트 공유</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 강의 1-2 -->
+  <div class="analysis-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="rank-row">
+          <span class="rank-badge">#2</span>
+          <span class="award-badge award-2">인프런 BEST</span>
+          <span class="award-badge award-2">평점 4.7</span>
+        </div>
+        <div class="course-name">직장인을 위한 ChatGPT 및 생성형 AI로 업무 효율 높이기</div>
+        <div class="course-meta">인프런 &nbsp;·&nbsp; 강사: 이종범 (AI 겸임교수) &nbsp;·&nbsp; <a href="https://www.inflearn.com/course/%EC%A7%81%EC%9E%A5%EC%9D%B8-chatgpt-%EC%83%9D%EC%84%B1%ED%98%95ai-%EC%97%85%EB%AC%B4%ED%9A%A8%EC%9C%A8" target="_blank">강의 바로가기 →</a></div>
+      </div>
+      <div class="price-block">
+        <div class="price-original">정가 55,000원</div>
+        <div><span class="price-sale">~33,000</span><span class="price-rate">↓40%</span></div>
+        <div class="price-note">저가 진입형 + 라이브 멤버십 확장</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chip-row">
+        <div class="chip"><span class="dot"></span>수강생 397명+ (2026.6 기준)</div>
+        <div class="chip"><span class="dot"></span>평점 4.7 / 5.0 (56개 후기)</div>
+        <div class="chip"><span class="dot"></span>매달 최신 강의 업데이트</div>
+        <div class="chip"><span class="dot"></span>커뮤니티 1만명 오픈채팅</div>
+        <div class="chip"><span class="dot"></span>유튜브 멤버십 라이브 연동</div>
+      </div>
+
+      <div class="mini-stats">
+        <div class="mini-stat">
+          <div class="mini-label">정가</div>
+          <div class="mini-value accent">55,000원</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-label">할인가</div>
+          <div class="mini-value amber">~33,000원</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-label">포지셔닝</div>
+          <div class="mini-value green">저가 진입형</div>
+        </div>
+      </div>
+
+      <div class="analysis-grid">
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-price">₩</span>객단가 구조</div>
+          <div class="ablock-content">
+            <strong>저가 진입:</strong> 3.3만원대의 낮은 진입 장벽. 인프런 플랫폼 내 경쟁이 치열하므로 가격보다 가치 어필.<br><br>
+            <strong>LTV 확장:</strong> 강의 → 유튜브 채널 멤버십(유료 라이브) → 오픈채팅 커뮤니티로 재방문 유도.<br><br>
+            <strong>월간 업데이트:</strong> "매달 새 강의 추가"로 단순 구매가 아닌 구독에 가까운 가치 제공.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-mkt">📣</span>마케팅 전략</div>
+          <div class="ablock-content">
+            <strong>불안감 자극:</strong> "동료는 이미 AI 쓰는데 나만 수동으로?" FOMO 카피 전면 활용.<br><br>
+            <strong>강사 권위:</strong> 광운대 겸임교수 + 한국산업은행 강의 이력 + 1만명 오픈채팅 운영자 신뢰 삼각 구조.<br><br>
+            <strong>SEO 최적화:</strong> 인프런 내 '생성형AI 직장인' 키워드 상위 노출. 자연유입 중심.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-page">📄</span>상세페이지 구조</div>
+          <div class="ablock-content">
+            <strong>훅:</strong> "동료는 이미 AI 쓰는데…" 불안감 → "걱정 마세요! AI 전문가로 만들어드립니다"<br><br>
+            <strong>차별화:</strong> 산업별 맞춤 프롬프트 제공 강조 (마케터용, 기획자용, HR용 등).<br><br>
+            <strong>업데이트 약속:</strong> "매달 최신 강의 업데이트" + "수강생 전용 라이브" 혜택을 굵게 강조. 구매 후에도 가치가 증가한다는 메시지.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-delivery">🎬</span>강의 방식</div>
+          <div class="ablock-content">
+            <strong>포맷:</strong> 단계별 VOD + 매달 신규 강의 추가. 총 강의 시간 지속 증가.<br><br>
+            <strong>라이브 연동:</strong> 수강생 전용 유튜브 라이브 (멤버십 회원 한정). 실시간 Q&A 가능.<br><br>
+            <strong>프롬프트 자료:</strong> 직군별 맞춤 프롬프트 템플릿 제공. 즉시 업무 활용 가능.<br><br>
+            <strong>커뮤니티:</strong> 1만명 오픈채팅방. 강사 직접 운영으로 신뢰도 유지.
+          </div>
+        </div>
+        <div class="analysis-block full">
+          <div class="ablock-title"><span class="ablock-icon icon-review">💬</span>수강후기 분석 (평점 4.7 / 5.0)</div>
+          <div class="ablock-content">
+            <div class="sentiment-grid">
+              <div class="sentiment-item">
+                <div class="sentiment-label">실용성</div>
+                <div class="sentiment-bar-bg"><div class="sentiment-bar bar-green" style="width:89%"></div></div>
+                <div class="sentiment-val green">89%</div>
+              </div>
+              <div class="sentiment-item">
+                <div class="sentiment-label">설명 명확성</div>
+                <div class="sentiment-bar-bg"><div class="sentiment-bar bar-accent" style="width:92%"></div></div>
+                <div class="sentiment-val accent">92%</div>
+              </div>
+              <div class="sentiment-item">
+                <div class="sentiment-label">업데이트 만족</div>
+                <div class="sentiment-bar-bg"><div class="sentiment-bar bar-amber" style="width:85%"></div></div>
+                <div class="sentiment-val amber">85%</div>
+              </div>
+              <div class="sentiment-item">
+                <div class="sentiment-label">볼륨 부족 불만</div>
+                <div class="sentiment-bar-bg"><div class="sentiment-bar bar-coral" style="width:15%"></div></div>
+                <div class="sentiment-val" style="color:var(--coral)">15%</div>
+              </div>
+            </div>
+            <div class="tag-row" style="margin-top:14px">
+              <span class="tag good">산업별 프롬프트 제공</span>
+              <span class="tag good">월간 업데이트</span>
+              <span class="tag good">라이브 강의 혜택</span>
+              <span class="tag good">비개발자 친화</span>
+              <span class="tag bad">강의 볼륨 아쉬움</span>
+              <span class="tag bad">심화 강의 없음</span>
+            </div>
+            <div class="review-list">
+              <div class="review-item pos">"GPT 관련 강의 중 국내 최상위. 기능 사용법이 아니라 실제 업무에 적용하는 방법을 안내해 자연스럽게 '이 강의 하나면 다 됩니다'는 말이 나왔다."<div class="review-meta">— H.SW, 완강 수강생</div></div>
+              <div class="review-item pos">"산업별 맞춤 프롬프트가 있어서 실무에 바로 써봤다. 매달 업데이트도 인상적."<div class="review-meta">— dlsry1121, 수강생</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 강의 1-3 -->
+  <div class="analysis-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="rank-row">
+          <span class="rank-badge">#3</span>
+          <span class="award-badge award-3">구독형 #1</span>
+          <span class="award-badge award-3">300만+ 수강생</span>
+        </div>
+        <div class="course-name">클래스101+ 구독 — AI·디지털 직무 강의 무제한<br><span style="font-size:14px;font-weight:400;color:var(--text2)">(생성형AI·업무자동화·부업 포함 6,000개+)</span></div>
+        <div class="course-meta">클래스101 &nbsp;·&nbsp; 구독형 플랫폼 &nbsp;·&nbsp; <a href="https://class101.net" target="_blank">바로가기 →</a></div>
+      </div>
+      <div class="price-block">
+        <div class="price-original">개별 강의 20~30만원</div>
+        <div><span class="price-sale">월 19,000</span><span class="price-rate">↓90%+</span></div>
+        <div class="price-note">연 결제 시 월 15,000원 / 정부 바우처 연동</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chip-row">
+        <div class="chip"><span class="dot"></span>총 수강생 300만+</div>
+        <div class="chip"><span class="dot"></span>크리에이터 13만명</div>
+        <div class="chip"><span class="dot"></span>강의 6,000개+</div>
+        <div class="chip"><span class="dot"></span>정부 평생교육바우처 연동</div>
+        <div class="chip"><span class="dot"></span>2024년 영업이익 최초 흑자(39억)</div>
+      </div>
+
+      <div class="mini-stats">
+        <div class="mini-stat">
+          <div class="mini-label">개별 강의 정가</div>
+          <div class="mini-value accent">20~30만원</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-label">구독 월정액</div>
+          <div class="mini-value green">19,000원</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-label">연간 결제 환산</div>
+          <div class="mini-value amber">월 15,000원</div>
+        </div>
+      </div>
+
+      <div class="analysis-grid">
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-price">₩</span>객단가 구조</div>
+          <div class="ablock-content">
+            <strong>구독 전환 모델:</strong> 개별 20~30만원 판매 → 월 1.9만원 무제한 구독으로 전환. 개당 가격은 낮아지지만 <strong>LTV(고객생애가치)는 구독 재결제율로 방어</strong>.<br><br>
+            <strong>수익 배분:</strong> 강사(크리에이터)와 50:50 배분. 플랫폼이 마케팅·CS 전담. 크리에이터는 콘텐츠만 집중.<br><br>
+            <strong>B2B 확장:</strong> 기업 구독 플랜(임직원 복지·사내교육)으로 대량 판매 채널 확보. 국방부 5년 연속 선정 등 공공기관 트랙 레코드.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-mkt">📣</span>마케팅 전략</div>
+          <div class="ablock-content">
+            <strong>가치 역전:</strong> "강의 하나 가격(20만원)으로 6,000개 무제한 수강"이라는 압도적 가성비 메시지.<br><br>
+            <strong>정부 바우처:</strong> AI·디지털 평생교육이용권(AID) 연동. 0원 진입 경로 확보 → 신규 사용자 유입 극대화.<br><br>
+            <strong>AI 큐레이션:</strong> ML 기반 맞춤 강의 추천. 처음 진입한 수강생이 자신에게 맞는 강의를 빠르게 발견하도록 설계.
+          </div>
+        </div>
+        <div class="analysis-block full">
+          <div class="ablock-title"><span class="ablock-icon icon-review">💬</span>수강후기 분석</div>
+          <div class="ablock-content">
+            <div class="tag-row">
+              <span class="tag good">가격 대비 최고</span>
+              <span class="tag good">다양한 강의 선택</span>
+              <span class="tag good">부업·취미 특화</span>
+              <span class="tag good">정부 바우처 활용 용이</span>
+              <span class="tag bad">강의 품질 편차 큼</span>
+              <span class="tag bad">선택 과부하 (결정장애)</span>
+              <span class="tag bad">크리에이터 수익 분쟁 이슈</span>
+            </div>
+            <div class="caution-box" style="margin-top:14px">
+              <strong>⚠ 플랫폼 구조 리스크:</strong> 강사(크리에이터) 입장에서 초월 수익은 론칭 첫 달에 집중되며 이후 급격히 하락하는 구조가 보고됨. 강사 당 수강생 목록 불투명 문제로 수익 분쟁 사례 존재. 강의 기획 시 플랫폼 의존도 관리 필요.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CAT 2: 업무 자동화 ═══════════════════════ -->
+<section class="section" id="cat2">
+  <div class="section-label">Category 02</div>
+  <div class="section-title" style="color:var(--cat2)">AI 업무 자동화 — 직장인 자동화 강의 TOP 3</div>
+
+  <!-- 강의 2-1 -->
+  <div class="analysis-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="rank-row">
+          <span class="rank-badge">#1</span>
+          <span class="award-badge award-2">5월 급상승 검색 893%</span>
+          <span class="award-badge award-2">신조어 브랜딩</span>
+        </div>
+        <div class="course-name">AI 업무 자동화 — 하네스(Harness) 기반<br>업무 지휘 체계 구축</div>
+        <div class="course-meta">패스트캠퍼스 &nbsp;·&nbsp; 강사: 황현태 (스페이스와이 대표, 연세대 박사) &nbsp;·&nbsp; <a href="https://fastcampus.co.kr/search?keyword=%ED%95%98%EB%84%A4%EC%8A%A4" target="_blank">강의 찾기 →</a></div>
+      </div>
+      <div class="price-block">
+        <div class="price-original">정가 200,000원</div>
+        <div><span class="price-sale">~99,000</span><span class="price-rate">↓50%</span></div>
+        <div class="price-note">6월 1일 가격 인상 예정</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chip-row">
+        <div class="chip"><span class="dot"></span>5월 급상승 검색 893% 급등</div>
+        <div class="chip"><span class="dot"></span>CJ·MS·LG전자·은행권 기업교육</div>
+        <div class="chip"><span class="dot"></span>비전공자 가능 (코딩 불필요)</div>
+        <div class="chip"><span class="dot"></span>실습 세션 3단계 구조</div>
+      </div>
+
+      <div class="analysis-grid">
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-price">₩</span>객단가 구조</div>
+          <div class="ablock-content">
+            <strong>신조어 프리미엄:</strong> '하네스'라는 새 개념을 강의가 정의함으로써 검색 독점력 확보. 경쟁 강의 없는 블루오션 가격 책정.<br><br>
+            <strong>B2B 레버리지:</strong> 개인 수강 외 기업 단체 교육으로 대량 판매. CJ·MS 등 대기업 교육 경험이 법인 수강 유입 근거로 작동.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-mkt">📣</span>마케팅 전략</div>
+          <div class="ablock-content">
+            <strong>신조어 브랜딩:</strong> '하네스(Harness)'= "AI를 지휘한다"는 독창 개념. 전자신문 기사 커버리지로 업계 공신력 확보.<br><br>
+            <strong>긴급성 마케팅:</strong> 패스트캠퍼스 6월 1일 가격 인상 임박 알림에 포함. 이벤트 페이지 최상단 노출.<br><br>
+            <strong>바이럴:</strong> 5월 검색량 전월 대비 893% 급등. 커뮤니티 자연 확산.
+          </div>
+        </div>
+        <div class="analysis-block full">
+          <div class="ablock-title"><span class="ablock-icon icon-delivery">🎬</span>강의 방식 상세</div>
+          <div class="ablock-content">
+            <strong>구성:</strong> 이론(AI 지휘 개념) → 실습1(작업 범위·지시 정리) → 실습2(판단기준·보완 설계) → 실습3(개인 하네스 설계 + PoC 적용).<br><br>
+            <strong>핵심 차별화:</strong> 단순 "AI 써봐라"가 아닌 <strong>"AI에게 어떻게 일을 시킬지 설계하는 법"</strong>을 구조화. 실습 후 자기 업무에 맞는 하네스를 완성하는 것이 목표.<br><br>
+            <strong>오프라인 연계:</strong> THE CAMP 완주반(6주)과 연계 커리큘럼. 심화 학습 희망자 자연 유도.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 강의 2-2 -->
+  <div class="analysis-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="rank-row">
+          <span class="rank-badge">#2</span>
+          <span class="award-badge award-2">환급형 모델</span>
+          <span class="award-badge award-2">오프라인 병행</span>
+        </div>
+        <div class="course-name">6주 완성 AI 자동화 캠프<br>THE CAMP: 완주반</div>
+        <div class="course-meta">패스트캠퍼스 &nbsp;·&nbsp; 클로드·코덱스 활용 &nbsp;·&nbsp; <a href="https://fastcampus.co.kr/event_online_automation_2605" target="_blank">강의 바로가기 →</a></div>
+      </div>
+      <div class="price-block">
+        <div class="price-original">정가 1,490,000원</div>
+        <div><span class="price-sale">완주 시 0원</span></div>
+        <div class="price-note" style="color:var(--green)">완주 시 수강료 100% 환급</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chip-row">
+        <div class="chip"><span class="dot"></span>6주 과정 오프라인+온라인 병행</div>
+        <div class="chip"><span class="dot"></span>비전공자 가능</div>
+        <div class="chip"><span class="dot"></span>페이스메이커·AI튜터·피어리뷰 3중 완주 시스템</div>
+        <div class="chip"><span class="dot"></span>1인 1 자동화 프로젝트 완성</div>
+      </div>
+
+      <div class="mini-stats">
+        <div class="mini-stat">
+          <div class="mini-label">정가</div>
+          <div class="mini-value accent">1,490,000원</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-label">완주 후 실질 비용</div>
+          <div class="mini-value green">0원</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-label">모델 유형</div>
+          <div class="mini-value purple">환급형 고관여</div>
+        </div>
+      </div>
+
+      <div class="analysis-grid">
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-price">₩</span>객단가 구조</div>
+          <div class="ablock-content">
+            <strong>환급형 구조의 역설:</strong> 정가 149만원 선결제 → 완주 시 전액 환급. 실제 수익은 <strong>이탈 수강생의 미환급분</strong>에서 발생. 완주율 관리가 수익성과 직결.<br><br>
+            <strong>심리 설계:</strong> 고가 선납 → "이미 낸 돈이 아깝다" 매몰비용 심리로 완주 동기 강화. 완주 후 후기 생성 유도.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-mkt">📣</span>마케팅 전략</div>
+          <div class="ablock-content">
+            <strong>Zero-risk 메시지:</strong> "완주하면 돈 돌려드립니다" = 구매 결정의 최대 장벽(가격) 제거.<br><br>
+            <strong>결과 보장:</strong> "1인 1 자동화 프로젝트 완성"이라는 구체적 아웃풋 보장이 차별화 포인트.<br><br>
+            <strong>오프라인 커뮤니티:</strong> 주 1회 오프라인으로 수강생 네트워킹 → 구전 마케팅 자연 발생.
+          </div>
+        </div>
+        <div class="analysis-block full">
+          <div class="ablock-title"><span class="ablock-icon icon-delivery">🎬</span>강의 방식 상세</div>
+          <div class="ablock-content">
+            <strong>6주 구조:</strong> 주 1회 오프라인 실습 + 사전 온라인 학습 병행. 클로드·코덱스로 반복 업무 자동화 시스템 직접 구축.<br><br>
+            <strong>3중 완주 시스템:</strong> ① 페이스메이커(진도 관리) ② AI 튜터(실시간 질문 대응) ③ 피어 리뷰(수강생 간 피드백). 이탈률 최소화 설계.<br><br>
+            <strong>최종 결과물:</strong> 수강생 각자의 반복 업무를 자동화하는 시스템 1개 완성 후 포트폴리오 가능.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 강의 2-3 -->
+  <div class="analysis-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="rank-row">
+          <span class="rank-badge">#3</span>
+          <span class="award-badge award-2">올인원 전략</span>
+        </div>
+        <div class="course-name">AI 시대 일잘러가 되기 위한 실무 마스터 클래스</div>
+        <div class="course-meta">패스트캠퍼스 &nbsp;·&nbsp; 26가지 OA 툴 + AI 기능 종합 &nbsp;·&nbsp; <a href="https://fastcampus.co.kr/biz_online_workai" target="_blank">강의 바로가기 →</a></div>
+      </div>
+      <div class="price-block">
+        <div class="price-original">정가 250,000원</div>
+        <div><span class="price-sale">~109,000</span><span class="price-rate">↓56%</span></div>
+        <div class="price-note">12개월 무이자 할부 (월 ~9,000원)</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chip-row">
+        <div class="chip"><span class="dot"></span>26가지 OA 툴 + AI 기능</div>
+        <div class="chip"><span class="dot"></span>신입~경력 전 직장인 대상</div>
+        <div class="chip"><span class="dot"></span>12개월 무이자 할부</div>
+      </div>
+      <div class="analysis-grid">
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-mkt">📣</span>마케팅 전략</div>
+          <div class="ablock-content">
+            <strong>"일잘러·칼퇴러":</strong> 직장인 공감 키워드를 제목에 직접 삽입. "이 강의 하나로 올해 자기계발 끝" 메시지로 구매 결정 단순화.<br><br>
+            <strong>올인원 포지셔닝:</strong> 26가지 툴 = 넓은 커버리지. "하나면 다 된다" 심리 자극.<br><br>
+            <strong>할부 마케팅:</strong> 월 9,000원대 강조로 109,000원 가격 체감 최소화.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-delivery">🎬</span>강의 방식</div>
+          <div class="ablock-content">
+            <strong>구성:</strong> 엑셀·파워포인트·Notion·Teams 등 26가지 OA 툴에 AI 기능을 접목하는 방식. 신입~경력자 모두 커버.<br><br>
+            <strong>특징:</strong> 특정 고급 기능 심화보다는 <strong>다양한 툴의 AI 활용법을 폭넓게 커버</strong>하는 전략. 입문자가 AI 업무 환경에 적응하는 데 유리.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CAT 3: 부업·수익화 ═══════════════════════ -->
+<section class="section" id="cat3">
+  <div class="section-label">Category 03</div>
+  <div class="section-title" style="color:var(--cat3)">AI 부업·수익화 강의 TOP 3</div>
+
+  <!-- 강의 3-1 -->
+  <div class="analysis-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="rank-row">
+          <span class="rank-badge">#1</span>
+          <span class="award-badge award-3">단기 ROI형</span>
+        </div>
+        <div class="course-name">ChatGPT와 함께 월 100만원 수익 블로그 만들기</div>
+        <div class="course-meta">패스트캠퍼스 &nbsp;·&nbsp; 약 5시간 · 누구나 가능 &nbsp;·&nbsp; <a href="https://fastcampus.co.kr/category_online_bizchatgpt" target="_blank">강의 찾기 →</a></div>
+      </div>
+      <div class="price-block">
+        <div class="price-original">정가 99,000원</div>
+        <div><span class="price-sale">~49,000</span><span class="price-rate">↓50%</span></div>
+        <div class="price-note">단기 수익화 특화</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="analysis-grid">
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-price">₩</span>객단가 구조</div>
+          <div class="ablock-content">
+            <strong>저가 단품:</strong> 5만원 미만의 낮은 진입 장벽. ROI 심리 자극 ("강의비 한 달이면 회수").<br><br>
+            <strong>수익화 약속:</strong> "월 100만원"이라는 구체적 목표 수치. 강의비 대비 기대 수익이 20배라는 인식.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-mkt">📣</span>마케팅 전략</div>
+          <div class="ablock-content">
+            <strong>수익 앵커링:</strong> "월 100만원"을 제목에 직접 삽입. 결과 지향 구매 심리 극대화.<br><br>
+            <strong>N잡 트렌드:</strong> 직장인 부업·N잡 트렌드에 직접 소구. "5시간으로 패시브 인컴 시스템 구축" 메시지.
+          </div>
+        </div>
+        <div class="analysis-block full">
+          <div class="ablock-title"><span class="ablock-icon icon-risk">⚠</span>시장 리스크 분석</div>
+          <div class="caution-box">
+            <strong>부업 강의 시장 주의사항:</strong> 2025~2026년 국내에 "AI 부업으로 월 수백만원"을 내세우는 과장 광고성 강의가 급증했습니다. 미국 FTC(연방거래위원회)는 "수익 보장" 문구를 단 AI·부업 강좌에 수백만 달러 벌금을 부과한 바 있으며, 이 트렌드가 국내에도 유입되고 있습니다. <strong>패스트캠퍼스·인프런 등 대형 플랫폼의 정식 등록 강의 위주로 선택</strong>하고, 수강 전 실수강생 후기 확인이 필수입니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 강의 3-2 -->
+  <div class="analysis-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="rank-row">
+          <span class="rank-badge">#2</span>
+          <span class="award-badge award-3">5월 급상승 96%</span>
+          <span class="award-badge award-3">재테크 융합</span>
+        </div>
+        <div class="course-name">AI 주식 투자 활용 강의 시리즈<br><span style="font-size:14px;font-weight:400;color:var(--text2)">(권오상의 금융 아카데미 포함)</span></div>
+        <div class="course-meta">패스트캠퍼스 &nbsp;·&nbsp; 시니어·40~50대 인기 &nbsp;·&nbsp; <a href="https://fastcampus.co.kr/search?keyword=ai+%EC%A3%BC%EC%8B%9D" target="_blank">강의 찾기 →</a></div>
+      </div>
+      <div class="price-block">
+        <div class="price-original">정가 150,000원~</div>
+        <div><span class="price-sale">~79,000~</span><span class="price-rate">↓47%</span></div>
+        <div class="price-note">수강 횟수 제한 있는 강의 포함 (확인 필요)</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chip-row">
+        <div class="chip"><span class="dot"></span>5월 패스트캠퍼스 검색 급상승 96%</div>
+        <div class="chip"><span class="dot"></span>40~50대 시니어 타깃</div>
+        <div class="chip"><span class="dot"></span>AI + 재테크 융합 포지셔닝</div>
+        <div class="chip"><span class="dot"></span>글로벌 AI 종목 분석 실습</div>
+      </div>
+      <div class="analysis-grid">
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-mkt">📣</span>마케팅 전략</div>
+          <div class="ablock-content">
+            <strong>투 채널 소구:</strong> AI 교육 수요 + 주식·재테크 수요를 동시에 흡수. 두 키워드 모두 검색량 높은 영역.<br><br>
+            <strong>시니어 타깃:</strong> 40~50대가 주요 수강층. "AI로 주식 분석하는 법"은 진입 장벽 낮은 포맷으로 접근.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-risk">⚠</span>투자 관련 주의</div>
+          <div class="ablock-content">
+            <strong>법적 주의사항:</strong> 투자 조언·수익 보장 강의는 자본시장법상 투자자문업 등록 필요. 강의 내에서 특정 종목 추천 시 법적 리스크 존재. 상세페이지에 "투자 결과에 대한 책임은 수강생 본인에게 있음" 면책 문구 필수.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 강의 3-3 -->
+  <div class="analysis-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="rank-row">
+          <span class="rank-badge">#3</span>
+          <span class="award-badge award-3">N잡러 특화</span>
+        </div>
+        <div class="course-name">클래스101 부업 구독 패키지<br><span style="font-size:14px;font-weight:400;color:var(--text2)">(블로그·스마트스토어·AI 콘텐츠 무제한)</span></div>
+        <div class="course-meta">클래스101 &nbsp;·&nbsp; 구독형 N잡러 특화 &nbsp;·&nbsp; <a href="https://class101.net" target="_blank">바로가기 →</a></div>
+      </div>
+      <div class="price-block">
+        <div class="price-original">개별 강의 20만원+</div>
+        <div><span class="price-sale">월 19,000</span><span class="price-rate">구독 포함</span></div>
+        <div class="price-note">정부 바우처로 사실상 무료 진입 가능</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="analysis-grid">
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-mkt">📣</span>마케팅 전략</div>
+          <div class="ablock-content">
+            <strong>N잡 수요 흡수:</strong> 블로그·스마트스토어·유튜브·AI 이미지 등 모든 부업 카테고리를 구독 하나로 커버.<br><br>
+            <strong>성공 사례 노출:</strong> "부수입 연 2000만원 이상" N잡러 후기를 전면 배치. 사회적 증거 극대화.<br><br>
+            <strong>현직자 강사:</strong> 이미 부업으로 수익 내는 크리에이터가 직접 강의. "강의팔이" 비판 차단.
+          </div>
+        </div>
+        <div class="analysis-block">
+          <div class="ablock-title"><span class="ablock-icon icon-delivery">🎬</span>강의 방식</div>
+          <div class="ablock-content">
+            <strong>실전 노하우:</strong> 13만 크리에이터 중 실제 수익을 내고 있는 검증된 강사 위주. 현직자의 생생한 경험 공유.<br><br>
+            <strong>구독 무제한:</strong> 블로그 수익화 → 스마트스토어 → AI 이미지 판매까지 단계별 탐색 가능. 한 분야 실패해도 다음 분야 바로 시도.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DELIVERY DEEP DIVE ═══════════════════════ -->
+<section class="section" id="delivery">
+  <div class="section-label">Delivery Format Deep Dive</div>
+  <div class="section-title">강의 운영 방식 및 코칭 구조 상세 분석</div>
+
+  <div class="delivery-grid">
+    <div class="delivery-card">
+      <div class="delivery-header" style="border-top: 3px solid var(--cat1);">① 실리콘밸리 AI 가이드<br><span style="font-size:11px;color:var(--text3);font-weight:400">패스트캠퍼스 (알렉스)</span></div>
+      <div class="delivery-body">
+        <div class="delivery-row"><span class="delivery-key">라이브 수업</span><span class="badge-no">없음</span></div>
+        <div class="delivery-row"><span class="delivery-key">오프라인</span><span class="badge-no">없음</span></div>
+        <div class="delivery-row"><span class="delivery-key">커뮤니티</span><span class="badge-yes">16,000명</span></div>
+        <div class="delivery-row"><span class="delivery-key">과제·조편성</span><span class="badge-no">없음</span></div>
+        <div class="delivery-row"><span class="delivery-key">1:1 코칭</span><span class="badge-no">없음</span></div>
+        <div class="delivery-row"><span class="delivery-key">영구 소장</span><span class="badge-opt">조건부</span></div>
+        <div class="delivery-row"><span class="delivery-key">업데이트</span><span class="badge-yes">버전 업 출시</span></div>
+        <div class="delivery-row"><span class="delivery-key">자료 제공</span><span class="badge-yes">프롬프트 모음집</span></div>
+      </div>
+    </div>
+    <div class="delivery-card">
+      <div class="delivery-header" style="border-top: 3px solid var(--cat1);">② 직장인 ChatGPT 업무효율<br><span style="font-size:11px;color:var(--text3);font-weight:400">인프런 (이종범)</span></div>
+      <div class="delivery-body">
+        <div class="delivery-row"><span class="delivery-key">라이브 수업</span><span class="badge-yes">유튜브 멤버십</span></div>
+        <div class="delivery-row"><span class="delivery-key">오프라인</span><span class="badge-no">없음</span></div>
+        <div class="delivery-row"><span class="delivery-key">커뮤니티</span><span class="badge-yes">오픈채팅 1만명</span></div>
+        <div class="delivery-row"><span class="delivery-key">과제·조편성</span><span class="badge-no">없음</span></div>
+        <div class="delivery-row"><span class="delivery-key">1:1 코칭</span><span class="badge-no">없음</span></div>
+        <div class="delivery-row"><span class="delivery-key">영구 소장</span><span class="badge-yes">가능</span></div>
+        <div class="delivery-row"><span class="delivery-key">업데이트</span><span class="badge-yes">매달 신규 추가</span></div>
+        <div class="delivery-row"><span class="delivery-key">자료 제공</span><span class="badge-yes">직군별 프롬프트</span></div>
+      </div>
+    </div>
+    <div class="delivery-card">
+      <div class="delivery-header" style="border-top: 3px solid var(--cat2);">③ AI 자동화 캠프 완주반<br><span style="font-size:11px;color:var(--text3);font-weight:400">패스트캠퍼스</span></div>
+      <div class="delivery-body">
+        <div class="delivery-row"><span class="delivery-key">라이브 수업</span><span class="badge-opt">AI 튜터 실시간</span></div>
+        <div class="delivery-row"><span class="delivery-key">오프라인</span><span class="badge-yes">주 1회 필수</span></div>
+        <div class="delivery-row"><span class="delivery-key">커뮤니티</span><span class="badge-yes">기수별</span></div>
+        <div class="delivery-row"><span class="delivery-key">과제·조편성</span><span class="badge-yes">피어 리뷰</span></div>
+        <div class="delivery-row"><span class="delivery-key">1:1 코칭</span><span class="badge-opt">AI 튜터</span></div>
+        <div class="delivery-row"><span class="delivery-key">영구 소장</span><span class="badge-no">기간 한정</span></div>
+        <div class="delivery-row"><span class="delivery-key">업데이트</span><span class="badge-opt">기수별 갱신</span></div>
+        <div class="delivery-row"><span class="delivery-key">자료 제공</span><span class="badge-yes">자동화 프로젝트</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>핵심 관찰:</strong> 국내 주요 AI 강의는 라이브 수업 없이 VOD 중심으로 운영되는 경우가 대부분입니다. 차별화 포인트는 <strong>커뮤니티 규모, 자료 품질, 업데이트 주기</strong>에서 갈립니다. 유일하게 오프라인을 필수로 운영하는 THE CAMP 완주반은 그만큼 높은 가격(149만원)과 환급 구조로 진입 장벽을 설계했습니다.
+  </div>
+</section>
+
+<!-- ═══════════════════════ COMPARISON TABLE ═══════════════════════ -->
+<section class="section" id="compare">
+  <div class="section-label">Comparison</div>
+  <div class="section-title">9개 강의 핵심 지표 비교</div>
+
+  <div class="compare-table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>강의명</th>
+          <th>플랫폼</th>
+          <th>정가</th>
+          <th>실질 구매가</th>
+          <th>할인율</th>
+          <th>타깃</th>
+          <th>핵심 차별화</th>
+          <th>업셀 구조</th>
+          <th>매출 레버리지</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>실리콘밸리 AI 가이드</td>
+          <td>패스트캠퍼스</td>
+          <td>299,000</td>
+          <td>~119,000</td>
+          <td>60%</td>
+          <td>전 직장인</td>
+          <td>권위형·커뮤니티</td>
+          <td>2nd 강의</td>
+          <td><span class="stars">★★★★★</span></td>
+        </tr>
+        <tr>
+          <td>직장인 ChatGPT 업무효율</td>
+          <td>인프런</td>
+          <td>55,000</td>
+          <td>~33,000</td>
+          <td>40%</td>
+          <td>비개발 직장인</td>
+          <td>저가+월간업데이트</td>
+          <td>멤버십 라이브</td>
+          <td><span class="stars">★★★☆☆</span></td>
+        </tr>
+        <tr>
+          <td>클래스101+ 구독</td>
+          <td>클래스101</td>
+          <td>—</td>
+          <td>월 19,000</td>
+          <td>90%+</td>
+          <td>전 연령 대</td>
+          <td>무제한 구독</td>
+          <td>B2B 기업 구독</td>
+          <td><span class="stars">★★★★☆</span></td>
+        </tr>
+        <tr>
+          <td>하네스 AI 자동화</td>
+          <td>패스트캠퍼스</td>
+          <td>200,000</td>
+          <td>~99,000</td>
+          <td>50%</td>
+          <td>직장인 전반</td>
+          <td>신조어 블루오션</td>
+          <td>THE CAMP 연계</td>
+          <td><span class="stars">★★★★☆</span></td>
+        </tr>
+        <tr>
+          <td>AI 자동화 캠프 완주반</td>
+          <td>패스트캠퍼스</td>
+          <td>1,490,000</td>
+          <td>완주 시 0원</td>
+          <td>100%</td>
+          <td>의지 강한 직장인</td>
+          <td>환급형 결과 보장</td>
+          <td>없음 (독립형)</td>
+          <td><span class="stars">★★★☆☆</span></td>
+        </tr>
+        <tr>
+          <td>AI 일잘러 실무 마스터</td>
+          <td>패스트캠퍼스</td>
+          <td>250,000</td>
+          <td>~109,000</td>
+          <td>56%</td>
+          <td>신입~경력 전반</td>
+          <td>올인원·26가지 툴</td>
+          <td>약함</td>
+          <td><span class="stars">★★★☆☆</span></td>
+        </tr>
+        <tr>
+          <td>ChatGPT 수익 블로그</td>
+          <td>패스트캠퍼스</td>
+          <td>99,000</td>
+          <td>~49,000</td>
+          <td>50%</td>
+          <td>N잡 희망자</td>
+          <td>단기 ROI·저가</td>
+          <td>약함</td>
+          <td><span class="stars">★★☆☆☆</span></td>
+        </tr>
+        <tr>
+          <td>AI 주식 투자 시리즈</td>
+          <td>패스트캠퍼스</td>
+          <td>150,000~</td>
+          <td>~79,000~</td>
+          <td>47%</td>
+          <td>40~50대 시니어</td>
+          <td>AI+재테크 융합</td>
+          <td>금융 아카데미</td>
+          <td><span class="stars">★★★☆☆</span></td>
+        </tr>
+        <tr>
+          <td>클래스101 부업 패키지</td>
+          <td>클래스101</td>
+          <td>—</td>
+          <td>월 19,000</td>
+          <td>구독 포함</td>
+          <td>N잡러</td>
+          <td>부업 무제한</td>
+          <td>B2B 구독</td>
+          <td><span class="stars">★★★☆☆</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════ INSIGHTS ═══════════════════════ -->
+<section class="section" id="insights">
+  <div class="section-label">Benchmark Insights</div>
+  <div class="section-title">신규 클래스 기획을 위한 8가지 시사점</div>
+
+  <div class="insight-grid">
+    <div class="insight-card i1">
+      <div class="insight-num">01</div>
+      <div class="insight-title">정가는 10~30만원대, 단 '가격 인상 임박'으로 진입장벽 낮춰라</div>
+      <div class="insight-desc">국내 AI 강의 시장의 실구매가 표준은 <strong>9만~12만원대</strong>. 정가는 20~30만원으로 앵커링하고 상시 40~60% 할인을 적용. "6월 1일 가격 인상"처럼 긴급성 메시지를 이벤트로 주기적으로 운영하는 것이 전환율 유지의 핵심 구조.
+      </div>
+    </div>
+    <div class="insight-card i2">
+      <div class="insight-num">02</div>
+      <div class="insight-title">상세페이지 최상단은 반드시 '수강생 변화 + 구체적 숫자'</div>
+      <div class="insight-desc">9개 강의 모두 강사 소개보다 수강생 결과를 먼저 보여줌. <strong>"16,000명 커뮤니티", "매달 업데이트", "1인 1 프로젝트 완성"</strong>처럼 숫자가 있는 증거가 최상단에 위치. 강사 소개는 2번째. 상세페이지 첫 화면에서 구매 결정의 70%가 이루어짐.
+      </div>
+    </div>
+    <div class="insight-card i3">
+      <div class="insight-num">03</div>
+      <div class="insight-title">신조어·독점 개념 설정이 블루오션 가격을 만든다</div>
+      <div class="insight-desc">'하네스(Harness)' 강의가 5월 급상승 검색어 893%를 기록한 것은 <strong>강의가 직접 새 개념을 정의</strong>했기 때문. 검색 시 경쟁 강의 없이 독점 노출. 기획 단계에서 새로운 방법론 이름을 만드는 것이 마케팅 비용 절감의 핵심.
+      </div>
+    </div>
+    <div class="insight-card i4">
+      <div class="insight-num">04</div>
+      <div class="insight-title">업셀링 로드맵을 처음부터 설계하라</div>
+      <div class="insight-desc">단품 강의 하나만으로는 수익 한계. <strong>무료 콘텐츠(유튜브) → 입문 강의 → 심화 강의 → 커뮤니티/코칭</strong>으로 이어지는 3~4단계 구조가 LTV(고객생애가치)를 결정. 기초반 상세페이지에 로드맵 공개 시 다음 단계 구매 전환율 상승.
+      </div>
+    </div>
+    <div class="insight-card i5">
+      <div class="insight-num">05</div>
+      <div class="insight-title">강사 신뢰는 '증빙 가능한 수준'으로 공개하라</div>
+      <div class="insight-desc">알렉스의 "20만 유튜브 구독자", 이종범 교수의 "겸임교수+1만 커뮤니티", 소수몽키의 "배당 입금 캡처" — 모두 <strong>검증 가능한 근거</strong>를 명시. "AI 전문가"라는 막연한 타이틀보다 숫자·이력·플랫폼 수치가 신뢰 구축에 훨씬 효과적.
+      </div>
+    </div>
+    <div class="insight-card i6">
+      <div class="insight-num">06</div>
+      <div class="insight-title">매달 업데이트 또는 커뮤니티가 재구매를 만든다</div>
+      <div class="insight-desc">인프런 이종범 강의의 "매달 신규 강의 추가"와 패스트캠퍼스 알렉스의 "2nd 버전 출시"는 단순 판매를 <strong>관계 지속</strong>으로 전환. 수강생이 "이 강사의 다음 것도 사야지"라는 브랜드 충성도를 만드는 가장 효율적인 방법.
+      </div>
+    </div>
+    <div class="insight-card i1">
+      <div class="insight-num">07</div>
+      <div class="insight-title">12개월 무이자 할부 = 가격 장벽 해소의 최강 무기</div>
+      <div class="insight-desc">패스트캠퍼스 주요 강의는 <strong>7개 카드사 12개월 무이자 할부</strong>를 상단에 항상 노출. 10만원 강의가 "월 8,333원"으로 인식되면 구매 결정이 쉬워짐. 가격보다 월 납입액을 전면에 노출하는 심리 설계 필수.
+      </div>
+    </div>
+    <div class="insight-card i2">
+      <div class="insight-num">08</div>
+      <div class="insight-title">환급형 고가 모델은 '결과 보장'이 핵심 메시지다</div>
+      <div class="insight-desc">THE CAMP 완주반(149만원)이 성립하는 이유는 <strong>"완주하면 전액 환급 + 프로젝트 완성"</strong>이라는 구체적 아웃컴 보장. 단순 환급이 아니라 결과물까지 보장할 때 고가 강의 전환율이 유지됨. 환급형 강의 기획 시 완주 유도 시스템(페이스메이커·AI튜터)을 함께 설계해야 수익 구조가 성립.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SOURCES ═══════════════════════ -->
+<section class="section" id="sources">
+  <div class="section-label">Data Sources & Verification</div>
+  <div class="section-title">주요 수치 출처 근거</div>
+
+  <div class="caution-box" style="margin-bottom:24px">
+    <strong>⚠ 중요 안내:</strong> 본 리포트에서 사용한 가격·수강생 수·검색 지표는 공개된 플랫폼 데이터, 언론 보도, 실수강생 후기를 종합한 추정치입니다. 패스트캠퍼스·인프런·클래스101은 가격을 수시로 조정하므로, 실제 구매 전 해당 강의 상세페이지에서 반드시 직접 확인하시기 바랍니다.
+  </div>
+
+  <table class="source-table">
+    <thead>
+      <tr>
+        <th>수치</th>
+        <th>출처</th>
+        <th>신뢰도</th>
+        <th>비고</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>"수강생 커뮤니티 16,000명+"</td>
+        <td>패스트캠퍼스 강의 상세페이지 공식 문구 (2026.5)</td>
+        <td class="trust-high">✅ 높음</td>
+        <td>플랫폼 공식 노출 수치</td>
+      </tr>
+      <tr>
+        <td>"5월 급상승 검색어 하네스 893%"</td>
+        <td>패스트캠퍼스 홈페이지 월간 급상승 검색어 (2026.5)</td>
+        <td class="trust-high">✅ 높음</td>
+        <td>플랫폼 자체 공개 데이터</td>
+      </tr>
+      <tr>
+        <td>"인프런 강의 평점 4.7, 수강생 397명"</td>
+        <td>인프런 강의 상세페이지 메타데이터 (og:description 기준, 2026.6)</td>
+        <td class="trust-high">✅ 높음</td>
+        <td>크롤링 가능한 공개 데이터</td>
+      </tr>
+      <tr>
+        <td>"클래스101 300만+ 수강생, 13만 크리에이터"</td>
+        <td>클래스101 공식 IR 및 언론 보도 (데모데이, Forbes Korea, 2026.3~4)</td>
+        <td class="trust-high">✅ 높음</td>
+        <td>복수 출처 교차 확인</td>
+      </tr>
+      <tr>
+        <td>"클래스101 2024년 영업이익 39억원"</td>
+        <td>데모데이 비즈니스 모델 분석 (2026.1) / 공식 발표 기반</td>
+        <td class="trust-high">✅ 높음</td>
+        <td>공식 발표 기반 언론 보도</td>
+      </tr>
+      <tr>
+        <td>패스트캠퍼스 강의 정가·할인가</td>
+        <td>패스트캠퍼스 이벤트 페이지 및 강의 상세 (2026.5~6)</td>
+        <td class="trust-mid">⚠ 중간</td>
+        <td>가격 수시 변동. 직접 확인 필요</td>
+      </tr>
+      <tr>
+        <td>"클래스101+ 구독 월 19,000원"</td>
+        <td>클래스101 공식 구독 페이지 및 복수 블로그 후기 (2025~2026)</td>
+        <td class="trust-mid">⚠ 중간</td>
+        <td>구독 정책 변경 가능. 직접 확인 권장</td>
+      </tr>
+      <tr>
+        <td>수강후기 감성 지표 (만족도 등 %) </td>
+        <td>각 플랫폼 수강후기 키워드 빈도 분석 (정량 조사 미실시)</td>
+        <td class="trust-low">❗ 추정</td>
+        <td>정성적 후기 분석 기반 추정치. 공식 통계 아님</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box" style="margin-top:24px">
+    <strong>분석 대상 강의 직접 링크:</strong><br>
+    ① <a href="https://fastcampus.co.kr/biz_online_alex" target="_blank">패스트캠퍼스 실리콘밸리 AI 가이드 →</a><br>
+    ② <a href="https://www.inflearn.com/course/%EC%A7%81%EC%9E%A5%EC%9D%B8-chatgpt-%EC%83%9D%EC%84%B1%ED%98%95ai-%EC%97%85%EB%AC%B4%ED%9A%A8%EC%9C%A8" target="_blank">인프런 직장인 ChatGPT 업무효율 →</a><br>
+    ③ <a href="https://fastcampus.co.kr/event_online_automation_2605" target="_blank">패스트캠퍼스 AI 자동화 캠프 완주반 →</a><br>
+    ④ <a href="https://fastcampus.co.kr/biz_online_workai" target="_blank">패스트캠퍼스 AI 일잘러 실무 마스터 →</a><br>
+    ⑤ <a href="https://class101.net" target="_blank">클래스101 (구독형) →</a><br><br>
+    <strong>※ 기수제·할인 이벤트 특성상 접속 시점에 따라 가격·오픈 여부가 다를 수 있습니다.</strong>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<div class="report-footer">
+  <div>
+    <div style="font-weight:500;color:var(--text2);margin-bottom:4px">AI 강의 벤치마킹 리포트 · 2026년 6월</div>
+    <div>데이터 출처: fastcampus.co.kr, inflearn.com, class101.net, 언론 보도 종합</div>
+  </div>
+  <div class="footer-links">
+    <a href="#overview">개요</a>
+    <a href="#cat1">생성형 AI 기초</a>
+    <a href="#cat2">업무 자동화</a>
+    <a href="#cat3">부업·수익화</a>
+    <a href="#insights">시사점</a>
+  </div>
+</div>
+
+</body>
+</html>
