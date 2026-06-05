@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>알고커넥트 B2B 홈페이지 목업</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0b10; font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; color: #fff; }
+
+  /* NAV */
+  nav { display:flex; align-items:center; justify-content:space-between; padding:18px 48px; border-bottom:0.5px solid rgba(255,255,255,0.08); position:sticky; top:0; z-index:100; background:rgba(10,11,16,0.92); backdrop-filter:blur(12px); }
+  .nav-logo { font-size:15px; font-weight:600; color:#fff; letter-spacing:0.06em; }
+  .nav-links { display:flex; gap:32px; }
+  .nav-link { font-size:13px; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; }
+  .nav-link:hover { color:rgba(255,255,255,0.8); }
+  .nav-cta { font-size:12px; color:#fff; background:#378ADD; border-radius:6px; padding:8px 18px; cursor:pointer; transition:opacity 0.2s; }
+  .nav-cta:hover { opacity:0.85; }
+
+  /* HERO */
+  .hero { position:relative; height:600px; overflow:hidden; }
+  .hero-slides { display:flex; width:300%; height:100%; transition:transform 1s cubic-bezier(.4,0,.2,1); }
+  .hero-slide { width:33.333%; height:100%; background-size:cover; background-position:center; }
+  .hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(10,11,16,0.45) 0%, rgba(10,11,16,0.82) 100%); }
+  .hero-content { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 48px; }
+  .hero-tag { font-size:11px; color:rgba(255,255,255,0.6); border:0.5px solid rgba(255,255,255,0.25); border-radius:20px; padding:5px 14px; margin-bottom:24px; letter-spacing:0.08em; }
+  .hero-h1 { font-size:48px; font-weight:600; color:#fff; line-height:1.25; margin-bottom:16px; }
+  .hero-sub { font-size:15px; color:rgba(255,255,255,0.5); line-height:1.8; margin-bottom:36px; }
+  .hero-stats { display:flex; margin-bottom:40px; }
+  .hero-stat { padding:0 32px; border-right:0.5px solid rgba(255,255,255,0.15); }
+  .hero-stat:last-child { border-right:none; }
+  .hero-stat-num { font-size:28px; font-weight:600; color:#fff; }
+  .hero-stat-label { font-size:11px; color:rgba(255,255,255,0.4); margin-top:4px; }
+  .hero-btns { display:flex; align-items:center; gap:16px; }
+  .hero-btn-primary { font-size:13px; color:#fff; background:#378ADD; border-radius:6px; padding:10px 24px; cursor:pointer; }
+  .hero-btn-ghost { font-size:13px; color:rgba(255,255,255,0.5); cursor:pointer; }
+  .hero-dots { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); display:flex; gap:6px; }
+  .hero-dot { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,0.25); transition:all 0.3s; cursor:pointer; }
+  .hero-dot.on { background:#fff; width:18px; border-radius:3px; }
+
+  /* LOGO STRIP */
+  .logo-strip { padding:20px 48px; border-bottom:0.5px solid rgba(255,255,255,0.07); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .logo-strip-label { font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:0.06em; margin-right:10px; white-space:nowrap; }
+  .logo-chip { font-size:10px; color:rgba(255,255,255,0.3); border:0.5px solid rgba(255,255,255,0.1); border-radius:5px; padding:4px 12px; }
+
+  /* SECTIONS */
+  .section { padding:80px 48px; border-bottom:0.5px solid rgba(255,255,255,0.07); }
+  .section-alt { background:rgba(255,255,255,0.015); }
+  .eyebrow { font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:10px; }
+  .section-h2 { font-size:28px; font-weight:600; color:#fff; margin-bottom:40px; line-height:1.3; }
+  .section-sub { font-size:13px; color:rgba(255,255,255,0.35); margin-top:8px; font-weight:400; }
+
+  /* REF GRID */
+  .ref-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .ref-card { border-radius:12px; overflow:hidden; border:0.5px solid rgba(255,255,255,0.08); }
+  .ref-img { width:100%; height:200px; object-fit:cover; display:block; filter:brightness(0.8); }
+  .ref-caption { padding:14px 16px; background:rgba(255,255,255,0.03); }
+  .ref-tag { font-size:10px; color:#85B7EB; background:rgba(55,138,221,0.12); border-radius:4px; padding:2px 8px; display:inline-block; margin-bottom:6px; }
+  .ref-name { font-size:13px; color:rgba(255,255,255,0.75); font-weight:500; }
+
+  /* PROCESS */
+  .steps { display:flex; align-items:flex-start; margin-top:16px; }
+  .step { flex:1; position:relative; }
+  .step-line-r { position:absolute; top:20px; right:0; width:50%; height:0.5px; background:rgba(255,255,255,0.1); }
+  .step-line-l { position:absolute; top:20px; left:0; width:50%; height:0.5px; background:rgba(255,255,255,0.1); }
+  .step-dot { width:40px; height:40px; border-radius:50%; background:#0a0b10; border:0.5px solid rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; margin:0 auto 14px; position:relative; z-index:1; font-size:13px; color:rgba(255,255,255,0.4); }
+  .step-dot.act { background:#378ADD; border-color:#378ADD; color:#fff; }
+  .step-name { font-size:12px; color:rgba(255,255,255,0.4); text-align:center; line-height:1.5; }
+  .step-name.act { color:rgba(255,255,255,0.8); }
+
+  /* SPEAKER ROLLING */
+  .speaker-tabs { display:flex; gap:8px; margin-bottom:28px; flex-wrap:wrap; }
+  .speaker-tab { font-size:11px; padding:6px 16px; border-radius:20px; border:0.5px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.4); cursor:pointer; transition:all 0.2s; }
+  .speaker-tab:hover { border-color:rgba(255,255,255,0.3); color:rgba(255,255,255,0.7); }
+  .speaker-tab.on { background:#378ADD; border-color:#378ADD; color:#fff; }
+  .speaker-roll-wrap { overflow:hidden; }
+  .speaker-roll-track { display:flex; gap:16px; width:max-content; }
+  .speaker-card { width:180px; flex-shrink:0; background:rgba(255,255,255,0.03); border:0.5px solid rgba(255,255,255,0.08); border-radius:12px; padding:24px 16px; text-align:center; }
+  .speaker-avatar {
+    width:72px; height:72px; border-radius:50%; margin:0 auto 14px;
+    display:flex; align-items:center; justify-content:center;
+    background:repeating-linear-gradient(45deg,rgba(55,138,221,0.1),rgba(55,138,221,0.1) 5px,rgba(255,255,255,0.02) 5px,rgba(255,255,255,0.02) 10px);
+    border:1px dashed rgba(55,138,221,0.5);
+    font-size:10px; color:#378ADD; font-weight:500; line-height:1.5;
+  }
+  .guide-badge { font-size:9px; color:#EF9F27; background:rgba(239,159,39,0.1); border:0.5px solid rgba(239,159,39,0.3); border-radius:3px; padding:2px 6px; display:inline-block; margin-bottom:8px; }
+  .speaker-name { font-size:14px; font-weight:600; color:rgba(255,255,255,0.85); margin-bottom:4px; }
+  .speaker-field { font-size:11px; color:rgba(255,255,255,0.3); margin-bottom:10px; line-height:1.5; }
+  .speaker-tag { display:inline-block; font-size:10px; padding:3px 8px; border-radius:4px; background:rgba(55,138,221,0.12); color:#85B7EB; }
+
+  /* REVIEWS */
+  .review-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .review-card { background:rgba(255,255,255,0.03); border:0.5px solid rgba(255,255,255,0.08); border-radius:12px; padding:28px; }
+  .review-stars { display:flex; gap:3px; margin-bottom:14px; }
+  .star { width:13px; height:13px; background:#EF9F27; clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
+  .review-text { font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:20px; }
+  .review-author { display:flex; align-items:center; gap:10px; }
+  .review-ava { width:36px; height:36px; border-radius:50%; background:#185FA5; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; color:#B5D4F4; flex-shrink:0; }
+  .review-name { font-size:13px; font-weight:500; color:rgba(255,255,255,0.75); }
+  .review-company { font-size:11px; color:rgba(255,255,255,0.3); margin-top:2px; }
+
+  /* PARTNERS 역삼각형 */
+  .partner-rows { display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .partner-row { display:flex; gap:14px; justify-content:center; }
+  .partner-box {
+    width:140px; height:60px;
+    background:rgba(255,255,255,0.03);
+    border:0.5px dashed rgba(255,255,255,0.15);
+    border-radius:8px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+  }
+  .partner-box-label { font-size:11px; color:rgba(255,255,255,0.3); }
+  .partner-box-hint { font-size:9px; color:rgba(255,255,255,0.15); }
+
+  /* FORM */
+  .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
+  .field-label { font-size:11px; color:rgba(255,255,255,0.4); margin-bottom:6px; }
+  .field-input { width:100%; background:rgba(255,255,255,0.05); border:0.5px solid rgba(255,255,255,0.12); border-radius:8px; padding:10px 14px; font-size:13px; color:rgba(255,255,255,0.2); font-family:inherit; }
+  .field-input::placeholder { color:rgba(255,255,255,0.2); }
+  .type-btns { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+  .type-btn { font-size:11px; padding:6px 14px; border-radius:6px; border:0.5px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.4); cursor:pointer; background:transparent; font-family:inherit; transition:all 0.2s; }
+  .type-btn:hover { border-color:rgba(255,255,255,0.3); color:rgba(255,255,255,0.7); }
+  .type-btn.sel { border-color:#378ADD; color:#85B7EB; background:rgba(55,138,221,0.1); }
+  .divider { height:0.5px; background:rgba(255,255,255,0.08); margin:20px 0; }
+
+  /* 전문가 순위 */
+  .priority-block { margin-bottom:16px; }
+  .priority-row { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+  .priority-badge { font-size:11px; font-weight:500; width:48px; text-align:center; padding:5px 0; border-radius:5px; flex-shrink:0; }
+  .p1 { background:rgba(239,159,39,0.15); color:#EF9F27; border:0.5px solid rgba(239,159,39,0.3); }
+  .p2 { background:rgba(180,178,169,0.12); color:#B4B2A9; border:0.5px solid rgba(180,178,169,0.2); }
+  .p3 { background:rgba(144,107,65,0.12); color:#B4B2A9; border:0.5px solid rgba(144,107,65,0.2); }
+  .priority-select { flex:1; background:rgba(255,255,255,0.05); border:0.5px solid rgba(255,255,255,0.12); border-radius:8px; padding:10px 14px; font-size:13px; color:rgba(255,255,255,0.2); font-family:inherit; display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+  .priority-arrow { font-size:11px; color:rgba(255,255,255,0.2); }
+  .none-row { display:flex; align-items:center; gap:8px; margin-top:6px; cursor:pointer; }
+  .checkbox { width:16px; height:16px; border-radius:4px; border:0.5px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.03); flex-shrink:0; }
+  .none-label { font-size:12px; color:rgba(255,255,255,0.35); }
+
+  .submit-btn { width:100%; background:#378ADD; color:#fff; border:none; border-radius:8px; padding:14px; font-size:14px; font-weight:600; font-family:inherit; cursor:pointer; margin-top:12px; transition:opacity 0.2s; }
+  .submit-btn:hover { opacity:0.85; }
+
+  .guide-note {
+    background:rgba(55,138,221,0.06);
+    border:0.5px solid rgba(55,138,221,0.2);
+    border-radius:8px;
+    padding:12px 16px;
+    font-size:11px;
+    color:rgba(255,255,255,0.35);
+    line-height:1.7;
+    margin-bottom:32px;
+  }
+  .guide-note strong { color:#378ADD; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">ALGO 알고커넥트</div>
+  <div class="nav-links">
+    <span class="nav-link">전문가 찾기</span>
+    <span class="nav-link">진행 분야</span>
+    <span class="nav-link">레퍼런스</span>
+  </div>
+  <div class="nav-cta">교육 문의하기</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-slides" id="heroSlides">
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1544531586-fde5298cdd40?fm=jpg&q=80&w=1600&auto=format&fit=crop'); position:relative;">
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,rgba(55,138,221,0.05),rgba(55,138,221,0.05) 10px,transparent 10px,transparent 20px);border:2px dashed rgba(55,138,221,0.4);">
+        <div style="font-size:13px;color:#378ADD;background:rgba(55,138,221,0.12);border:0.5px solid rgba(55,138,221,0.3);border-radius:6px;padding:6px 14px;margin-bottom:8px;">① 교체 이미지: 1780628417285_image.png</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.3);">강연 현장 풀스크린 배경 · 권장 비율 16:9 이상</div>
+      </div>
+    </div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1571645163064-77faa9676a46?fm=jpg&q=80&w=1600&auto=format&fit=crop');"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1612359383347-245649cbb9d2?fm=jpg&q=80&w=1600&auto=format&fit=crop');"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">B2B 교육 · 강연 전문 플랫폼</div>
+    <div class="hero-h1">검증된 전문가를 가장 빠르게<br>연결하는 방법</div>
+    <div class="hero-sub">기업 교육부터 세미나·포럼 강연까지<br>알고커넥트가 처음부터 끝까지 함께합니다</div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">500+</div><div class="hero-stat-label">누적 강연</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">200+</div><div class="hero-stat-label">검증 전문가</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">150+</div><div class="hero-stat-label">기업 고객</div></div>
+    </div>
+    <div class="hero-btns">
+      <div class="hero-btn-primary">교육 문의하기</div>
+      <div class="hero-btn-ghost">전문가 둘러보기 →</div>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <div class="hero-dot on" id="d0"></div>
+    <div class="hero-dot" id="d1"></div>
+    <div class="hero-dot" id="d2"></div>
+  </div>
+</div>
+
+<!-- LOGO STRIP -->
+<div class="logo-strip">
+  <div class="logo-strip-label">함께한 기업 · 기관</div>
+  <div class="logo-chip">삼성전자</div>
+  <div class="logo-chip">서울시</div>
+  <div class="logo-chip">현대자동차</div>
+  <div class="logo-chip">카카오</div>
+  <div class="logo-chip">부산테크노파크</div>
+  <div class="logo-chip">+ 더보기</div>
+</div>
+
+<!-- REF -->
+<div class="section">
+  <div class="eyebrow">현장 레퍼런스</div>
+  <div class="section-h2">실제로 진행된 강연 현장입니다</div>
+  <div class="ref-grid">
+    <div class="ref-card">
+      <img class="ref-img" src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?fm=jpg&q=60&w=700&auto=format&fit=crop" alt="대규모 임직원 강연" />
+      <div class="ref-caption"><div class="ref-tag">기업 특강</div><div class="ref-name">대규모 임직원 강연</div></div>
+    </div>
+    <div class="ref-card">
+      <img class="ref-img" src="https://images.unsplash.com/photo-1571645163064-77faa9676a46?fm=jpg&q=60&w=700&auto=format&fit=crop" alt="리더십 워크숍 세미나" />
+      <div class="ref-caption"><div class="ref-tag">세미나</div><div class="ref-name">리더십 워크숍 세미나</div></div>
+    </div>
+    <div class="ref-card">
+      <img class="ref-img" src="https://images.unsplash.com/photo-1612359383347-245649cbb9d2?fm=jpg&q=60&w=700&auto=format&fit=crop" alt="경제 포럼 기조연설" />
+      <div class="ref-caption"><div class="ref-tag">포럼 · 행사</div><div class="ref-name">경제 포럼 기조연설</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<div class="section section-alt">
+  <div class="eyebrow">진행 프로세스</div>
+  <div class="section-h2">문의부터 강연까지, 5단계로 완성됩니다</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-dot act">1</div>
+      <div class="step-line-r"></div>
+      <div class="step-name act">문의 접수</div>
+    </div>
+    <div class="step">
+      <div class="step-dot">2</div>
+      <div class="step-line-r"></div><div class="step-line-l"></div>
+      <div class="step-name">니즈 파악</div>
+    </div>
+    <div class="step">
+      <div class="step-dot">3</div>
+      <div class="step-line-r"></div><div class="step-line-l"></div>
+      <div class="step-name">전문가 매칭</div>
+    </div>
+    <div class="step">
+      <div class="step-dot">4</div>
+      <div class="step-line-r"></div><div class="step-line-l"></div>
+      <div class="step-name">일정 조율</div>
+    </div>
+    <div class="step">
+      <div class="step-dot">5</div>
+      <div class="step-line-l"></div>
+      <div class="step-name">강연 진행</div>
+    </div>
+  </div>
+</div>
+
+<!-- SPEAKERS -->
+<div class="section">
+  <div class="eyebrow">분야별 전문가</div>
+  <div class="section-h2">각 분야 최고의 연사진을 만나보세요</div>
+  <div class="speaker-tabs">
+    <div class="speaker-tab on">전체</div>
+    <div class="speaker-tab">리더십</div>
+    <div class="speaker-tab">경제·경영</div>
+    <div class="speaker-tab">AI·기술</div>
+    <div class="speaker-tab">트렌드</div>
+    <div class="speaker-tab">의학</div>
+    <div class="speaker-tab">재테크</div>
+  </div>
+  <div class="speaker-roll-wrap">
+    <div class="speaker-roll-track" id="speakerTrack">
+      <div class="speaker-card"><div class="guide-badge">② 1780628481939_image.png</div><div class="speaker-avatar">사진<br>교체</div><div class="speaker-name">연사 이름 A</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">리더십</div></div>
+      <div class="speaker-card"><div class="guide-badge">③ 1780628520143_image.png</div><div class="speaker-avatar">사진<br>교체</div><div class="speaker-name">연사 이름 B</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">경제·경영</div></div>
+      <div class="speaker-card"><div class="guide-badge">④ 1780628535825_image.png</div><div class="speaker-avatar">사진<br>교체</div><div class="speaker-name">연사 이름 C</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">의학</div></div>
+      <div class="speaker-card"><div style="height:20px"></div><div class="speaker-avatar">추가<br>연사</div><div class="speaker-name">연사 이름 D</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">AI·기술</div></div>
+      <div class="speaker-card"><div style="height:20px"></div><div class="speaker-avatar">추가<br>연사</div><div class="speaker-name">연사 이름 E</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">트렌드</div></div>
+      <div class="speaker-card"><div style="height:20px"></div><div class="speaker-avatar">추가<br>연사</div><div class="speaker-name">연사 이름 F</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">재테크</div></div>
+      <div class="speaker-card"><div style="height:20px"></div><div class="speaker-avatar">추가<br>연사</div><div class="speaker-name">연사 이름 G</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">마케팅</div></div>
+      <div class="speaker-card"><div style="height:20px"></div><div class="speaker-avatar">추가<br>연사</div><div class="speaker-name">연사 이름 H</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">리더십</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section section-alt">
+  <div class="eyebrow">교육 · 강연 후기</div>
+  <div class="section-h2">함께한 기업 담당자들의 이야기입니다</div>
+  <div class="review-grid">
+    <div class="review-card"><div class="review-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><div class="review-text">"강사 섭외부터 당일 진행까지 매우 신속하고 전문적으로 처리해 주셔서 임직원 반응이 정말 좋았습니다. 다음 분기에도 꼭 함께하고 싶습니다."</div><div class="review-author"><div class="review-ava">KH</div><div><div class="review-name">김현우 팀장</div><div class="review-company">A사 HR팀 · 임직원 특강</div></div></div></div>
+    <div class="review-card"><div class="review-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><div class="review-text">"원하는 분야 전문가를 빠르게 매칭해 주었고, 강연 내용도 우리 조직 상황에 맞게 커스터마이징해 주셔서 만족스러웠습니다."</div><div class="review-author"><div class="review-ava">LJ</div><div><div class="review-name">이지연 담당</div><div class="review-company">B기관 교육팀 · 리더십 세미나</div></div></div></div>
+    <div class="review-card"><div class="review-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><div class="review-text">"교육 목적에 맞는 기획 단계부터 도움을 받을 수 있어서 좋았습니다. 퀄리티 대비 합리적인 비용이었습니다."</div><div class="review-author"><div class="review-ava">PY</div><div><div class="review-name">박영민 매니저</div><div class="review-company">C사 조직문화팀 · 워크숍</div></div></div></div>
+    <div class="review-card"><div class="review-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><div class="review-text">"포럼 규모가 컸는데도 꼼꼼하게 체크리스트를 공유해 주셔서 안심하고 진행할 수 있었습니다. 연사분들도 매우 훌륭했어요."</div><div class="review-author"><div class="review-ava">CH</div><div><div class="review-name">최희준 과장</div><div class="review-company">D공공기관 · 경제 포럼</div></div></div></div>
+  </div>
+</div>
+
+<!-- PARTNERS 역삼각형 -->
+<div class="section">
+  <div class="eyebrow">협력사</div>
+  <div class="section-h2">수많은 기업과 기관이 함께하고 있습니다<br><span class="section-sub">협력사 로고 이미지를 순서대로 교체해 주세요 (권장: 가로형 PNG, 흰색 또는 그레이스케일)</span></div>
+  <div class="partner-rows">
+    <div class="partner-row">
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_01.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_02.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_03.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_04.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_05.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_06.png</div></div>
+    </div>
+    <div class="partner-row">
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_07.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_08.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_09.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_10.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_11.png</div></div>
+    </div>
+    <div class="partner-row">
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_12.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_13.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_14.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_15.png</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="section section-alt">
+  <div class="eyebrow">교육 문의</div>
+  <div class="section-h2">어떤 교육이 필요하신가요?</div>
+
+  <div class="guide-note">
+    <strong>이미지 교체 가이드</strong><br>
+    · Hero 배경: <strong>① 1780628417285_image.png</strong> (강연 현장, 16:9 이상)<br>
+    · 연사 A: <strong>② 1780628481939_image.png</strong> &nbsp;· 연사 B: <strong>③ 1780628520143_image.png</strong> &nbsp;· 연사 C: <strong>④ 1780628535825_image.png</strong><br>
+    · 협력사 로고: <strong>logo_01.png ~ logo_15.png</strong> (가로형 PNG, 흰색 또는 그레이스케일)
+  </div>
+
+  <div class="form-grid">
+    <div><div class="field-label">회사명</div><input class="field-input" placeholder="회사명을 입력해주세요" /></div>
+    <div><div class="field-label">담당자명</div><input class="field-input" placeholder="성함을 입력해주세요" /></div>
+    <div><div class="field-label">연락처</div><input class="field-input" placeholder="010-0000-0000" /></div>
+    <div><div class="field-label">이메일</div><input class="field-input" placeholder="example@company.com" /></div>
+  </div>
+
+  <div class="field-label" style="margin-bottom:8px;">교육 유형 선택</div>
+  <div class="type-btns">
+    <button class="type-btn sel">특강</button>
+    <button class="type-btn">세미나</button>
+    <button class="type-btn">워크숍</button>
+    <button class="type-btn">온라인</button>
+    <button class="type-btn">포럼 · 행사</button>
+  </div>
+
+  <div class="form-grid">
+    <div><div class="field-label">예상 인원</div><input class="field-input" placeholder="00명" /></div>
+    <div><div class="field-label">희망 일정</div><input class="field-input" placeholder="YYYY.MM" /></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="field-label" style="margin-bottom:14px;">원하는 전문가 선택 <span style="color:rgba(255,255,255,0.2);font-size:11px;">· 없을 경우 하단 체크박스를 선택해주세요</span></div>
+  <div class="priority-block">
+    <div class="priority-row">
+      <div class="priority-badge p1">1순위</div>
+      <div class="priority-select"><span>전문가를 선택해주세요</span><span class="priority-arrow">∨</span></div>
+    </div>
+    <div class="priority-row">
+      <div class="priority-badge p2">2순위</div>
+      <div class="priority-select"><span>전문가를 선택해주세요</span><span class="priority-arrow">∨</span></div>
+    </div>
+    <div class="priority-row">
+      <div class="priority-badge p3">3순위</div>
+      <div class="priority-select"><span>전문가를 선택해주세요</span><span class="priority-arrow">∨</span></div>
+    </div>
+    <div class="none-row">
+      <div class="checkbox"></div>
+      <div class="none-label">원하는 전문가가 없거나 미정입니다 — 알고커넥트에서 추천해주세요</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="field-label" style="margin-bottom:6px;">추가 요청사항</div>
+  <textarea class="field-input" rows="4" placeholder="강연 주제, 분야, 예산 등 자유롭게 작성해주세요" style="resize:none; line-height:1.7;"></textarea>
+  <button class="submit-btn">문의 제출하기</button>
+</div>
+
+<script>
+  let cur = 0;
+  function goSlide(i) {
+    cur = i;
+    document.getElementById('heroSlides').style.transform = 'translateX(-' + (i * 33.333) + '%)';
+    [0,1,2].forEach(j => {
+      document.getElementById('d'+j).className = 'hero-dot' + (j===i?' on':'');
+    });
+  }
+  setInterval(() => goSlide((cur+1)%3), 3500);
+
+  let spkPos = 0;
+  const spkTrack = document.getElementById('speakerTrack');
+  const spkCardW = 196;
+  const spkTotal = 8;
+  setInterval(() => {
+    spkPos += 0.6;
+    if (spkPos >= spkCardW * (spkTotal/2)) spkPos = 0;
+    spkTrack.style.transform = 'translateX(-' + spkPos + 'px)';
+  }, 16);
+
+  document.querySelectorAll('.type-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('sel'));
+      btn.classList.add('sel');
+    });
+  });
+
+  document.querySelectorAll('.speaker-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.speaker-tab').forEach(t => t.classList.remove('on'));
+      tab.classList.add('on');
+    });
+  });
+</script>
+</body>
+</html>
