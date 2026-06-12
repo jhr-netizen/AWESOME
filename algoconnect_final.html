@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>알고커넥트 · B2B 교육·강연 전문 플랫폼</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:#0a0b10; font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif; color:#fff; }
+
+/* ═══════════════════════════════
+   NAV (공통)
+═══════════════════════════════ */
+nav { display:flex; align-items:center; justify-content:space-between; padding:18px 48px; border-bottom:0.5px solid rgba(255,255,255,0.08); position:sticky; top:0; z-index:200; background:rgba(10,11,16,0.95); backdrop-filter:blur(12px); }
+.nav-logo { font-size:15px; font-weight:600; color:#fff; letter-spacing:0.06em; cursor:pointer; }
+.nav-links { display:flex; gap:32px; }
+.nav-link { font-size:13px; color:rgba(255,255,255,0.45); cursor:pointer; transition:color 0.2s; }
+.nav-link:hover,.nav-link.active { color:rgba(255,255,255,0.85); }
+.nav-link.hl { color:#85B7EB; }
+.nav-right { display:flex; align-items:center; gap:14px; }
+.nav-back { font-size:12px; color:rgba(255,255,255,0.4); cursor:pointer; background:none; border:none; font-family:inherit; transition:color 0.2s; display:none; align-items:center; gap:4px; }
+.nav-back:hover { color:#fff; }
+.nav-cta { font-size:12px; color:#fff; background:#378ADD; border-radius:6px; padding:8px 18px; cursor:pointer; border:none; font-family:inherit; transition:opacity 0.2s; }
+.nav-cta:hover { opacity:0.85; }
+
+/* ═══════════════════════════════
+   HOME PAGE
+═══════════════════════════════ */
+#homePage { display:block; }
+
+/* HERO */
+.hero { position:relative; height:600px; overflow:hidden; }
+.hero-slides { display:flex; width:300%; height:100%; transition:transform 1s cubic-bezier(.4,0,.2,1); }
+.hero-slide { width:33.333%; height:100%; background-size:cover; background-position:center; }
+.hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,rgba(10,11,16,0.45) 0%,rgba(10,11,16,0.82) 100%); }
+.hero-content { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 48px; }
+.hero-tag { font-size:13px; color:rgba(255,255,255,0.6); border:0.5px solid rgba(255,255,255,0.25); border-radius:20px; padding:6px 16px; margin-bottom:24px; letter-spacing:0.06em; }
+.hero-h1 { font-size:48px; font-weight:600; color:#fff; line-height:1.25; margin-bottom:16px; }
+.hero-sub { font-size:16px; color:rgba(255,255,255,0.5); line-height:1.8; margin-bottom:36px; }
+.hero-stats { display:flex; margin-bottom:40px; }
+.hero-stat { padding:0 32px; border-right:0.5px solid rgba(255,255,255,0.15); }
+.hero-stat:last-child { border-right:none; }
+.hero-stat-num { font-size:28px; font-weight:600; color:#fff; }
+.hero-stat-label { font-size:13px; color:rgba(255,255,255,0.4); margin-top:4px; }
+.hero-btns { display:flex; align-items:center; gap:16px; }
+.hero-btn-primary { font-size:13px; color:#fff; background:#378ADD; border-radius:6px; padding:10px 24px; cursor:pointer; border:none; font-family:inherit; transition:opacity 0.2s; }
+.hero-btn-primary:hover { opacity:0.85; }
+.hero-btn-ghost { font-size:13px; color:rgba(255,255,255,0.5); cursor:pointer; border:none; background:none; font-family:inherit; transition:color 0.2s; }
+.hero-btn-ghost:hover { color:#fff; }
+.hero-dots { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); display:flex; gap:6px; }
+.hero-dot { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,0.25); transition:all 0.3s; cursor:pointer; }
+.hero-dot.on { background:#fff; width:18px; border-radius:3px; }
+
+/* LOGO STRIP */
+.logo-strip { padding:20px 48px; border-bottom:0.5px solid rgba(255,255,255,0.07); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.logo-strip-label { font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:0.06em; margin-right:10px; white-space:nowrap; }
+.logo-chip { font-size:10px; color:rgba(255,255,255,0.3); border:0.5px solid rgba(255,255,255,0.1); border-radius:5px; padding:4px 12px; }
+
+/* SECTIONS */
+.section { padding:80px 48px; border-bottom:0.5px solid rgba(255,255,255,0.07); }
+.section-alt { background:rgba(255,255,255,0.015); }
+.eyebrow { font-size:13px; color:rgba(255,255,255,0.35); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:12px; }
+.section-h2 { font-size:28px; font-weight:600; color:#fff; margin-bottom:40px; line-height:1.3; }
+.section-sub { font-size:15px; color:rgba(255,255,255,0.35); margin-top:8px; font-weight:400; }
+
+/* REF GRID */
+.ref-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.ref-card { border-radius:12px; overflow:hidden; border:0.5px solid rgba(255,255,255,0.08); }
+.ref-img { width:100%; height:200px; object-fit:cover; display:block; filter:brightness(0.8); }
+.ref-caption { padding:14px 16px; background:rgba(255,255,255,0.03); }
+
+/* PROCESS */
+.steps { display:flex; align-items:flex-start; margin-top:16px; }
+.step { flex:1; position:relative; }
+.step-line-r { position:absolute; top:20px; right:0; width:50%; height:0.5px; background:rgba(255,255,255,0.1); }
+.step-line-l { position:absolute; top:20px; left:0; width:50%; height:0.5px; background:rgba(255,255,255,0.1); }
+.step-dot { width:40px; height:40px; border-radius:50%; background:#0a0b10; border:0.5px solid rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; margin:0 auto 14px; position:relative; z-index:1; font-size:13px; color:rgba(255,255,255,0.4); }
+.step-dot.act { background:#378ADD; border-color:#378ADD; color:#fff; }
+
+/* SPEAKER ROLLING */
+.speaker-tabs { display:flex; gap:8px; margin-bottom:28px; flex-wrap:wrap; }
+.speaker-tab { font-size:13px; padding:7px 18px; border-radius:20px; border:0.5px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.4); cursor:pointer; transition:all 0.2s; }
+.speaker-tab.on { background:#378ADD; border-color:#378ADD; color:#fff; }
+.speaker-roll-wrap { overflow:hidden; }
+.speaker-roll-track { display:flex; gap:16px; width:max-content; }
+.speaker-card { width:180px; flex-shrink:0; background:rgba(255,255,255,0.03); border:0.5px solid rgba(255,255,255,0.08); border-radius:12px; padding:24px 16px; text-align:center; cursor:pointer; transition:border-color 0.2s; }
+.speaker-card:hover { border-color:rgba(55,138,221,0.4); }
+.speaker-avatar { width:72px; height:72px; border-radius:50%; margin:0 auto 14px; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg,rgba(55,138,221,0.1),rgba(55,138,221,0.1) 5px,rgba(255,255,255,0.02) 5px,rgba(255,255,255,0.02) 10px); border:1px dashed rgba(55,138,221,0.5); font-size:10px; color:#378ADD; font-weight:500; line-height:1.5; }
+.guide-badge { font-size:9px; color:#EF9F27; background:rgba(239,159,39,0.1); border:0.5px solid rgba(239,159,39,0.3); border-radius:3px; padding:2px 6px; display:inline-block; margin-bottom:8px; }
+.speaker-tag { display:inline-block; font-size:13px; padding:4px 10px; border-radius:4px; background:rgba(55,138,221,0.12); color:#85B7EB; }
+
+/* REVIEWS */
+.review-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+.review-card { background:rgba(255,255,255,0.03); border:0.5px solid rgba(255,255,255,0.08); border-radius:12px; padding:28px; }
+.review-stars { display:flex; gap:3px; margin-bottom:14px; }
+.star { width:13px; height:13px; background:#EF9F27; clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
+.review-author { display:flex; align-items:center; gap:10px; }
+.review-ava { width:36px; height:36px; border-radius:50%; background:#185FA5; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; color:#B5D4F4; flex-shrink:0; }
+
+/* PARTNERS */
+.partner-rows { display:flex; flex-direction:column; align-items:center; gap:14px; }
+.partner-row { display:flex; gap:14px; justify-content:center; }
+.partner-box { width:140px; height:60px; background:rgba(255,255,255,0.03); border:0.5px dashed rgba(255,255,255,0.15); border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; }
+.partner-box-label { font-size:11px; color:rgba(255,255,255,0.3); }
+.partner-box-hint { font-size:9px; color:rgba(255,255,255,0.15); }
+
+.field-label { font-size:13px; color:rgba(255,255,255,0.4); margin-bottom:6px; }
+.field-label .req { color:#378ADD; margin-left:2px; }
+.field-input { width:100%; background:rgba(255,255,255,0.05); border:0.5px solid rgba(255,255,255,0.12); border-radius:8px; padding:11px 14px; font-size:14px; color:rgba(255,255,255,0.85); font-family:inherit; outline:none; transition:border-color 0.2s; }
+.field-input::placeholder { color:rgba(255,255,255,0.2); }
+.field-input:focus { border-color:rgba(55,138,221,0.5); }
+.type-btns { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+.type-btn { font-size:13px; padding:7px 16px; border-radius:6px; border:0.5px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.4); cursor:pointer; background:transparent; font-family:inherit; transition:all 0.2s; }
+.type-btn:hover { border-color:rgba(255,255,255,0.3); color:rgba(255,255,255,0.7); }
+.type-btn.sel { border-color:#378ADD; color:#85B7EB; background:rgba(55,138,221,0.1); }
+.divider { height:0.5px; background:rgba(255,255,255,0.08); margin:20px 0; }
+.priority-block { margin-bottom:16px; }
+.priority-row { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+.priority-badge { font-size:12px; font-weight:500; width:52px; text-align:center; padding:5px 0; border-radius:5px; flex-shrink:0; }
+.p1 { background:rgba(239,159,39,0.15); color:#EF9F27; border:0.5px solid rgba(239,159,39,0.3); }
+.p2 { background:rgba(180,178,169,0.12); color:#B4B2A9; border:0.5px solid rgba(180,178,169,0.2); }
+.p3 { background:rgba(144,107,65,0.12); color:#B4B2A9; border:0.5px solid rgba(144,107,65,0.2); }
+.priority-select { flex:1; background:rgba(255,255,255,0.05); border:0.5px solid rgba(255,255,255,0.12); border-radius:8px; padding:11px 14px; font-size:14px; color:rgba(255,255,255,0.2); font-family:inherit; display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+.priority-arrow { font-size:13px; color:rgba(255,255,255,0.2); }
+.none-row { display:flex; align-items:center; gap:8px; margin-top:6px; cursor:pointer; }
+.checkbox { width:16px; height:16px; border-radius:4px; border:0.5px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.03); flex-shrink:0; }
+.none-label { font-size:14px; color:rgba(255,255,255,0.35); }
+.submit-btn { width:100%; background:#378ADD; color:#fff; border:none; border-radius:8px; padding:14px; font-size:15px; font-weight:600; font-family:inherit; cursor:pointer; margin-top:12px; transition:opacity 0.2s; }
+.submit-btn:hover { opacity:0.85; }
+.guide-note { background:rgba(55,138,221,0.06); border:0.5px solid rgba(55,138,221,0.2); border-radius:8px; padding:14px 18px; font-size:13px; color:rgba(255,255,255,0.35); line-height:1.8; margin-bottom:32px; }
+.guide-note strong { color:#378ADD; }
+
+/* ═══════════════════════════════
+   EXPERTS LIST PAGE
+═══════════════════════════════ */
+#listPage { display:none; }
+.page-header { padding:60px 48px 0; border-bottom:0.5px solid rgba(255,255,255,0.07); }
+.page-h1 { font-size:36px; font-weight:600; color:#fff; line-height:1.25; margin-bottom:10px; }
+.page-sub { font-size:13px; color:rgba(255,255,255,0.35); line-height:1.8; margin-bottom:32px; }
+.cat-tabs { display:flex; gap:8px; flex-wrap:wrap; overflow-x:auto; scrollbar-width:none; border-bottom:0.5px solid rgba(255,255,255,0.07); padding-bottom:20px; }
+.cat-tabs::-webkit-scrollbar { display:none; }
+.cat-tab { flex-shrink:0; font-size:13px; padding:7px 18px; border-radius:20px; border:0.5px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.45); cursor:pointer; transition:all 0.2s; background:transparent; font-family:inherit; }
+.cat-tab:hover { border-color:rgba(255,255,255,0.3); color:rgba(255,255,255,0.7); }
+.cat-tab.on { background:#378ADD; border-color:#378ADD; color:#fff; }
+.list-layout { display:grid; grid-template-columns:180px 1fr; gap:32px; padding:40px 48px; align-items:start; }
+.sidebar { position:sticky; top:80px; }
+.filter-section { margin-bottom:24px; }
+.filter-title { font-size:12px; color:rgba(255,255,255,0.35); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:12px; }
+.filter-search { width:100%; background:rgba(255,255,255,0.05); border:0.5px solid rgba(255,255,255,0.12); border-radius:8px; padding:10px 13px; font-size:14px; color:rgba(255,255,255,0.7); font-family:inherit; outline:none; }
+.filter-search::placeholder { color:rgba(255,255,255,0.2); }
+.filter-search:focus { border-color:rgba(55,138,221,0.5); }
+.filter-divider { height:0.5px; background:rgba(255,255,255,0.07); margin:18px 0; }
+.filter-opts { display:flex; flex-direction:column; gap:8px; }
+.filter-opt { display:flex; align-items:center; gap:8px; font-size:14px; color:rgba(255,255,255,0.45); cursor:pointer; }
+.filter-opt input[type="checkbox"] { width:15px; height:15px; accent-color:#378ADD; flex-shrink:0; }
+.results-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; }
+.results-count { font-size:14px; color:rgba(255,255,255,0.4); }
+.results-count strong { color:rgba(255,255,255,0.7); font-weight:500; }
+.sort-select { background:rgba(255,255,255,0.05); border:0.5px solid rgba(255,255,255,0.12); border-radius:6px; padding:8px 14px; font-size:13px; color:rgba(255,255,255,0.5); font-family:inherit; cursor:pointer; outline:none; }
+.experts-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+.ecard { background:rgba(255,255,255,0.03); border:0.5px solid rgba(255,255,255,0.08); border-radius:12px; overflow:hidden; transition:border-color 0.2s, transform 0.15s; position:relative; display:flex; flex-direction:column; }
+.ecard:hover { border-color:rgba(55,138,221,0.4); transform:translateY(-2px); }
+.ecard-to-detail { cursor:pointer; }
+.ecard-imgwrap { width:100%; aspect-ratio:4/5; overflow:hidden; background:rgba(55,138,221,0.06); flex-shrink:0; }
+.ecard-imgwrap:hover .ecard-img { opacity:0.85; }
+.ecard-img { width:100%; height:100%; object-fit:cover; object-position:top center; display:block; transition:opacity 0.2s; }
+.ecard-fallback { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:36px; font-weight:700; color:#378ADD; background:repeating-linear-gradient(45deg,rgba(55,138,221,0.08),rgba(55,138,221,0.08) 5px,rgba(255,255,255,0.01) 5px,rgba(255,255,255,0.01) 10px); }
+.ecard-body { padding:14px 14px 10px; display:flex; flex-direction:column; gap:5px; }
+.ecard-body:hover .ecard-name { color:#fff; }
+.ecard-badge { position:absolute; top:10px; right:10px; font-size:11px; padding:3px 9px; border-radius:3px; font-weight:600; backdrop-filter:blur(4px); pointer-events:none; }
+.empty-state { grid-column:1/-1; padding:60px 0; text-align:center; color:rgba(255,255,255,0.2); font-size:15px; }
+.list-cta { margin-top:52px; border:0.5px solid rgba(55,138,221,0.25); border-radius:12px; background:rgba(55,138,221,0.06); padding:32px 36px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+.list-cta h3 { font-size:15px; font-weight:600; color:#fff; margin-bottom:6px; }
+.list-cta p { font-size:13px; color:rgba(255,255,255,0.3); line-height:1.7; }
+.cta-btn { flex-shrink:0; background:#378ADD; color:#fff; border:none; border-radius:6px; padding:10px 22px; font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; transition:opacity 0.2s; }
+.cta-btn:hover { opacity:0.85; }
+
+/* badge colors */
+.bc-재무   { background:rgba(239,159,39,0.85);  color:#0a0b10; }
+.bc-경영   { background:rgba(55,138,221,0.85);  color:#fff; }
+.bc-의학   { background:rgba(96,165,250,0.85);  color:#0a0b10; }
+.bc-과학   { background:rgba(29,158,117,0.85);  color:#fff; }
+.bc-심리   { background:rgba(167,139,250,0.85); color:#fff; }
+.bc-교육   { background:rgba(251,146,60,0.85);  color:#0a0b10; }
+.bc-엔터   { background:rgba(251,113,133,0.85); color:#fff; }
+.bc-미디어 { background:rgba(168,85,247,0.85);  color:#fff; }
+.bc-안보   { background:rgba(100,116,139,0.85); color:#fff; }
+.bc-방산   { background:rgba(71,85,105,0.85);   color:#fff; }
+.bc-유튜버 { background:rgba(239,68,68,0.85);   color:#fff; }
+
+/* ═══════════════════════════════
+   DETAIL PAGE
+═══════════════════════════════ */
+#detailPage { display:none; }
+.d-hero { display:grid; grid-template-columns:280px 1fr; min-height:380px; }
+.d-hero-img { position:relative; overflow:hidden; }
+.d-hero-img img { width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
+.d-hero-img-fb { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:80px; font-weight:700; color:#378ADD; background:repeating-linear-gradient(45deg,rgba(55,138,221,0.08),rgba(55,138,221,0.08) 5px,rgba(255,255,255,0.01) 5px,rgba(255,255,255,0.01) 10px); }
+.d-hero-info { padding:48px 52px; display:flex; flex-direction:column; justify-content:center; background:rgba(255,255,255,0.02); border-left:0.5px solid rgba(255,255,255,0.07); }
+.d-hero-cat { font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:#378ADD; margin-bottom:14px; font-weight:600; }
+.d-name  { font-size:34px; font-weight:700; color:#fff; letter-spacing:-0.5px; line-height:1.15; margin-bottom:8px; }
+.d-title { font-size:15px; color:rgba(255,255,255,0.4); margin-bottom:20px; line-height:1.6; }
+.d-intro { font-size:15px; color:rgba(255,255,255,0.35); line-height:1.9; margin-bottom:32px; border-left:2px solid rgba(55,138,221,0.4); padding-left:14px; }
+.d-actions { display:flex; gap:10px; flex-wrap:wrap; }
+.btn-primary { background:#378ADD; color:#fff; border:none; border-radius:7px; padding:11px 22px; font-size:14px; font-weight:600; cursor:pointer; font-family:inherit; display:flex; align-items:center; gap:6px; transition:opacity 0.2s; }
+.btn-primary:hover { opacity:0.85; }
+.btn-ghost { background:rgba(255,255,255,0.05); color:rgba(255,255,255,0.5); border:0.5px solid rgba(255,255,255,0.15); border-radius:7px; padding:11px 18px; font-size:14px; cursor:pointer; font-family:inherit; display:flex; align-items:center; gap:6px; transition:all 0.2s; }
+.btn-ghost:hover { border-color:rgba(255,255,255,0.35); color:rgba(255,255,255,0.85); }
+.d-block-label { font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:14px; }
+.d-content-with-video { display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:0.5px solid rgba(255,255,255,0.07); }
+.d-content-with-video .d-left  { padding:40px 44px; border-right:0.5px solid rgba(255,255,255,0.07); }
+.d-content-with-video .d-right { padding:40px 44px; }
+.d-content-no-video { border-top:0.5px solid rgba(255,255,255,0.07); padding:0 52px 80px; max-width:900px; }
+.d-video-frame { width:100%; aspect-ratio:16/9; border-radius:10px; overflow:hidden; background:#000; }
+.d-video-frame iframe { width:100%; height:100%; border:none; }
+.d-video-caption { font-size:13px; color:rgba(255,255,255,0.25); margin-top:10px; line-height:1.6; font-style:italic; }
+.d-sect { padding:28px 0; border-bottom:0.5px solid rgba(255,255,255,0.06); }
+.d-sect:last-child { border-bottom:none; }
+.topic-chip { display:inline-block; font-size:12px; font-weight:500; color:#85B7EB; background:rgba(55,138,221,0.1); border:0.5px solid rgba(55,138,221,0.22); padding:6px 16px; border-radius:20px; margin:3px 3px 3px 0; }
+.d-tl-items { display:flex; flex-direction:column; }
+.d-tl-item { display:flex; gap:14px; padding-bottom:16px; }
+.d-tl-item:last-child { padding-bottom:0; }
+.d-tl-left { display:flex; flex-direction:column; align-items:center; flex-shrink:0; width:12px; }
+.d-tl-dot { width:9px; height:9px; border-radius:50%; background:#378ADD; border:2px solid #0a0b10; box-shadow:0 0 0 1px #378ADD; flex-shrink:0; margin-top:4px; }
+.d-tl-line { flex:1; width:1px; background:rgba(55,138,221,0.18); margin-top:3px; }
+.d-tl-item:last-child .d-tl-line { display:none; }
+.d-tl-text { font-size:13px; color:rgba(255,255,255,0.6); line-height:1.7; }
+.d-list li { list-style:none; font-size:12px; color:rgba(255,255,255,0.5); line-height:1.85; padding:1px 0; }
+.d-list li::before { content:'· '; color:#378ADD; }
+.kw-tag { display:inline-block; font-size:13px; color:#85B7EB; background:rgba(55,138,221,0.1); padding:5px 12px; border-radius:4px; margin:3px 3px 3px 0; }
+.d-bottom-cta { margin:48px 52px 80px; border-radius:14px; background:rgba(55,138,221,0.07); border:0.5px solid rgba(55,138,221,0.18); padding:36px 40px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+.d-bottom-cta h3 { font-size:17px; font-weight:700; color:#fff; margin-bottom:5px; }
+.d-bottom-cta p { font-size:13px; color:rgba(255,255,255,0.35); line-height:1.7; }
+
+/* ═══════════════════════════════
+   INQUIRY PAGE
+═══════════════════════════════ */
+#inquiryPage { display:none; }
+.inq-wrap { max-width:600px; margin:0 auto; padding:60px 24px 100px; }
+.inq-title { font-size:26px; font-weight:700; color:#fff; margin-bottom:32px; letter-spacing:-0.3px; }
+.inq-expert-card { display:flex; align-items:center; gap:16px; background:rgba(255,255,255,0.03); border:0.5px solid rgba(255,255,255,0.1); border-radius:12px; padding:16px 20px; margin-bottom:32px; }
+.inq-expert-img { width:56px; height:56px; border-radius:50%; overflow:hidden; background:rgba(55,138,221,0.1); flex-shrink:0; border:0.5px solid rgba(55,138,221,0.3); }
+.inq-expert-img img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
+.inq-expert-img-fb { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; color:#378ADD; }
+.inq-expert-name  { font-size:15px; font-weight:600; color:#fff; margin-bottom:3px; }
+.inq-expert-title { font-size:12px; color:rgba(255,255,255,0.35); }
+.form-divider { height:0.5px; background:rgba(255,255,255,0.08); margin:20px 0; }
+.inq-success { display:none; text-align:center; padding:60px 0; }
+.inq-success-icon { font-size:48px; margin-bottom:20px; }
+.inq-success h3 { font-size:20px; font-weight:700; color:#fff; margin-bottom:10px; }
+.inq-success p { font-size:14px; color:rgba(255,255,255,0.4); line-height:1.8; }
+
+/* ② 본문 텍스트 크기 전반 업 */
+.section-sub { font-size:15px; color:rgba(255,255,255,0.35); margin-top:8px; font-weight:400; }
+.ref-name { font-size:15px; color:rgba(255,255,255,0.75); font-weight:500; }
+.ref-tag  { font-size:12px; color:#85B7EB; background:rgba(55,138,221,0.12); border-radius:4px; padding:2px 9px; display:inline-block; margin-bottom:6px; }
+.step-name { font-size:14px; color:rgba(255,255,255,0.4); text-align:center; line-height:1.5; }
+.step-name.act { color:rgba(255,255,255,0.8); }
+.review-text { font-size:15px; color:rgba(255,255,255,0.6); line-height:1.9; margin-bottom:20px; }
+.review-name { font-size:14px; font-weight:500; color:rgba(255,255,255,0.75); }
+.review-company { font-size:12px; color:rgba(255,255,255,0.3); margin-top:2px; }
+.speaker-name { font-size:15px; font-weight:600; color:rgba(255,255,255,0.85); margin-bottom:4px; }
+.speaker-field { font-size:13px; color:rgba(255,255,255,0.3); margin-bottom:10px; line-height:1.5; }
+.ecard-name { font-size:14px; font-weight:600; color:rgba(255,255,255,0.88); transition:color 0.15s; }
+.ecard-sub  { font-size:13px; color:rgba(255,255,255,0.35); line-height:1.5; }
+.ecard-tag  { font-size:12px; color:#85B7EB; background:rgba(55,138,221,0.1); padding:3px 9px; border-radius:3px; }
+.ecard-btn  { margin-top:auto; padding:11px 14px; border-top:0.5px solid rgba(255,255,255,0.07); font-size:13px; color:rgba(255,255,255,0.35); cursor:pointer; background:none; border-left:none; border-right:none; border-bottom:none; font-family:inherit; text-align:left; transition:color 0.2s, background 0.2s; }
+.ecard-btn:hover { color:#378ADD; background:rgba(55,138,221,0.05); }
+.filter-opt { display:flex; align-items:center; gap:8px; font-size:14px; color:rgba(255,255,255,0.35); cursor:pointer; }
+.filter-search { width:100%; background:rgba(255,255,255,0.05); border:0.5px solid rgba(255,255,255,0.12); border-radius:8px; padding:10px 13px; font-size:14px; color:rgba(255,255,255,0.7); font-family:inherit; outline:none; }
+.results-count { font-size:14px; color:rgba(255,255,255,0.3); }
+.d-title  { font-size:15px; color:rgba(255,255,255,0.4); margin-bottom:20px; line-height:1.6; }
+.d-intro  { font-size:15px; color:rgba(255,255,255,0.35); line-height:1.9; margin-bottom:32px; border-left:2px solid rgba(55,138,221,0.4); padding-left:14px; }
+.d-tl-text { font-size:14px; color:rgba(255,255,255,0.6); line-height:1.7; }
+.d-list li { list-style:none; font-size:14px; color:rgba(255,255,255,0.5); line-height:1.85; padding:1px 0; }
+.topic-chip { display:inline-block; font-size:13px; font-weight:500; color:#85B7EB; background:rgba(55,138,221,0.1); border:0.5px solid rgba(55,138,221,0.22); padding:7px 18px; border-radius:20px; margin:3px 3px 3px 0; }
+.kw-tag { display:inline-block; font-size:13px; color:#85B7EB; background:rgba(55,138,221,0.1); padding:5px 12px; border-radius:4px; margin:3px 3px 3px 0; }
+.inq-expert-name  { font-size:16px; font-weight:600; color:#fff; margin-bottom:3px; }
+.inq-expert-title { font-size:13px; color:rgba(255,255,255,0.35); }
+.none-label { font-size:14px; color:rgba(255,255,255,0.35); }
+.field-label { font-size:13px; color:rgba(255,255,255,0.4); margin-bottom:6px; }
+.field-input { width:100%; background:rgba(255,255,255,0.05); border:0.5px solid rgba(255,255,255,0.12); border-radius:8px; padding:11px 14px; font-size:14px; color:rgba(255,255,255,0.85); font-family:inherit; outline:none; transition:border-color 0.2s; }
+.d-bottom-cta p { font-size:14px; color:rgba(255,255,255,0.35); line-height:1.7; }
+.list-cta p { font-size:14px; color:rgba(255,255,255,0.3); line-height:1.7; }
+
+/* ⑥ no-video 레이아웃 → 가운데 정렬 */
+.d-content-no-video { border-top:0.5px solid rgba(255,255,255,0.07); padding:0 0 80px; max-width:760px; margin:0 auto; }
+.d-content-no-video .d-sect { padding:28px 40px; border-bottom:0.5px solid rgba(255,255,255,0.06); }
+.d-content-no-video .d-sect:last-child { border-bottom:none; }
+
+/* ③ 모바일 반응형 */
+@media(max-width:1100px){ .experts-grid{grid-template-columns:repeat(4,1fr);} }
+@media(max-width:900px){
+  nav{padding:14px 20px;} .nav-links{display:none;}
+  .hero{height:100svh;min-height:520px;} .hero-h1{font-size:30px;} .hero-sub{font-size:15px;}
+  .hero-stat{padding:0 16px;} .hero-stat-num{font-size:22px;} .hero-stat-label{font-size:12px;}
+  .section{padding:52px 20px;} .section-h2{font-size:22px;}
+  .ref-grid{grid-template-columns:1fr;} .review-grid{grid-template-columns:1fr;}
+  .steps{flex-direction:column;gap:0;align-items:stretch;}
+  .step{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:0.5px solid rgba(255,255,255,0.06);}
+  .step:last-child{border-bottom:none;}
+  .step-line-r,.step-line-l{display:none;}
+  .step-dot{margin:0;flex-shrink:0;} .step-name{text-align:left;font-size:15px;}
+  .partner-box{width:88px;height:48px;} .partner-row{gap:8px;flex-wrap:wrap;}
+  .form-grid{grid-template-columns:1fr;}
+  .page-header{padding:40px 20px 0;} .page-h1{font-size:26px;} .page-sub{font-size:15px;}
+  .list-layout{grid-template-columns:1fr;padding:24px 20px;gap:20px;}
+  .sidebar{position:static;} .experts-grid{grid-template-columns:repeat(2,1fr);}
+  .list-cta{flex-direction:column;padding:24px 20px;}
+  .d-hero{grid-template-columns:1fr;} .d-hero-img{aspect-ratio:3/2;max-height:280px;}
+  .d-hero-info{padding:28px 20px;} .d-name{font-size:26px;}
+  .d-content-with-video{grid-template-columns:1fr;}
+  .d-content-with-video .d-left,.d-content-with-video .d-right{padding:24px 20px;border-right:none;}
+  .d-content-with-video .d-left{border-bottom:0.5px solid rgba(255,255,255,0.07);}
+  .d-content-no-video{padding:0;max-width:100%;}
+  .d-content-no-video .d-sect{padding:24px 20px;}
+  .d-bottom-cta{margin:32px 20px 60px;flex-direction:column;padding:24px 20px;}
+  .review-card{padding:20px;}
+  .cat-tabs{padding-bottom:16px;}
+  .inq-wrap{padding:40px 20px 80px;}
+  .hero-btns{flex-direction:column;gap:12px;align-items:center;}
+}
+@media(max-width:480px){
+  .experts-grid{grid-template-columns:1fr 1fr;}
+  .hero-h1{font-size:26px;}
+  .d-actions{flex-direction:column;}
+  .d-actions .btn-primary,.d-actions .btn-ghost{width:100%;justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <span class="nav-logo" id="navLogo">ALGO 알고커넥트</span>
+  <div class="nav-links">
+    <span class="nav-link" id="navHome">홈</span>
+    <span class="nav-link" id="navExperts">전문가 찾기</span>
+    <span class="nav-link">레퍼런스</span>
+  </div>
+  <div class="nav-right">
+    <button class="nav-back" id="navBack">← 뒤로</button>
+    <button class="nav-cta" id="navCta">교육 문의하기</button>
+  </div>
+</nav>
+
+<!-- ══ HOME PAGE ══ -->
+<div id="homePage">
+
+<div class="hero">
+  <div class="hero-slides" id="heroSlides">
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1544531586-fde5298cdd40?fm=jpg&q=80&w=1600&auto=format&fit=crop');position:relative;">
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,rgba(55,138,221,0.05),rgba(55,138,221,0.05) 10px,transparent 10px,transparent 20px);border:2px dashed rgba(55,138,221,0.4);">
+        <div style="font-size:13px;color:#378ADD;background:rgba(55,138,221,0.12);border:0.5px solid rgba(55,138,221,0.3);border-radius:6px;padding:6px 14px;margin-bottom:8px;">① 교체 이미지: 1780628417285_image.png</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.3);">강연 현장 풀스크린 배경 · 권장 비율 16:9 이상</div>
+      </div>
+    </div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1571645163064-77faa9676a46?fm=jpg&q=80&w=1600&auto=format&fit=crop');"></div>
+    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1612359383347-245649cbb9d2?fm=jpg&q=80&w=1600&auto=format&fit=crop');"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">B2B 교육 · 강연 전문 플랫폼</div>
+    <div class="hero-h1">검증된 전문가를 가장 빠르게<br>연결하는 방법</div>
+    <div class="hero-sub">기업 교육부터 세미나·포럼 강연까지<br>알고커넥트가 처음부터 끝까지 함께합니다</div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">500+</div><div class="hero-stat-label">누적 강연</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">200+</div><div class="hero-stat-label">검증 전문가</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">150+</div><div class="hero-stat-label">기업 고객</div></div>
+    </div>
+    <div class="hero-btns">
+      <button class="hero-btn-primary" id="heroInquiryBtn">교육 문의하기</button>
+      <button class="hero-btn-ghost" id="heroExpertsBtn">전문가 둘러보기 →</button>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <div class="hero-dot on" id="d0"></div>
+    <div class="hero-dot" id="d1"></div>
+    <div class="hero-dot" id="d2"></div>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="eyebrow">현장 레퍼런스</div>
+  <div class="section-h2">실제로 진행된 강연 현장입니다</div>
+  <div class="ref-grid">
+    <div class="ref-card"><img class="ref-img" src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?fm=jpg&q=60&w=700&auto=format&fit=crop" alt=""><div class="ref-caption"><div class="ref-tag">기업 특강</div><div class="ref-name">대규모 임직원 강연</div></div></div>
+    <div class="ref-card"><img class="ref-img" src="https://images.unsplash.com/photo-1571645163064-77faa9676a46?fm=jpg&q=60&w=700&auto=format&fit=crop" alt=""><div class="ref-caption"><div class="ref-tag">세미나</div><div class="ref-name">리더십 워크숍 세미나</div></div></div>
+    <div class="ref-card"><img class="ref-img" src="https://images.unsplash.com/photo-1612359383347-245649cbb9d2?fm=jpg&q=60&w=700&auto=format&fit=crop" alt=""><div class="ref-caption"><div class="ref-tag">포럼 · 행사</div><div class="ref-name">경제 포럼 기조연설</div></div></div>
+  </div>
+</div>
+
+<div class="section section-alt">
+  <div class="eyebrow">진행 프로세스</div>
+  <div class="section-h2">문의부터 강연까지, 5단계로 완성됩니다</div>
+  <div class="steps">
+    <div class="step"><div class="step-dot act">1</div><div class="step-line-r"></div><div class="step-name act">문의 접수</div></div>
+    <div class="step"><div class="step-dot">2</div><div class="step-line-r"></div><div class="step-line-l"></div><div class="step-name">니즈 파악</div></div>
+    <div class="step"><div class="step-dot">3</div><div class="step-line-r"></div><div class="step-line-l"></div><div class="step-name">전문가 매칭</div></div>
+    <div class="step"><div class="step-dot">4</div><div class="step-line-r"></div><div class="step-line-l"></div><div class="step-name">일정 조율</div></div>
+    <div class="step"><div class="step-dot">5</div><div class="step-line-l"></div><div class="step-name">강연 진행</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="eyebrow">분야별 전문가</div>
+  <div class="section-h2">각 분야 최고의 연사진을 만나보세요</div>
+  <div class="speaker-tabs">
+    <div class="speaker-tab on">전체</div><div class="speaker-tab">리더십</div>
+    <div class="speaker-tab">경제·경영</div><div class="speaker-tab">AI·기술</div>
+    <div class="speaker-tab">트렌드</div><div class="speaker-tab">의학</div><div class="speaker-tab">재테크</div>
+  </div>
+  <div class="speaker-roll-wrap">
+    <div class="speaker-roll-track" id="speakerTrack">
+      <div class="speaker-card"><div class="guide-badge">② 1780628481939_image.png</div><div class="speaker-avatar">사진<br>교체</div><div class="speaker-name">연사 이름 A</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">리더십</div></div>
+      <div class="speaker-card"><div class="guide-badge">③ 1780628520143_image.png</div><div class="speaker-avatar">사진<br>교체</div><div class="speaker-name">연사 이름 B</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">경제·경영</div></div>
+      <div class="speaker-card"><div class="guide-badge">④ 1780628535825_image.png</div><div class="speaker-avatar">사진<br>교체</div><div class="speaker-name">연사 이름 C</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">의학</div></div>
+      <div class="speaker-card"><div style="height:20px"></div><div class="speaker-avatar">추가<br>연사</div><div class="speaker-name">연사 이름 D</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">AI·기술</div></div>
+      <div class="speaker-card"><div style="height:20px"></div><div class="speaker-avatar">추가<br>연사</div><div class="speaker-name">연사 이름 E</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">트렌드</div></div>
+      <div class="speaker-card"><div style="height:20px"></div><div class="speaker-avatar">추가<br>연사</div><div class="speaker-name">연사 이름 F</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">재테크</div></div>
+      <div class="speaker-card"><div style="height:20px"></div><div class="speaker-avatar">추가<br>연사</div><div class="speaker-name">연사 이름 G</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">마케팅</div></div>
+      <div class="speaker-card"><div style="height:20px"></div><div class="speaker-avatar">추가<br>연사</div><div class="speaker-name">연사 이름 H</div><div class="speaker-field">직함 / 소속</div><div class="speaker-tag">리더십</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="section section-alt">
+  <div class="eyebrow">교육 · 강연 후기</div>
+  <div class="section-h2">함께한 기업 담당자들의 이야기입니다</div>
+  <div class="review-grid">
+    <div class="review-card"><div class="review-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><div class="review-text">"강사 섭외부터 당일 진행까지 매우 신속하고 전문적으로 처리해 주셔서 임직원 반응이 정말 좋았습니다."</div><div class="review-author"><div class="review-ava">KH</div><div><div class="review-name">김현우 팀장</div><div class="review-company">A사 HR팀 · 임직원 특강</div></div></div></div>
+    <div class="review-card"><div class="review-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><div class="review-text">"원하는 분야 전문가를 빠르게 매칭해 주었고, 강연 내용도 조직 상황에 맞게 커스터마이징해 주셔서 만족스러웠습니다."</div><div class="review-author"><div class="review-ava">LJ</div><div><div class="review-name">이지연 담당</div><div class="review-company">B기관 교육팀 · 리더십 세미나</div></div></div></div>
+    <div class="review-card"><div class="review-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><div class="review-text">"교육 목적에 맞는 기획 단계부터 도움을 받을 수 있어서 좋았습니다. 퀄리티 대비 합리적인 비용이었습니다."</div><div class="review-author"><div class="review-ava">PY</div><div><div class="review-name">박영민 매니저</div><div class="review-company">C사 조직문화팀 · 워크숍</div></div></div></div>
+    <div class="review-card"><div class="review-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><div class="review-text">"포럼 규모가 컸는데도 꼼꼼하게 체크리스트를 공유해 주셔서 안심하고 진행할 수 있었습니다."</div><div class="review-author"><div class="review-ava">CH</div><div><div class="review-name">최희준 과장</div><div class="review-company">D공공기관 · 경제 포럼</div></div></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="eyebrow">협력사</div>
+  <div class="section-h2">수많은 기업과 기관이 함께하고 있습니다<br><span class="section-sub">협력사 로고 이미지를 순서대로 교체해 주세요</span></div>
+  <div class="partner-rows">
+    <div class="partner-row">
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_01.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_02.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_03.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_04.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_05.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_06.png</div></div>
+    </div>
+    <div class="partner-row">
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_07.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_08.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_09.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_10.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_11.png</div></div>
+    </div>
+    <div class="partner-row">
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_12.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_13.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_14.png</div></div>
+      <div class="partner-box"><div class="partner-box-label">로고</div><div class="partner-box-hint">logo_15.png</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- HOME FORM (id=homeForm 으로 앵커) -->
+<div class="section section-alt" id="homeForm">
+  <div class="eyebrow">교육 문의</div>
+  <div class="section-h2">어떤 교육이 필요하신가요?</div>
+  <div class="guide-note">
+    <strong>이미지 교체 가이드</strong><br>
+    · Hero 배경: <strong>① 1780628417285_image.png</strong> (강연 현장, 16:9 이상)<br>
+    · 연사 A: <strong>② 1780628481939_image.png</strong> &nbsp;· 연사 B: <strong>③ 1780628520143_image.png</strong> &nbsp;· 연사 C: <strong>④ 1780628535825_image.png</strong><br>
+    · 협력사 로고: <strong>logo_01.png ~ logo_15.png</strong> (가로형 PNG, 흰색 또는 그레이스케일)
+  </div>
+  <div class="form-grid">
+    <div><div class="field-label">회사명</div><input class="field-input" placeholder="회사명을 입력해주세요"></div>
+    <div><div class="field-label">담당자명</div><input class="field-input" placeholder="성함을 입력해주세요"></div>
+    <div><div class="field-label">연락처</div><input class="field-input" placeholder="010-0000-0000"></div>
+    <div><div class="field-label">이메일</div><input class="field-input" placeholder="example@company.com"></div>
+  </div>
+  <div class="field-label" style="margin-bottom:8px;">교육 유형 선택</div>
+  <div class="type-btns" id="homeTypeBtns">
+    <button class="type-btn sel">특강</button><button class="type-btn">세미나</button>
+    <button class="type-btn">워크숍</button><button class="type-btn">온라인</button>
+    <button class="type-btn">포럼 · 행사</button>
+  </div>
+  <div class="form-grid">
+    <div><div class="field-label">예상 인원</div><input class="field-input" placeholder="00명"></div>
+    <div><div class="field-label">희망 일정</div><input class="field-input" placeholder="YYYY.MM"></div>
+  </div>
+  <div class="divider"></div>
+  <div class="field-label" style="margin-bottom:14px;">원하는 전문가 선택 <span style="color:rgba(255,255,255,0.2);font-size:13px;">· 없을 경우 하단 체크박스를 선택해주세요</span></div>
+  <div class="priority-block">
+    <div class="priority-row"><div class="priority-badge p1">1순위</div><div class="priority-select"><span>전문가를 선택해주세요</span><span class="priority-arrow">∨</span></div></div>
+    <div class="priority-row"><div class="priority-badge p2">2순위</div><div class="priority-select"><span>전문가를 선택해주세요</span><span class="priority-arrow">∨</span></div></div>
+    <div class="priority-row"><div class="priority-badge p3">3순위</div><div class="priority-select"><span>전문가를 선택해주세요</span><span class="priority-arrow">∨</span></div></div>
+    <div class="none-row"><div class="checkbox"></div><div class="none-label">원하는 전문가가 없거나 미정입니다 — 알고커넥트에서 추천해주세요</div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="field-label" style="margin-bottom:6px;">추가 요청사항</div>
+  <textarea class="field-input" rows="4" placeholder="강연 주제, 분야, 예산 등 자유롭게 작성해주세요" style="resize:none;line-height:1.7;"></textarea>
+  <button class="submit-btn">문의 제출하기</button>
+</div>
+
+</div><!-- /homePage -->
+
+<!-- ══ LIST PAGE ══ -->
+<div id="listPage">
+  <div class="page-header">
+    <div class="eyebrow">전문가 찾기</div>
+    <div class="page-h1">각 분야 최고의 연사진을<br>만나보세요</div>
+    <div class="page-sub">검증된 전문가 네트워크를 기반으로 맞춤형 교육,<br>행사, 콘텐츠 섭외까지 빠르게 연결합니다.</div>
+    <div class="cat-tabs" id="catTabs">
+      <button class="cat-tab on" data-cat="전체">전체</button>
+      <button class="cat-tab" data-cat="의학">의학</button>
+      <button class="cat-tab" data-cat="과학">과학</button>
+      <button class="cat-tab" data-cat="경영">경영·HR</button>
+      <button class="cat-tab" data-cat="재무">재무·재테크</button>
+      <button class="cat-tab" data-cat="교육">교육</button>
+      <button class="cat-tab" data-cat="심리">심리</button>
+      <button class="cat-tab" data-cat="안보">안보·방산</button>
+      <button class="cat-tab" data-cat="엔터">엔터·MC</button>
+      <button class="cat-tab" data-cat="유튜버">유튜버</button>
+      <button class="cat-tab" data-cat="미디어">미디어</button>
+    </div>
+  </div>
+  <div class="list-layout">
+    <aside class="sidebar">
+      <div class="filter-section">
+        <div class="filter-title">검색</div>
+        <input class="filter-search" id="searchInput" type="text" placeholder="이름 · 키워드">
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-title">강연 유형</div>
+        <div class="filter-opts">
+          <label class="filter-opt"><input type="checkbox" checked> 기업 특강</label>
+          <label class="filter-opt"><input type="checkbox" checked> 세미나·포럼</label>
+          <label class="filter-opt"><input type="checkbox"> 워크숍</label>
+          <label class="filter-opt"><input type="checkbox"> 온라인 강연</label>
+        </div>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-section">
+        <div class="filter-title">대상 규모</div>
+        <div class="filter-opts">
+          <label class="filter-opt"><input type="checkbox"> 소규모 (30명↓)</label>
+          <label class="filter-opt"><input type="checkbox"> 중규모 (30~100명)</label>
+          <label class="filter-opt"><input type="checkbox"> 대규모 (100명↑)</label>
+        </div>
+      </div>
+    </aside>
+    <div>
+      <div class="results-bar">
+        <p class="results-count" id="resultCount">총 <strong>0명</strong>의 전문가</p>
+        <select class="sort-select"><option>등록순</option><option>이름 순</option></select>
+      </div>
+      <div class="experts-grid" id="expertsGrid"></div>
+      <div class="list-cta">
+        <div><h3>원하는 전문가를 찾지 못하셨나요?</h3><p>요구사항을 알려주시면 최적의 전문가를<br>직접 추천해 드립니다.</p></div>
+        <button class="cta-btn" id="listCtaBtn">맞춤 추천 받기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DETAIL PAGE ══ -->
+<div id="detailPage">
+  <div class="d-hero">
+    <div class="d-hero-img">
+      <img id="dImg" src="" alt="">
+      <div class="d-hero-img-fb" id="dFallback" style="display:none"></div>
+    </div>
+    <div class="d-hero-info">
+      <div class="d-hero-cat" id="dCat"></div>
+      <div class="d-name" id="dName"></div>
+      <div class="d-title" id="dTitle"></div>
+      <div class="d-intro" id="dIntro"></div>
+      <div class="d-actions">
+        <button class="btn-primary" id="dInquiry">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          섭외 문의하기
+        </button>
+        <button class="btn-ghost" id="dShare">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          공유하기
+        </button>
+        <button class="btn-ghost" id="dBackBtn">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          목록보기
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="d-content-with-video" id="dLayoutVideo" style="display:none">
+    <div class="d-left">
+      <div class="d-block-label">강연영상</div>
+      <div class="d-video-frame"><iframe id="dIframe" src="" allowfullscreen loading="lazy"></iframe></div>
+      <div class="d-video-caption" id="dVideoCaption"></div>
+      <div class="d-sect" id="dKwBlockV" style="margin-top:28px"><div class="d-block-label">키워드</div><div id="dKwsV"></div></div>
+    </div>
+    <div class="d-right">
+      <div class="d-sect" id="dTopicsBlockV"><div class="d-block-label">강연주제</div><div id="dTopicsV"></div></div>
+      <div class="d-sect" id="dCareerBlockV"><div class="d-block-label">경력</div><div class="d-tl-items" id="dCareerV"></div></div>
+      <div class="d-sect" id="dEduBlockV" style="display:none"><div class="d-block-label">학력</div><ul class="d-list" id="dEduV"></ul></div>
+      <div class="d-sect" id="dBooksBlockV" style="display:none"><div class="d-block-label">저서</div><ul class="d-list" id="dBooksV"></ul></div>
+      <div class="d-sect" id="dMediaBlockV" style="display:none"><div class="d-block-label">미디어 활동</div><ul class="d-list" id="dMediaV"></ul></div>
+    </div>
+  </div>
+  <div class="d-content-no-video" id="dLayoutNoVideo" style="display:none">
+    <div class="d-sect" id="dTopicsBlockN"><div class="d-block-label">강연주제</div><div id="dTopicsN"></div></div>
+    <div class="d-sect" id="dCareerBlockN"><div class="d-block-label">경력</div><div class="d-tl-items" id="dCareerN"></div></div>
+    <div class="d-sect" id="dEduBlockN" style="display:none"><div class="d-block-label">학력</div><ul class="d-list" id="dEduN"></ul></div>
+    <div class="d-sect" id="dBooksBlockN" style="display:none"><div class="d-block-label">저서</div><ul class="d-list" id="dBooksN"></ul></div>
+    <div class="d-sect" id="dMediaBlockN" style="display:none"><div class="d-block-label">미디어 활동</div><ul class="d-list" id="dMediaN"></ul></div>
+    <div class="d-sect" id="dExtraBlockN" style="display:none"><div class="d-block-label">기타활동</div><ul class="d-list" id="dExtraN"></ul></div>
+    <div class="d-sect" id="dKwBlockN"><div class="d-block-label">키워드</div><div id="dKwsN"></div></div>
+  </div>
+  <div class="d-bottom-cta">
+    <div><h3 id="dCtaName"></h3><p>지금 바로 섭외 문의를 남겨주세요.<br>빠르게 연결해 드립니다.</p></div>
+    <button class="btn-primary" style="font-size:14px;padding:13px 26px;" id="dCtaBtn">섭외 문의하기 →</button>
+  </div>
+</div>
+
+<!-- ══ INQUIRY PAGE ══ -->
+<div id="inquiryPage">
+  <div class="inq-wrap">
+    <div class="inq-title">섭외 문의</div>
+    <div class="inq-expert-card">
+      <div class="inq-expert-img">
+        <img id="inqImg" src="" alt="" onerror="this.style.display='none';document.getElementById('inqImgFb').style.display='flex'">
+        <div class="inq-expert-img-fb" id="inqImgFb" style="display:none"></div>
+      </div>
+      <div>
+        <div class="inq-expert-name" id="inqName"></div>
+        <div class="inq-expert-title" id="inqTitle"></div>
+      </div>
+    </div>
+    <div id="inqForm">
+      <div class="form-grid">
+        <div><div class="field-label">기업 / 기관명 <span class="req">*</span></div><input class="field-input" id="fCompany" placeholder="회사명을 입력해주세요"></div>
+        <div><div class="field-label">담당자 성명 / 직책 <span class="req">*</span></div><input class="field-input" id="fManager" placeholder="성함 / 직책을 입력해주세요"></div>
+        <div><div class="field-label">이메일 <span class="req">*</span></div><input class="field-input" id="fEmail" type="email" placeholder="example@company.com"></div>
+        <div><div class="field-label">연락처 <span class="req">*</span></div><input class="field-input" id="fPhone" placeholder="010-0000-0000"></div>
+      </div>
+      <div class="field-label" style="margin-bottom:8px;">교육 유형 선택</div>
+      <div class="type-btns" id="inqTypeBtns">
+        <button class="type-btn sel">특강</button><button class="type-btn">세미나</button>
+        <button class="type-btn">워크숍</button><button class="type-btn">온라인</button><button class="type-btn">포럼 · 행사</button>
+      </div>
+      <div class="form-grid">
+        <div><div class="field-label">예상 인원</div><input class="field-input" placeholder="00명"></div>
+        <div><div class="field-label">희망 일정</div><input class="field-input" placeholder="YYYY.MM"></div>
+      </div>
+      <div class="form-divider"></div>
+      <div class="field-label" style="margin-bottom:6px;">문의내용</div>
+      <textarea class="field-input" id="fContent" rows="5" placeholder="강연 주제, 분야, 예산 등 자유롭게 작성해 주세요" style="resize:none;line-height:1.7;"></textarea>
+      <button class="submit-btn" id="inqSubmitBtn">문의 제출하기</button>
+    </div>
+    <div class="inq-success" id="inqSuccess">
+      <div class="inq-success-icon">✓</div>
+      <h3>문의가 접수되었습니다</h3>
+      <p>담당자가 확인 후 빠르게 연락드리겠습니다.<br>평균 응답 시간은 1영업일 이내입니다.</p>
+      <button class="btn-ghost" style="margin:28px auto 0;display:inline-flex" id="inqBackBtn">목록으로 돌아가기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════
+   페이지 스택 & 라우터
+═══════════════════════════════ */
+var PAGE = 'home'; // home | list | detail | inquiry
+var inquiryExpert = null;
+var currentList = [];
+
+var PAGES = {
+  home:    document.getElementById('homePage'),
+  list:    document.getElementById('listPage'),
+  detail:  document.getElementById('detailPage'),
+  inquiry: document.getElementById('inquiryPage')
+};
+
+var TITLES = {
+  home:    '알고커넥트 · B2B 교육·강연 전문 플랫폼',
+  list:    '전문가 찾기 · 알고커넥트',
+  detail:  '',
+  inquiry: ''
+};
+
+function goto(page, pushState) {
+  Object.keys(PAGES).forEach(function(k){ PAGES[k].style.display = 'none'; });
+  PAGES[page].style.display = 'block';
+  PAGE = page;
+  window.scrollTo(0, 0);
+
+  // NAV 상태
+  var showBack = (page !== 'home');
+  document.getElementById('navBack').style.display = showBack ? 'flex' : 'none';
+  document.getElementById('navHome').classList.toggle('hl', page === 'home');
+  document.getElementById('navExperts').classList.toggle('hl', page === 'list' || page === 'detail');
+
+  if (TITLES[page]) document.title = TITLES[page];
+
+  if (pushState !== false) {
+    history.pushState({page: page}, '', '#' + page);
+  }
+}
+
+// 브라우저 뒤로가기
+window.addEventListener('popstate', function(e) {
+  var p = (e.state && e.state.page) ? e.state.page : 'home';
+  // inquiry -> detail, detail -> list, list -> home
+  goto(p, false);
+});
+
+// 초기 상태 등록
+history.replaceState({page:'home'}, '', '#home');
+
+/* ═══════════════════════════════
+   NAV 클릭
+═══════════════════════════════ */
+document.getElementById('navLogo').addEventListener('click', function(){ goto('home'); });
+document.getElementById('navHome').addEventListener('click', function(){ goto('home'); });
+document.getElementById('navExperts').addEventListener('click', function(){ goto('list'); });
+document.getElementById('navCta').addEventListener('click', function(){
+  goto('home');
+  setTimeout(function(){ document.getElementById('homeForm').scrollIntoView({behavior:'smooth'}); }, 100);
+});
+document.getElementById('navBack').addEventListener('click', function(){
+  var map = {inquiry:'detail', detail:'list', list:'home'};
+  goto(map[PAGE] || 'home');
+});
+
+/* ═══════════════════════════════
+   HOME 버튼
+═══════════════════════════════ */
+document.getElementById('heroExpertsBtn').addEventListener('click', function(){ goto('list'); });
+document.getElementById('heroInquiryBtn').addEventListener('click', function(){
+  document.getElementById('homeForm').scrollIntoView({behavior:'smooth'});
+});
+document.getElementById('listCtaBtn').addEventListener('click', function(){
+  goto('home');
+  setTimeout(function(){ document.getElementById('homeForm').scrollIntoView({behavior:'smooth'}); }, 100);
+});
+
+// 홈 교육유형 토글
+document.getElementById('homeTypeBtns').addEventListener('click', function(ev){
+  if(ev.target.classList.contains('type-btn')){
+    document.querySelectorAll('#homeTypeBtns .type-btn').forEach(function(b){b.classList.remove('sel');});
+    ev.target.classList.add('sel');
+  }
+});
+
+// 홈 메인 슬라이드쇼
+var cur=0;
+function goSlide(i){
+  cur=i;
+  document.getElementById('heroSlides').style.transform='translateX(-'+(i*33.333)+'%)';
+  [0,1,2].forEach(function(j){
+    document.getElementById('d'+j).className='hero-dot'+(j===i?' on':'');
+  });
+}
+setInterval(function(){goSlide((cur+1)%3);},3500);
+[0,1,2].forEach(function(i){
+  document.getElementById('d'+i).addEventListener('click',function(){goSlide(i);});
+});
+
+// 홈 스피커 롤링
+var spkPos=0;
+var spkTrack=document.getElementById('speakerTrack');
+setInterval(function(){
+  spkPos+=0.6;
+  if(spkPos>=196*4) spkPos=0;
+  spkTrack.style.transform='translateX(-'+spkPos+'px)';
+},16);
+document.querySelectorAll('.speaker-tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    document.querySelectorAll('.speaker-tab').forEach(function(t){t.classList.remove('on');});
+    tab.classList.add('on');
+  });
+});
+
+/* ═══════════════════════════════
+   DATA
+═══════════════════════════════ */
+var DATA = [
+  {name:"이영주", title:"큐에셋 대표 / 연금·재무 설계전문가", cat:"재무", badge:"bc-재무",
+   tags:["연금설계","재무전략","자산관리","노후준비","재테크강연"],
+   intro:"재무설계전문가 이영주입니다.",
+   career:["큐에셋(주) 대표","금융전설팀투자사 대표이사","(전) 한국씨우 삼계(주) 상무이사"],
+   edu:["서강대학교 경영학과"],
+   books:["2021, 국민연금","2021, 연금부자들","2012, 남한 새우들을 길러왔나"],
+   topics:["100세 인생, 평생연금 500만원 만들기"],
+   videoId:"vEhj7UGO9xw", videoTitle:"국민연금공단에서 절대 알려주지 않는 4가지 함정",
+   media:["KBS 1TV 이침마당","KBS 무엇이든 물어보세요","KBS 라디오 고정출연","MBC 라디오 경제 코너"],
+   extra:["연금이야기 유튜브 채널 운영","공공기관 주요 연금 강연"]},
+  {name:"황성현", title:"교수 / 퀀텀인사이트 대표", cat:"경영", badge:"bc-경영",
+   tags:["HR전략","조직문화","구글·카카오","인재관리","리더십"],
+   intro:"구글·카카오 출신 30년 HR 전문가, 황성현입니다.",
+   career:["퀀텀인사이트 대표","카카오 인사총괄 부사장","구글 본사 HR 파트너","타워스페린·링키지 HR 컨설팅"],
+   edu:["서강대학교 경영학과"], books:[],
+   topics:["조직문화 혁신","인재 채용과 리텐션","구글·카카오식 HR 전략"],
+   videoId:"", videoTitle:"",
+   media:["KBS, tvN 등 각종 방송 출연"],extra:["스타트업 HR 자문"]},
+  {name:"권혁수", title:"알레르기 내과 교수", cat:"의학", badge:"bc-의학",
+   tags:["알레르기","호흡기","면역","만성질환","내과강연"],
+   intro:"알레르기 내과교수 권혁수입니다.",
+   career:["알레르기 내과 교수","대학병원 호흡기·알레르기내과 진료"],
+   edu:[],books:[],
+   topics:["알레르기 질환의 이해","면역과 건강","호흡기 질환 예방"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"송길영", title:"빅데이터 전문가", cat:"과학", badge:"bc-과학",
+   tags:["빅데이터","트렌드분석","소셜분석","미래예측","디지털전환"],
+   intro:"빅데이터로 세상의 흐름을 읽는 송길영입니다.",
+   career:["다음소프트 부사장","마인드마이너 대표"],
+   edu:[],books:["시대예보: 핵개인의 시대","그냥 하지 말라"],
+   topics:["빅데이터로 보는 사회 트렌드","미래 예측과 비즈니스 전략"],
+   videoId:"",videoTitle:"",media:["각종 방송 및 강연"],extra:[]},
+  {name:"홍익희", title:"무역학자", cat:"경영", badge:"bc-경영",
+   tags:["무역","경제사","유대인경제","글로벌비즈니스","국제금융"],
+   intro:"무역학자 홍익희입니다.",
+   career:["KOTRA 근무 30년","세종대학교 교수"],
+   edu:[],books:["유대인 이야기","달러 이야기","세 종교 이야기"],
+   topics:["유대인의 경제적 성공 비결","달러와 국제금융"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"김병곤", title:"스포츠의학 이학박사", cat:"의학", badge:"bc-의학",
+   tags:["스포츠의학","재활","트레이닝","부상예방","운동과학"],
+   intro:"운동과 트레이닝, 재활에 대해 알려드리는 김병곤입니다.",
+   career:["스포츠의학 이학박사","선수단 재활 트레이너"],
+   edu:[],books:[],
+   topics:["올바른 운동법과 재활","부상 예방과 컨디셔닝"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"김태균 (닥터딩요)", title:"내과전문의", cat:"의학", badge:"bc-의학",
+   tags:["내과","건강정보","유튜브의사","생활습관","만성질환"],
+   intro:"닥터딩요 김태균 원장입니다.",
+   career:["내과전문의","닥터딩요 유튜브 채널 운영"],
+   edu:[],books:[],
+   topics:["올바른 건강 정보 리터러시","생활습관병 예방"],
+   videoId:"",videoTitle:"",media:["유튜브 닥터딩요 채널"],extra:[]},
+  {name:"심현철 (피부심)", title:"피부과 전문의", cat:"의학", badge:"bc-의학",
+   tags:["피부과","피부관리","시술","자기관리","뷰티의학"],
+   intro:"피부에 자부심을 가질 수 있게 도와드리는 피부심 심현철입니다.",
+   career:["피부과 전문의","피부심 원장"],
+   edu:[],books:[],
+   topics:["올바른 피부 관리법","피부 시술의 이해"],
+   videoId:"",videoTitle:"",media:["유튜브 피부심 채널"],extra:[]},
+  {name:"허준", title:"MC", cat:"엔터", badge:"bc-엔터",
+   tags:["MC","방송진행","행사사회","토크쇼","엔터테이너"],
+   intro:"MC 허준입니다.",
+   career:["방송인 / MC"],edu:[],books:[],
+   topics:["행사 사회 및 진행","기업 행사 MC"],
+   videoId:"",videoTitle:"",media:["각종 방송 MC 활동"],extra:[]},
+  {name:"김태형 (치과왕)", title:"치과의사", cat:"의학", badge:"bc-의학",
+   tags:["치과","구강건강","임플란트","치아미백","치의학"],
+   intro:"블랑쉬 치과 대표원장 김태형입니다.",
+   career:["블랑쉬 치과 대표원장","치과왕 유튜브 채널 운영"],
+   edu:[],books:[],
+   topics:["구강건강의 중요성","올바른 치과 상식"],
+   videoId:"",videoTitle:"",media:["유튜브 치과왕 채널"],extra:[]},
+  {name:"양선우 (특청사)", title:"방역 전문가", cat:"안보", badge:"bc-안보",
+   tags:["방역","대테러","특수경호","안보전략","위기관리"],
+   intro:"대한민국 방역의 표준, 방역 전문가 양선우입니다.",
+   career:["특수청원경찰 출신","디펜스 분야 전문가"],
+   edu:[],books:[],topics:["방역 및 보안 전략","위기관리와 안보"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"이경석", title:"신경외과 / 88병원 대표원장", cat:"의학", badge:"bc-의학",
+   tags:["신경외과","척추","뇌수술","통증의학","수술혁신"],
+   intro:"88병원 대표원장 이경석입니다. 의료는 숫자와 진단으로 말합니다.",
+   career:["88병원 대표원장","신경외과 전문의"],
+   edu:[],books:[],
+   topics:["신경외과 최신 트렌드","척추·뇌 질환의 이해"],
+   videoId:"",videoTitle:"",media:["방송 출연 다수"],extra:[]},
+  {name:"이고은", title:"재활의학과", cat:"의학", badge:"bc-의학",
+   tags:["재활의학","물리치료","통증관리","회복","운동재활"],
+   intro:"재활의학과 이고은입니다. 이유없는 통증은 없습니다.",
+   career:["재활의학과 전문의","이고은의원 원장"],
+   edu:[],books:[],topics:["통증과 재활","운동재활의 원리"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"최석재", title:"응급의학과", cat:"의학", badge:"bc-의학",
+   tags:["응급의학","유퀴즈","응급처치","의학커뮤니케이션","건강강연"],
+   intro:"유퀴즈 의사 에피소드 재벌, 응급의학과 전문의 최석재입니다.",
+   career:["응급의학과 전문의"],
+   edu:[],books:[],topics:["응급처치 기본 교육","건강 위기 대응법"],
+   videoId:"",videoTitle:"",media:["tvN 유퀴즈온더블록 출연"],extra:[]},
+  {name:"김민석", title:"방산 전문가", cat:"안보", badge:"bc-방산",
+   tags:["방위산업","항공","방산수출","Aviation","안보분석"],
+   intro:"Aviation Week Network 한국 전문가 김민석입니다.",
+   career:["Aviation Week Network 한국 대표","방산 전문 애널리스트"],
+   edu:[],books:[],topics:["한국 방위산업의 현재와 미래","방산 수출 전략"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"안승범", title:"안보 전문가", cat:"안보", badge:"bc-안보",
+   tags:["안보","디펜스타임즈","군사전략","국방","북한분석"],
+   intro:"디펜스타임즈 대표 안승범입니다.",
+   career:["디펜스타임즈 대표","군사·안보 전문 기자"],
+   edu:[],books:[],topics:["한반도 안보 현황","북한 군사 전략 분석"],
+   videoId:"",videoTitle:"",media:["디펜스타임즈 운영"],extra:[]},
+  {name:"이병훈", title:"교육 전문가 / 자녀 교육법", cat:"교육", badge:"bc-교육",
+   tags:["자녀교육","자기주도학습","학습법","진로","교육코칭"],
+   intro:"자녀 교육 및 자기주도학습 전문가 이병훈입니다.",
+   career:["교육 전문가","자녀교육 코치"],
+   edu:[],books:[],topics:["자기주도학습법","진로 탐색과 코칭"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"김태훈", title:"심리학", cat:"심리", badge:"bc-심리",
+   tags:["인지심리학","행동과학","의사결정","뇌과학","심리강연"],
+   intro:"인간의 움직임을 연구하는 국내 유일의 인지심리학자 김태훈입니다.",
+   career:["인지심리학자","대학교수"],
+   edu:[],books:[],topics:["인간의 행동과 의사결정","설득과 동기부여"],
+   videoId:"",videoTitle:"",media:["방송 출연 다수"],extra:[]},
+  {name:"박정재", title:"지리학", cat:"과학", badge:"bc-과학",
+   tags:["생물지리학","고기후학","고생태학","자연환경","지구과학"],
+   intro:"박정재입니다. 생물지리학, 고기후학, 고생태학을 연구하고 있습니다.",
+   career:["지리학 교수","생물지리·고기후 연구자"],
+   edu:[],books:[],topics:["기후 변화의 역사","자연환경과 인류"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"호사카 유지", title:"일본 전문가", cat:"미디어", badge:"bc-미디어",
+   tags:["일본학","한일관계","역사","정치분석","국제관계"],
+   intro:"호사카 유지 교수입니다. 2003년 한국으로 귀화했습니다.",
+   career:["세종대학교 교수","독도연구소 소장"],
+   edu:[],books:["아베 그는 누구인가","일본 우경화의 실체"],
+   topics:["한일 관계의 현재와 미래","독도와 역사적 진실"],
+   videoId:"",videoTitle:"",media:["방송 출연 다수"],extra:[]},
+  {name:"이상은", title:"행동심리 전문가", cat:"심리", badge:"bc-심리",
+   tags:["행동심리","비언어커뮤니케이션","설득","협상","대화법"],
+   intro:"행동심리, 비언어 커뮤니케이션 전문가 이상은입니다.",
+   career:["행동심리 전문가","커뮤니케이션 코치"],
+   edu:[],books:[],topics:["비언어 커뮤니케이션","설득의 심리학"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"이광렬", title:"화학자", cat:"과학", badge:"bc-과학",
+   tags:["화학","고려대교수","과학커뮤니케이션","일상속화학","STEM"],
+   intro:"고려대 화학과 교수 이광렬입니다.",
+   career:["고려대학교 화학과 교수"],
+   edu:[],books:[],topics:["일상 속 화학","과학 커뮤니케이션"],
+   videoId:"",videoTitle:"",media:["과학 관련 방송 출연"],extra:[]},
+  {name:"김준홍", title:"인류학", cat:"과학", badge:"bc-과학",
+   tags:["생물인류학","진화","인간행동","다양성","진화생물학"],
+   intro:"인간에 대한 진화생물학을 연구하는 생물인류학자 김준홍입니다.",
+   career:["생물인류학자","대학 연구원"],
+   edu:[],books:[],topics:["인류의 진화","인간 다양성과 문화"],
+   videoId:"",videoTitle:"",media:["KAOS 재단 강연"],extra:[]},
+  {name:"민원정", title:"중남미 전문가", cat:"미디어", badge:"bc-미디어",
+   tags:["중남미","라틴아메리카","문화","역사","국제관계"],
+   intro:"중남미의 사회·문화·역사를 오랫동안 연구해 온 민원정 교수입니다.",
+   career:["중남미 전문가","대학교수"],
+   edu:[],books:[],topics:["중남미의 정치·사회","라틴아메리카 문화"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"이은영", title:"정리 전문가 / 공간 에디터", cat:"미디어", badge:"bc-미디어",
+   tags:["공간정리","라이프스타일","미니멀리즘","인테리어","소미샘"],
+   intro:"공간을 편집하는 소미샘 이은영입니다.",
+   career:["정리 전문가 / 공간 에디터","소미샘 유튜브 채널 운영"],
+   edu:[],books:[],topics:["공간 정리의 기술","미니멀 라이프스타일"],
+   videoId:"",videoTitle:"",media:["소미샘 유튜브 채널"],extra:[]},
+  {name:"김백민", title:"기후학자", cat:"과학", badge:"bc-과학",
+   tags:["기후변화","기상학","탄소중립","ESG","환경강연"],
+   intro:"기후학자 김백민입니다.",
+   career:["기후학자","대학교수"],edu:[],books:[],
+   topics:["기후 위기의 현실","탄소중립과 ESG"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"김기범", title:"지질학자", cat:"과학", badge:"bc-과학",
+   tags:["지질학","지진","화산","지구과학","재해예방"],
+   intro:"지진과 화산을 연구하는 지질학자 김기범입니다.",
+   career:["지질학자","대학 연구원"],edu:[],books:[],
+   topics:["지진과 화산의 과학","자연재해 예방"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"권석준", title:"교수 / 화학공학자", cat:"과학", badge:"bc-과학",
+   tags:["화학공학","나노소재","배터리","반도체소재","공학강연"],
+   intro:"공학자 권석준입니다.",
+   career:["화학공학과 교수","나노소재 연구"],edu:[],books:[],
+   topics:["배터리와 미래 에너지","반도체 소재의 이해"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"김응빈", title:"미생물학자 / 생물학자", cat:"과학", badge:"bc-과학",
+   tags:["미생물학","생태계","발효","항생제내성","생명과학"],
+   intro:"작지만 위대한 미생물을 통해 세상을 탐구하는 생물학자입니다.",
+   career:["미생물학자","대학교수"],edu:[],books:[],
+   topics:["미생물의 세계","항생제와 내성의 위기"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"김재원", title:"아나운서", cat:"미디어", badge:"bc-미디어",
+   tags:["아나운서","스피치","발표","커뮤니케이션","방송진행"],
+   intro:"아나운서 김재원입니다.",
+   career:["아나운서","방송진행자"],edu:[],books:[],
+   topics:["스피치와 발표 기술","퍼블릭 스피킹"],
+   videoId:"",videoTitle:"",media:["방송 진행 다수"],extra:[]},
+  {name:"성일광", title:"중동학자", cat:"미디어", badge:"bc-미디어",
+   tags:["중동","이슬람학","국제정세","문명충돌","중동외교"],
+   intro:"서강대 유로메나 연구소에서 이슬람학을 가르치고 있는 성일광입니다.",
+   career:["서강대학교 유로메나 연구소","중동학 연구자"],
+   edu:[],books:[],topics:["중동의 정치와 문화","이슬람 문명의 이해"],
+   videoId:"",videoTitle:"",media:[],extra:[]},
+  {name:"박현도", title:"교수 / 이슬람학 / 중동학", cat:"미디어", badge:"bc-미디어",
+   tags:["이슬람","중동학","서강대교수","종교학","문명비교"],
+   intro:"서강대에서 이슬람학을 공부하고 가르치고 있는 박현도입니다.",
+   career:["서강대학교 교수","이슬람 연구소"],
+   edu:[],books:[],topics:["이슬람의 역사와 문화","종교와 문명의 충돌"],
+   videoId:"",videoTitle:"",media:["방송 출연 다수"],extra:[]},
+  {name:"강인욱", title:"고고학", cat:"과학", badge:"bc-과학",
+   tags:["고고학","고대문명","실크로드","역사고증","인류기원"],
+   intro:"오늘도 저는 삽질을 합니다. 대학과 방송, 언론을 넘나들며 학문을 쉽게 전달합니다.",
+   career:["고고학자","대학교수"],edu:[],books:[],
+   topics:["고고학으로 보는 인류 기원","실크로드와 문명 교류"],
+   videoId:"",videoTitle:"",media:["방송 출연 다수"],extra:[]},
+  {name:"우주먼지 (지웅배)", title:"천문학", cat:"과학", badge:"bc-과학",
+   tags:["천문학","우주과학","은하","빅뱅","과학대중화"],
+   intro:"은하의 충돌과 진화를 연구하는 천문학자 우주먼지입니다.",
+   career:["천문학자","과학 커뮤니케이터"],edu:[],books:[],
+   topics:["우주의 탄생과 진화","과학 대중화의 가치"],
+   videoId:"",videoTitle:"",media:["유튜브 우주먼지 채널"],extra:[]},
+  {name:"머니인사이드", title:"유튜버", cat:"유튜버", badge:"bc-유튜버",
+   tags:["재테크","투자","경제유튜브","자산관리","주식"],
+   intro:"돈이 되는 유익한 이야기, 머니인사이드입니다.",
+   career:["경제·재테크 유튜브 채널 운영"],edu:[],books:[],
+   topics:["재테크와 투자 전략","주식·부동산 입문"],
+   videoId:"",videoTitle:"",media:["머니인사이드 유튜브 채널"],extra:[]},
+  {name:"지식인사이드", title:"유튜버", cat:"유튜버", badge:"bc-유튜버",
+   tags:["지식콘텐츠","과학교양","유튜브강연","대중교육","교양"],
+   intro:"세상의 모든 지식을 만나려면 지식인사이드입니다.",
+   career:["지식교양 유튜브 채널 운영"],edu:[],books:[],
+   topics:["교양 지식 콘텐츠","지식의 대중화"],
+   videoId:"",videoTitle:"",media:["지식인사이드 유튜브 채널"],extra:[]},
+  {name:"보다", title:"유튜버", cat:"유튜버", badge:"bc-유튜버",
+   tags:["과학","역사","지식콘텐츠","유튜브","교양채널"],
+   intro:"과학, 역사, 지식정보를 누구나 쉽게 재밌게 알려주는 채널입니다.",
+   career:["과학·역사 유튜브 채널 운영"],edu:[],books:[],
+   topics:["과학과 역사 이야기","교양 영상 제작"],
+   videoId:"",videoTitle:"",media:["보다 유튜브 채널"],extra:[]},
+  {name:"어썸코리아", title:"유튜버", cat:"유튜버", badge:"bc-유튜버",
+   tags:["한국문화","외국인시각","K콘텐츠","한국소개","글로벌"],
+   intro:"한국을 사랑하는 외국인들의 한국 이야기.",
+   career:["한국문화 유튜브 채널 운영"],edu:[],books:[],
+   topics:["외국인이 본 한국 문화","K콘텐츠와 글로벌 확산"],
+   videoId:"",videoTitle:"",media:["어썸코리아 유튜브 채널"],extra:[]},
+  {name:"김범준", title:"교수 / 물리학자", cat:"과학", badge:"bc-과학",
+   tags:["물리학","통계물리","복잡계","과학커뮤니케이션","성균관대"],
+   intro:"성균관대 교수이자 과학자 김범준입니다.",
+   career:["성균관대학교 물리학과 교수","복잡계 연구"],
+   edu:[],books:["세상물정의 물리학","관계의 과학"],
+   topics:["물리학으로 보는 세상","복잡계와 네트워크"],
+   videoId:"",videoTitle:"",media:["방송 출연 다수"],extra:[]}
+];
+
+/* ═══════════════════════════════
+   이미지 URL
+═══════════════════════════════ */
+function imgSrc(name){
+  var clean = name.replace(/\s*\([^)]*\)/g,'').trim();
+  return 'https://algoconnect.kr/images/experts/'+encodeURIComponent(clean)+'.jpg';
+}
+
+/* ═══════════════════════════════
+   목록 렌더링
+═══════════════════════════════ */
+function renderList(list){
+  currentList = list;
+  var grid = document.getElementById('expertsGrid');
+  var rc = document.getElementById('resultCount');
+  rc.innerHTML = '총 <strong>'+list.length+'명</strong>의 전문가';
+  if(!list.length){ grid.innerHTML='<div class="empty-state">검색 결과가 없습니다.</div>'; return; }
+  var html='';
+  for(var i=0;i<list.length;i++){
+    var e=list[i];
+    var tags='';
+    for(var t=0;t<e.tags.length;t++) tags+='<span class="ecard-tag">'+e.tags[t]+'</span>';
+    html+='<div class="ecard" data-idx="'+i+'">'+
+      '<div class="ecard-imgwrap ecard-to-detail">'+
+        '<img class="ecard-img" src="'+imgSrc(e.name)+'" alt="'+e.name+'" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'+
+        '<div class="ecard-fallback" style="display:none">'+e.name.charAt(0)+'</div>'+
+      '</div>'+
+      '<span class="ecard-badge '+e.badge+'">'+e.cat+'</span>'+
+      '<div class="ecard-body ecard-to-detail">'+
+        '<div class="ecard-name">'+e.name+'</div>'+
+        '<div class="ecard-sub">'+e.title+'</div>'+
+        '<div class="ecard-tags">'+tags+'</div>'+
+      '</div>'+
+      '<button class="ecard-btn ecard-to-inquiry">섭외 문의 →</button>'+
+    '</div>';
+  }
+  grid.innerHTML = html;
+  /* 이미지·바디 → 상세, 버튼 → 문의  (버블링 없이 정확히 분리) */
+  grid.querySelectorAll('.ecard-to-detail').forEach(function(el){
+    el.addEventListener('click', function(){
+      var idx = parseInt(el.closest('.ecard').getAttribute('data-idx'), 10);
+      showDetail(idx);
+    });
+  });
+  grid.querySelectorAll('.ecard-to-inquiry').forEach(function(btn){
+    btn.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      var idx = parseInt(btn.closest('.ecard').getAttribute('data-idx'), 10);
+      showInquiry(currentList[idx]);
+    });
+  });
+}
+
+function applyFilter(){
+  var cat = document.querySelector('.cat-tab.on').getAttribute('data-cat');
+  var kw  = document.getElementById('searchInput').value.toLowerCase().trim();
+  var list = DATA.slice();
+  if(cat!=='전체') list=list.filter(function(e){return e.cat===cat;});
+  if(kw) list=list.filter(function(e){
+    return e.name.toLowerCase().indexOf(kw)>=0 ||
+           e.title.toLowerCase().indexOf(kw)>=0 ||
+           e.tags.some(function(t){return t.toLowerCase().indexOf(kw)>=0;});
+  });
+  renderList(list);
+}
+
+document.querySelectorAll('.cat-tab').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('on');});
+    tab.classList.add('on'); applyFilter();
+  });
+});
+document.getElementById('searchInput').addEventListener('input', applyFilter);
+
+/* ═══════════════════════════════
+   상세 페이지
+═══════════════════════════════ */
+function showDetail(idx){
+  var e=currentList[idx];
+  if(!e) return;
+  TITLES.detail = e.name+' · 알고커넥트';
+  inquiryExpert = e;
+
+  var img=document.getElementById('dImg'); var fb=document.getElementById('dFallback');
+  img.src=imgSrc(e.name); img.alt=e.name; img.style.display='block'; fb.style.display='none';
+  fb.textContent=e.name.charAt(0);
+  img.onerror=function(){img.style.display='none';fb.style.display='flex';};
+
+  document.getElementById('dCat').textContent=e.cat;
+  document.getElementById('dName').textContent=e.name;
+  document.getElementById('dTitle').textContent=e.title;
+  document.getElementById('dIntro').textContent=e.intro;
+  document.getElementById('dCtaName').textContent=e.name+'과 함께하세요';
+
+  var hasVideo=e.videoId&&e.videoId.length>0;
+  var lv=document.getElementById('dLayoutVideo'); var ln=document.getElementById('dLayoutNoVideo');
+  if(hasVideo){
+    lv.style.display='grid'; ln.style.display='none';
+    document.getElementById('dIframe').src='https://www.youtube.com/embed/'+e.videoId;
+    document.getElementById('dVideoCaption').textContent=e.videoTitle||'';
+    fillKw('dKwsV',e.tags);
+    fillChips('dTopicsV',e.topics); tog('dTopicsBlockV',e.topics&&e.topics.length);
+    fillTl('dCareerV',e.career); tog('dCareerBlockV',e.career&&e.career.length);
+    fillList('dEduV',e.edu); tog('dEduBlockV',e.edu&&e.edu.length);
+    fillList('dBooksV',e.books); tog('dBooksBlockV',e.books&&e.books.length);
+    fillList('dMediaV',e.media); tog('dMediaBlockV',e.media&&e.media.length);
+  } else {
+    lv.style.display='none'; ln.style.display='block';
+    document.getElementById('dIframe').src='';
+    fillChips('dTopicsN',e.topics); tog('dTopicsBlockN',e.topics&&e.topics.length);
+    fillTl('dCareerN',e.career); tog('dCareerBlockN',e.career&&e.career.length);
+    fillList('dEduN',e.edu); tog('dEduBlockN',e.edu&&e.edu.length);
+    fillList('dBooksN',e.books); tog('dBooksBlockN',e.books&&e.books.length);
+    fillList('dMediaN',e.media); tog('dMediaBlockN',e.media&&e.media.length);
+    fillList('dExtraN',e.extra); tog('dExtraBlockN',e.extra&&e.extra.length);
+    fillKw('dKwsN',e.tags); tog('dKwBlockN',e.tags&&e.tags.length);
+  }
+  goto('detail');
+}
+
+document.getElementById('dInquiry').addEventListener('click',function(){if(inquiryExpert)showInquiry(inquiryExpert);});
+document.getElementById('dCtaBtn').addEventListener('click',function(){if(inquiryExpert)showInquiry(inquiryExpert);});
+document.getElementById('dBackBtn').addEventListener('click',function(){goto('list');});
+document.getElementById('dShare').addEventListener('click',function(){alert('링크가 복사되었습니다.');});
+
+/* ═══════════════════════════════
+   섭외 문의 페이지
+═══════════════════════════════ */
+function showInquiry(e){
+  inquiryExpert=e;
+  TITLES.inquiry='섭외 문의 · '+e.name+' · 알고커넥트';
+  var img=document.getElementById('inqImg'); var fb=document.getElementById('inqImgFb');
+  img.src=imgSrc(e.name); img.style.display='block'; fb.style.display='none';
+  fb.textContent=e.name.charAt(0);
+  img.onerror=function(){img.style.display='none';fb.style.display='flex';};
+  document.getElementById('inqName').textContent=e.name;
+  document.getElementById('inqTitle').textContent=e.title;
+  document.getElementById('inqForm').style.display='block';
+  document.getElementById('inqSuccess').style.display='none';
+  ['fCompany','fManager','fEmail','fPhone','fContent'].forEach(function(id){document.getElementById(id).value='';});
+  document.querySelectorAll('#inqTypeBtns .type-btn').forEach(function(b,i){b.classList.toggle('sel',i===0);});
+  goto('inquiry');
+}
+
+document.getElementById('inqTypeBtns').addEventListener('click',function(ev){
+  if(ev.target.classList.contains('type-btn')){
+    document.querySelectorAll('#inqTypeBtns .type-btn').forEach(function(b){b.classList.remove('sel');});
+    ev.target.classList.add('sel');
+  }
+});
+document.getElementById('inqSubmitBtn').addEventListener('click',function(){
+  var ok=['fCompany','fManager','fEmail','fPhone'].every(function(id){return document.getElementById(id).value.trim().length>0;});
+  if(!ok){alert('필수 항목(*)을 모두 입력해주세요.');return;}
+  document.getElementById('inqForm').style.display='none';
+  document.getElementById('inqSuccess').style.display='block';
+  window.scrollTo(0,0);
+});
+document.getElementById('inqBackBtn').addEventListener('click',function(){goto('list');});
+
+/* ═══════════════════════════════
+   헬퍼
+═══════════════════════════════ */
+function tog(id,show){document.getElementById(id).style.display=show?'':'none';}
+function fillChips(id,arr){
+  if(!arr||!arr.length){document.getElementById(id).innerHTML='';return;}
+  var h='';for(var i=0;i<arr.length;i++)h+='<span class="topic-chip">'+arr[i]+'</span>';
+  document.getElementById(id).innerHTML=h;
+}
+function fillTl(id,arr){
+  if(!arr||!arr.length){document.getElementById(id).innerHTML='';return;}
+  var h='';
+  for(var i=0;i<arr.length;i++)h+='<div class="d-tl-item"><div class="d-tl-left"><div class="d-tl-dot"></div><div class="d-tl-line"></div></div><div class="d-tl-text">'+arr[i]+'</div></div>';
+  document.getElementById(id).innerHTML=h;
+}
+function fillList(id,arr){
+  if(!arr||!arr.length){document.getElementById(id).innerHTML='';return;}
+  var h='';for(var i=0;i<arr.length;i++)h+='<li>'+arr[i]+'</li>';
+  document.getElementById(id).innerHTML=h;
+}
+function fillKw(id,arr){
+  if(!arr||!arr.length){document.getElementById(id).innerHTML='';return;}
+  var h='';for(var i=0;i<arr.length;i++)h+='<span class="kw-tag">'+arr[i]+'</span>';
+  document.getElementById(id).innerHTML=h;
+}
+
+/* 초기 렌더 */
+renderList(DATA);
+</script>
+</body>
+</html>
