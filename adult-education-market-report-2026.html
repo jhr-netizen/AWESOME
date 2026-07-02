@@ -179,6 +179,35 @@
   footer .note{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:22px;line-height:1.65}
   footer .note b{color:var(--ink-soft)}
 
+
+  /* platform deep-dive (부업 8개사) */
+  .subhead{font-size:16px;font-weight:800;letter-spacing:-.015em;margin:34px 0 3px;display:flex;align-items:center;gap:9px}
+  .subhead .bar{width:4px;height:17px;border-radius:2px;background:var(--accent,var(--violet))}
+  .subhead-p{font-size:13px;color:var(--muted);margin-bottom:16px;max-width:74ch}
+  .pcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(345px,1fr));gap:14px}
+  .pcard{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:16px;padding:20px;display:flex;flex-direction:column}
+  .pcard .phd{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .pcard .phd .pn{font-size:16px;font-weight:800;letter-spacing:-.015em}
+  .pcard .phd .po{font-size:11px;font-weight:600;color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,#fff);border:1px solid color-mix(in srgb,var(--accent) 30%,#fff);border-radius:100px;padding:2px 9px}
+  .pcard .prow{display:grid;grid-template-columns:70px 1fr;gap:10px;padding:9px 0;border-top:1px solid var(--line-soft);font-size:12.5px;line-height:1.52}
+  .pcard .prow .rl{font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:.02em;padding-top:2px}
+  .pcard .prow .rv{color:var(--ink-soft)}
+  .pcard .prow .rv .em{color:var(--ink);font-weight:600}
+  .pcard .prow.money{background:color-mix(in srgb,var(--accent) 5%,#fff);border-radius:9px;margin:8px -8px 0;padding:11px 8px;border-top:1px solid color-mix(in srgb,var(--accent) 22%,#fff)}
+  .pcard .prow.money .rl{color:var(--accent)}
+  .pcard .prow.money .rv{color:var(--ink)}
+  .pcard .kw{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
+  .pcard .kw b{font-size:11px;font-weight:600;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+  /* keyword-pattern cards */
+  .kpat{display:grid;grid-template-columns:repeat(auto-fill,minmax(325px,1fr));gap:14px}
+  .kp{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:14px;padding:18px}
+  .kp h4{font-size:14.5px;font-weight:800;letter-spacing:-.01em;margin-bottom:11px;display:flex;align-items:center;gap:8px}
+  .kp .exs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:11px}
+  .kp .exs span{font-size:11.5px;font-weight:600;color:var(--accent);background:color-mix(in srgb,var(--accent) 6%,#fff);border:1px solid color-mix(in srgb,var(--accent) 28%,#fff);border-radius:6px;padding:3px 8px}
+  .kp .use{font-size:11.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px;line-height:1.5}
+  .kp .use b{color:var(--ink-soft);font-weight:600}
+  .kp .use .ch{display:block;margin-top:6px;color:var(--ink-soft)}
+
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
@@ -193,6 +222,7 @@
     <a href="#trends">산업 트렌드</a>
     <a href="#classes">베스트셀러</a>
     <a href="#newclasses">신규 클래스</a>
+    <a href="#platforms">부업 플랫폼</a>
     <a href="#keywords">키워드</a>
     <a href="#videos">유튜브 영상</a>
     <a href="#topics">추천 주제</a>
@@ -486,10 +516,140 @@
     <div class="note-line"><b>읽는 법</b> · 신규는 플랫폼을 불문하고 ‘AI·바이브코딩(도구) × 유튜브·블로그·부동산·주식(채널) × 월 OOO(약속)’ 조합으로 수렴합니다. 특히 패스트캠퍼스의 바이브코딩 신규는 최근 6개월 15개→39개로 +160% 늘 만큼 공급이 폭증하는 영역입니다.</div>
   </section>
 
+  <!-- PLATFORM DEEP-DIVE (부업 8개사) -->
+  <section class="block reveal" id="platforms" style="--accent:var(--rose)">
+    <div class="sec-head">
+      <span class="sec-no">05</span>
+      <h2>부업 교육 플랫폼 8개사 심층 비교<span class="cat">부업 특화</span></h2>
+      <p>‘돈 벌기·부업’에 특화된 8개 플랫폼의 대표 강의, 2026년 오픈·오픈예정 강의, 매출이 잘 나오는 강의, 자주 쓰는 키워드를 정면으로 비교했습니다. 앞선 종합 플랫폼(03·04)과 달리, 이들은 후킹 강도와 회전율(리뉴얼·기수제)로 승부합니다.</p>
+    </div>
+    <div class="ytlegend">
+      <span class="lg"><span class="swatch" style="background:var(--blue)"></span>챌린지클래스</span>
+      <span class="lg"><span class="swatch" style="background:var(--violet)"></span>비즈업클래스</span>
+      <span class="lg"><span class="swatch" style="background:var(--amber)"></span>하이클래스에듀</span>
+      <span class="lg"><span class="swatch" style="background:var(--green)"></span>인베이더스쿨</span>
+      <span class="lg"><span class="swatch" style="background:var(--rose)"></span>뷰트랩</span>
+      <span class="lg"><span class="swatch" style="background:var(--red)"></span>프레스런</span>
+    </div>
+    <div class="pcards">
+      <div class="pcard" style="--accent:var(--blue)">
+        <div class="phd"><span class="pn">챌린지클래스</span><span class="po">애드센스팜</span></div>
+        <div class="prow"><span class="rl">대표 강의</span><span class="rv">[2026 AI 자동화] 월 300만원 AI 블로그 수익화 비밀 노하우 (알파남·무료) · 상위 1% 블로거의 블로그스팟+워드프레스 최적화 스킨</span></div>
+        <div class="prow"><span class="rl">2026 오픈</span><span class="rv">온라인 건물주 수익창출 비밀폭로 <span class='em'>319만원</span> (06) · 온라인 건물주 챌린지 <span class='em'>419만원</span> (06) · 네이버 블로그 수익화 패키지 <span class='em'>219만원</span> (04)</span></div>
+        <div class="prow"><span class="rl">오픈 예정</span><span class="rv">실전 외부유입 패키지 (외부유입+유료광고 99만원) · AI 블로그 2026 리뉴얼 버전</span></div>
+        <div class="prow money"><span class="rl">💰 매출<br>잘나오는</span><span class="rv">온라인 건물주 챌린지 <span class='em'>419만원</span> — 1:1 피드백 포함 고가 상품 · 네이버 블로그 패키지 <span class='em'>219만원</span> — 리뷰·조회수 최상위</span></div>
+        <div class="kw"><b>AI 자동화</b><b>월 300만원</b><b>상위 0.01%</b><b>비밀 폭로</b><b>블로그스팟</b><b>워드프레스</b><b>애드센스</b></div>
+      </div>
+      <div class="pcard" style="--accent:var(--violet)">
+        <div class="phd"><span class="pn">비즈업클래스</span></div>
+        <div class="prow"><span class="rl">대표 강의</span><span class="rv">인생을 바꾼 하루 1시간 부업 공동구매중개 (김태연·이커머스) · 클릭 몇 번에 방구석 억대매출 광고중개 부업 (김해준)</span></div>
+        <div class="prow"><span class="rl">2026 오픈</span><span class="rv">나민수×플랫폼트리 AI 자동화 (05) · 강남바라기 신규 강의 (06)</span></div>
+        <div class="prow"><span class="rl">오픈 예정</span><span class="rv">두뜬 마케팅 강의 (06~07) · 엘플랑×두뜬 콜라보 · AI 자동화 후속 강의</span></div>
+        <div class="prow money"><span class="rl">💰 매출<br>잘나오는</span><span class="rv">나민수 AI 자동화 — 05 오픈 직후 판매 급증 · 김태연 공동구매중개 — 누적 수강 최다</span></div>
+        <div class="kw"><b>하루 1~2시간</b><b>방구석 억대매출</b><b>공동구매</b><b>AI 자동화</b><b>광고중개 부업</b><b>수익화</b></div>
+      </div>
+      <div class="pcard" style="--accent:var(--amber)">
+        <div class="phd"><span class="pn">하이클래스에듀</span><span class="po">하이스트비전</span></div>
+        <div class="prow"><span class="rl">대표 강의</span><span class="rv">[비밀강의] 단 1건으로 대기업 월급받는 AI 상세페이지 수익화 (박진석·무료) · 스마트폰 1대로 제2의 월급 AI 인스타 커머스 (무료)</span></div>
+        <div class="prow"><span class="rl">2026 오픈</span><span class="rv">무자본으로 <span class='em'>1건당 500만원+</span> 달성 AI 홈페이지 수익화 (06)</span></div>
+        <div class="prow"><span class="rl">오픈 예정</span><span class="rv">하반기 무료특강 미정(월별 기습오픈 방식) · AI 커머스·인스타 강의 추가</span></div>
+        <div class="prow money"><span class="rl">💰 매출<br>잘나오는</span><span class="rv">AI 상세페이지 수익화 — 무료특강→유료 전환율 높음 · AI 홈페이지 수익화 — 무자본·1건 500만원 소구</span></div>
+        <div class="kw"><b>AI 상세페이지</b><b>인스타 커머스</b><b>무자본</b><b>1건당 500만원</b><b>제2의 월급</b><b>비밀강의</b><b>스마트폰 1대</b></div>
+      </div>
+      <div class="pcard" style="--accent:var(--green)">
+        <div class="phd"><span class="pn">인베이더스쿨</span></div>
+        <div class="prow"><span class="rl">대표 강의</span><span class="rv">내향적인 유치원 교사도 3개월 만에 1억 건기식 제로셀링 (미니쌤) · 일본 예능 쇼츠 부업 (쇼치) · 하루 40분·5일 만에 순수익 200만원 중국드라마 쇼츠</span></div>
+        <div class="prow"><span class="rl">2026 오픈</span><span class="rv">여름 크록스 단기 5천만원 부업 · 자본금 7만원 건강식품 완판 · 무자본·무재고·무광고 산후조리원비+전문직 연봉 2배</span></div>
+        <div class="prow"><span class="rl">오픈 예정</span><span class="rv">[버티컬커머스] 상품 1개로 6,000만원·마진 70% (얼리버드 접수) · AI 과일 위탁판매 정규화</span></div>
+        <div class="prow money"><span class="rl">💰 매출<br>잘나오는</span><span class="rv">건기식 제로셀링 (미니쌤) — 매출 1억 실증, 신뢰도 최상위 · 일본 예능 쇼츠 — 틈새 카테고리 독점</span></div>
+        <div class="kw"><b>3개월만에 1억</b><b>무자본·무재고</b><b>제로셀링</b><b>쇼츠 부업</b><b>건기식</b><b>위탁판매</b><b>5일만에 200만원</b><b>마진 70%</b></div>
+      </div>
+      <div class="pcard" style="--accent:var(--rose)">
+        <div class="phd"><span class="pn">뷰트랩</span><span class="po">비즈니스PT</span></div>
+        <div class="prow"><span class="rl">대표 강의</span><span class="rv">비즈니스 PT 40주 온·오프라인 트레이닝 (주언규 PD·수강생 9만·고가 프리미엄) · YouTube 알고리즘 분석 무료강의 30강+</span></div>
+        <div class="prow"><span class="rl">2026 오픈</span><span class="rv">콘텐츠마케팅 아카데미 확장 — 상반기 신규 코호트 · 인스타그램 통합분석 기능 추가</span></div>
+        <div class="prow"><span class="rl">오픈 예정</span><span class="rv">트레이너 100명+ 후속 심화 코스 · 뷰트랩 Pro 구독 서비스 베타</span></div>
+        <div class="prow money"><span class="rl">💰 매출<br>잘나오는</span><span class="rv">비즈니스PT 40주 — 고가·장기, 달성률 80% 추정 <span class='em'>매출 최상위</span> · 뷰트랩 SaaS 구독 — 월 반복 수익 구조</span></div>
+        <div class="kw"><b>40주 트레이닝</b><b>비즈니스PT</b><b>유튜브 알고리즘</b><b>노출확률</b><b>트레이너</b><b>SaaS</b><b>AI 분석</b></div>
+      </div>
+      <div class="pcard" style="--accent:var(--red)">
+        <div class="phd"><span class="pn">프레스런</span><span class="po">로워드</span></div>
+        <div class="prow"><span class="rl">대표 강의</span><span class="rv">구글 수익화 블로그 올인원 (로알남·89만원·21시간 108강·평점 5.0·리뷰 1,561) · 워드프레스 무료 (2,834명) · 티스토리 무료 (4,245명)</span></div>
+        <div class="prow"><span class="rl">2026 오픈</span><span class="rv">구글 수익화 올인원 대규모 리뉴얼 (05.29·108강) · 네이버 홈판 애드포스트 마스터 (오리나·50만원) · 네이버 블로그 수익화 (글로리·40만원)</span></div>
+        <div class="prow"><span class="rl">오픈 예정</span><span class="rv">네이버 카페 수익화 (수미새·40만원) · 로알남 외부유입 실전편</span></div>
+        <div class="prow money"><span class="rl">💰 매출<br>잘나오는</span><span class="rv">구글 수익화 올인원 <span class='em'>89만원</span> — 리뷰 1,561개, 압도적 1위 · 네이버 홈판 마스터 <span class='em'>50만원</span> — 신규 후 빠른 성장</span></div>
+        <div class="kw"><b>구글 수익화</b><b>워드프레스</b><b>애드센스</b><b>네이버 홈판</b><b>하루 300달러</b><b>108강 올인원</b><b>리뉴얼 2026</b></div>
+      </div>
+      <div class="pcard" style="--accent:var(--blue)">
+        <div class="phd"><span class="pn">머니업클래스</span><span class="po">핏크닉</span></div>
+        <div class="prow"><span class="rl">대표 강의</span><span class="rv">AI 유튜브 쇼핑 숏폼 3기 (일반반/시니어반·윙스) — 현재 유일한 정규강의 · ChatGPT 실전 활용 · AI 숏폼 광고수익 (무료)</span></div>
+        <div class="prow"><span class="rl">2026 오픈</span><span class="rv">AI 유튜브 쇼핑 숏폼 3기 (일반+시니어반 분리) · 주식 차트 강의 신규 · 투자 실전 강의</span></div>
+        <div class="prow"><span class="rl">오픈 예정</span><span class="rv">AI 유튜브 쇼핑 숏폼 4기 (3기 완료 후 연속 오픈) · 무자본 부업 신규 카테고리 강사 모집</span></div>
+        <div class="prow money"><span class="rl">💰 매출<br>잘나오는</span><span class="rv">AI 유튜브 쇼핑 숏폼 3기 — 시니어반으로 50대+ 수요 흡수, 유일 유료강의라 <span class='em'>집중 매출</span></span></div>
+        <div class="kw"><b>AI 숏폼</b><b>AI 유튜브 쇼핑</b><b>무자본</b><b>광고수익</b><b>50대도 가능</b><b>시니어반</b><b>챗GPT</b><b>자동화</b></div>
+      </div>
+      <div class="pcard" style="--accent:var(--violet)">
+        <div class="phd"><span class="pn">돈버는클래스</span><span class="po">돈클</span></div>
+        <div class="prow"><span class="rl">대표 강의</span><span class="rv">온라인 셀러 종합 (돈형님·쿠팡·스마트스토어) · 브랜드 로켓그로스 무료특강 · 쿠팡 그로스 소싱 노하우</span></div>
+        <div class="prow"><span class="rl">2026 오픈</span><span class="rv">브랜드 로켓그로스 특강 업데이트 (3개월 단위 리뉴얼) · 포이즌(리셀) 소싱 보강</span></div>
+        <div class="prow"><span class="rl">오픈 예정</span><span class="rv">건강기능식품 유통 · 쿠팡 로켓그로스 심화편 · 오프라인 밋업 연계</span></div>
+        <div class="prow money"><span class="rl">💰 매출<br>잘나오는</span><span class="rv">브랜드 로켓그로스 무료특강 — 3개월마다 리뉴얼·매번 15% 업데이트 · 쿠팡 셀러 종합 — 60대까지 광범위 수요</span></div>
+        <div class="kw"><b>쿠팡</b><b>스마트스토어</b><b>브랜드 유통</b><b>로켓그로스</b><b>소싱</b><b>위탁판매</b><b>포이즌(리셀)</b><b>온라인 셀러</b></div>
+      </div>
+    </div>
+
+    <div class="subhead" style="--accent:var(--violet)"><span class="bar"></span>8개사 공통 제목 키워드 패턴 7</div>
+    <div class="subhead-p">8개 플랫폼의 강의 제목을 분해하면 7가지 후킹 문법이 반복됩니다. ‘금액·시간효율·AI·초보·비밀·플랫폼명·챌린지’ — 상위 두 패턴(금액·시간)은 전 플랫폼 공통입니다.</div>
+    <div class="kpat">
+      <div class="kp" style="--accent:var(--rose)">
+        <h4>💰 금액·숫자 강조</h4>
+        <div class="exs"><span>월 300만원</span><span>하루 300달러</span><span>1건당 500만원</span><span>5일만에 200만원</span><span>3개월만에 1억</span><span>억대매출</span></div>
+        <div class="use"><b>사용 플랫폼</b> · 전 플랫폼 공통<span class="ch">구체적 숫자로 클릭률 극대화 — 가장 많이 쓰이는 패턴 #1</span></div>
+      </div>
+      <div class="kp" style="--accent:var(--blue)">
+        <h4>⏱ 시간 효율 강조</h4>
+        <div class="exs"><span>하루 1시간</span><span>하루 40분</span><span>하루 10분</span><span>퇴근 후 부업</span><span>스마트폰 1대로</span></div>
+        <div class="use"><b>사용 플랫폼</b> · 전 플랫폼 공통<span class="ch">바쁜 직장인·주부 대상, 진입장벽을 낮추는 핵심 문구</span></div>
+      </div>
+      <div class="kp" style="--accent:var(--violet)">
+        <h4>🤖 AI 트렌드</h4>
+        <div class="exs"><span>AI 자동화</span><span>AI 블로그</span><span>AI 상세페이지</span><span>AI 숏폼</span><span>AI 홈페이지</span><span>챗GPT</span></div>
+        <div class="use"><b>사용 플랫폼</b> · 챌린지·비즈업·하이클래스·머니업·프레스런<span class="ch">2025~2026 급격 증가 — 거의 전 플랫폼이 신규 AI 강의 추가</span></div>
+      </div>
+      <div class="kp" style="--accent:var(--green)">
+        <h4>🔰 초보자 강조</h4>
+        <div class="exs"><span>왕초보</span><span>누구나</span><span>무자본·무재고·무광고</span><span>초보자도 가능</span><span>자본금 없이</span></div>
+        <div class="use"><b>사용 플랫폼</b> · 인베이더·비즈업·하이클래스·돈버는클래스<span class="ch">신규 수강생 전환율을 높이는 핵심 진입 키워드</span></div>
+      </div>
+      <div class="kp" style="--accent:var(--amber)">
+        <h4>🔥 희소성·비밀</h4>
+        <div class="exs"><span>비밀강의</span><span>폭로</span><span>상위 0.01%</span><span>끝판왕</span><span>핵심 노하우</span><span>국내유일</span></div>
+        <div class="use"><b>사용 플랫폼</b> · 챌린지·하이클래스·인베이더스쿨<span class="ch">클릭베이트형 제목 패턴 — 무료특강에 집중적으로 사용</span></div>
+      </div>
+      <div class="kp" style="--accent:var(--red)">
+        <h4>📱 플랫폼명 직접 노출</h4>
+        <div class="exs"><span>워드프레스</span><span>네이버 홈판</span><span>구글 애드센스</span><span>쿠팡 로켓그로스</span><span>스마트스토어</span><span>인스타 공구</span><span>티스토리</span></div>
+        <div class="use"><b>사용 플랫폼</b> · 프레스런·챌린지·돈버는클래스·하이클래스<span class="ch">SEO 검색 유입 목적 — 플랫폼 특화 포지셔닝</span></div>
+      </div>
+      <div class="kp" style="--accent:var(--blue)">
+        <h4>💪 챌린지·실행 구조</h4>
+        <div class="exs"><span>챌린지</span><span>PT 트레이닝</span><span>기수(○기)</span><span>미션</span><span>결과 검증</span><span>수익인증</span></div>
+        <div class="use"><b>사용 플랫폼</b> · 챌린지클래스·뷰트랩·머니업클래스<span class="ch">단순 VOD → 실행 강제형 구조로 완강률·재구매율을 높임</span></div>
+      </div>
+    </div>
+
+    <div class="strip">
+      <div class="mk">&rarr;</div>
+      <p><b>알고클래스 시사점</b> · 부업 특화군은 <b>숫자·시간효율·비밀·AI</b> 후킹과 <b>기수제·리뉴얼</b> 회전율로 매출을 만듭니다. 다만 07·08에서 확인되는 수요자의 ‘증거 요구’와 정면으로 충돌하는 구조이기도 합니다 — 알고클래스는 같은 후킹을 따라가기보다 <b>‘검증·완주·니치’</b>(09 추천 주제)로 차별화할 때 이 경쟁 지형에서 빈틈을 파고들 수 있습니다.</p>
+    </div>
+
+    <div class="note-line"><b>조사 기준</b> · 각 사 공식 홈페이지 직접 조사(2026.06.30). 오픈예정 강의는 공지·예고 기반으로 일정이 변동될 수 있으며, 매출 추정은 가격·리뷰수·노출을 기반으로 한 정성 평가입니다.</div>
+  </section>
+
   <!-- KEYWORD ANALYSIS -->
   <section class="block reveal" id="keywords">
     <div class="sec-head">
-      <span class="sec-no">05</span>
+      <span class="sec-no">06</span>
       <h2>클래스 제목에서 자주 나오는 키워드</h2>
       <p>베스트셀러·신규 클래스 제목을 분해하면 키워드가 네 묶음으로 정리됩니다. 글자가 클수록 더 자주 등장한 키워드입니다.</p>
     </div>
@@ -541,7 +701,7 @@
   <!-- BESTSELLER SIGNALS -->
   <section class="block reveal" id="signals">
     <div class="sec-head">
-      <span class="sec-no">06</span>
+      <span class="sec-no">07</span>
       <h2>‘매출 잘 나오는 클래스’의 공통 신호 5</h2>
       <p>세 카테고리 베스트셀러를 가로질러 보면, 잘 팔리는 클래스에는 반복되는 셀링 패턴이 있습니다.</p>
     </div>
@@ -557,7 +717,7 @@
   <!-- INDIVIDUAL VIDEOS -->
   <section class="block reveal" id="videos">
     <div class="sec-head">
-      <span class="sec-no">07</span>
+      <span class="sec-no">08</span>
       <h2>유튜브 — 조회수 잘 나오는 개별 콘텐츠</h2>
       <p>‘부업·재테크·커리어’ 카테고리에서 조회수가 높게 나온 실제 영상·시리즈입니다. 제목을 누르면 해당 영상으로 연결됩니다. (조회수는 시점에 따라 변동)</p>
     </div>
@@ -665,7 +825,7 @@
   <!-- TOPIC RECOMMENDATIONS -->
   <section class="block reveal" id="topics">
     <div class="sec-head">
-      <span class="sec-no">08</span>
+      <span class="sec-no">09</span>
       <h2>알고클래스, 어떤 주제로 다가가면 좋을까</h2>
       <p>레드오션이 된 ‘AI로 돈벌기’를 따라가기보다, <b>회의론을 신뢰로 바꾸고 진입장벽을 낮추는</b> 각도가 유효합니다.</p>
     </div>
@@ -706,7 +866,7 @@
   <!-- REFERENCES -->
   <section class="block reveal" id="refs">
     <div class="sec-head">
-      <span class="sec-no">09</span>
+      <span class="sec-no">10</span>
       <h2>레퍼런스 링크</h2>
       <p>시장 규모·클래스·유튜브 분석의 근거가 된 실제 출처입니다.</p>
     </div>
