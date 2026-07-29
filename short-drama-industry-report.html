@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>숏드라마 산업 분석 리포트 (2026.7)</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface-1: #fcfcfb;
+    --page: #f9f9f7;
+    --ink-1: #0b0b0b;
+    --ink-2: #52514e;
+    --ink-muted: #898781;
+    --grid: #e1e0d9;
+    --baseline: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --series-1: #2a78d6;   /* 블루 */
+    --series-1-lt: #86b6ef;/* 전망(라이트 스텝) */
+    --series-2: #eb6834;   /* 오렌지 */
+    --good: #006300;
+    --accent-wash: rgba(42,120,214,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-1: #1a1a19;
+      --page: #0d0d0d;
+      --ink-1: #ffffff;
+      --ink-2: #c3c2b7;
+      --ink-muted: #898781;
+      --grid: #2c2c2a;
+      --baseline: #383835;
+      --border: rgba(255,255,255,0.10);
+      --series-1: #3987e5;
+      --series-1-lt: #1c5cab;
+      --series-2: #d95926;
+      --good: #0ca30c;
+      --accent-wash: rgba(57,135,229,0.12);
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    background: var(--page);
+    color: var(--ink-1);
+    line-height: 1.6;
+    padding: 40px 20px 60px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  /* ── 헤더 ── */
+  .rpt-header { margin-bottom: 28px; }
+  .kicker { font-size: 13px; font-weight: 600; letter-spacing: .12em; color: var(--series-1); text-transform: uppercase; margin-bottom: 8px; }
+  h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; }
+  .rpt-meta { font-size: 13px; color: var(--ink-muted); margin-top: 8px; }
+  .lede { margin-top: 16px; font-size: 15px; color: var(--ink-2); max-width: 860px; }
+  .lede strong { color: var(--ink-1); }
+
+  /* ── 카드 공통 ── */
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+  }
+  section { margin-top: 28px; }
+  h2 { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 4px; }
+  .sub { font-size: 13px; color: var(--ink-muted); margin-bottom: 16px; }
+  h2 .num { color: var(--series-1); margin-right: 6px; }
+
+  /* ── 스탯 타일 ── */
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 860px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
+  .tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; }
+  .tile .t-label { font-size: 12.5px; color: var(--ink-muted); }
+  .tile .t-value { font-size: 27px; font-weight: 650; letter-spacing: -0.01em; margin-top: 2px; }
+  .tile .t-delta { font-size: 12.5px; margin-top: 2px; color: var(--ink-2); }
+  .tile .t-delta .up { color: var(--good); font-weight: 600; }
+
+  /* ── 2단 레이아웃 ── */
+  .cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 860px) { .cols-2 { grid-template-columns: 1fr; } }
+
+  /* ── 차트 ── */
+  .chart-title { font-size: 15px; font-weight: 650; }
+  .chart-sub { font-size: 12.5px; color: var(--ink-muted); margin-bottom: 12px; }
+  .legend { display: flex; gap: 16px; font-size: 12.5px; color: var(--ink-2); margin-bottom: 8px; flex-wrap: wrap; }
+  .legend .key { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+  .chart-note { font-size: 11.5px; color: var(--ink-muted); margin-top: 10px; }
+  svg text { font-family: inherit; }
+  .bar-hit { cursor: default; }
+
+  details.tblview { margin-top: 10px; }
+  details.tblview summary { font-size: 12px; color: var(--ink-muted); cursor: pointer; }
+  details.tblview table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 8px; }
+  details.tblview th, details.tblview td { text-align: right; padding: 5px 8px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
+  details.tblview th:first-child, details.tblview td:first-child { text-align: left; }
+  details.tblview th { color: var(--ink-muted); font-weight: 600; }
+
+  #tooltip {
+    position: fixed; pointer-events: none; z-index: 50; display: none;
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.12);
+    padding: 7px 10px; font-size: 12.5px; color: var(--ink-1);
+  }
+  #tooltip .tt-k { color: var(--ink-muted); }
+
+  /* ── 기업 카드 ── */
+  .co-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 860px) { .co-grid { grid-template-columns: 1fr; } }
+  .co-card { border-left: 3px solid var(--series-1); }
+  .co-card.orange { border-left-color: var(--series-2); }
+  .co-name { font-size: 16px; font-weight: 700; }
+  .co-parent { font-size: 12.5px; color: var(--ink-muted); margin-bottom: 10px; }
+  .co-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px; font-size: 13.5px; }
+  .co-stats dt { color: var(--ink-muted); font-size: 12px; margin-top: 6px; }
+  .co-stats dd { font-weight: 650; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: var(--accent-wash); color: var(--series-1); margin-left: 8px; vertical-align: middle; }
+
+  /* ── 표 ── */
+  table.plain { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.plain th, table.plain td { padding: 9px 10px; border-bottom: 1px solid var(--grid); text-align: left; vertical-align: top; }
+  table.plain th { font-size: 12px; color: var(--ink-muted); font-weight: 600; }
+  table.plain td.num { font-variant-numeric: tabular-nums; }
+
+  /* ── 인사이트 ── */
+  .insights { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 860px) { .insights { grid-template-columns: 1fr; } }
+  .insight-block h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .insight-block p { font-size: 13.5px; color: var(--ink-2); margin-bottom: 8px; }
+  .insight-block p strong { color: var(--ink-1); }
+
+  /* ── 출처 ── */
+  .sources { font-size: 12px; color: var(--ink-muted); }
+  .sources a { color: var(--ink-muted); }
+  .sources li { margin-bottom: 3px; }
+  .sources ul { padding-left: 18px; }
+  footer { margin-top: 26px; font-size: 11.5px; color: var(--ink-muted); }
+</style>
+</head>
+<body>
+<div id="tooltip"></div>
+<div class="wrap">
+
+  <!-- ═══════════ 헤더 ═══════════ -->
+  <header class="rpt-header">
+    <div class="kicker">Industry Brief · Short-form Drama</div>
+    <h1>숏드라마 산업 분석 리포트</h1>
+    <div class="rpt-meta">2026년 7월 29일 기준 · 공개 자료 종합 (Sensor Tower, Deloitte, MPA, 국내 언론 보도)</div>
+    <p class="lede">
+      1~2분 세로형 에피소드를 회차 결제·구독으로 판매하는 숏드라마는 모바일 엔터테인먼트에서 가장 빠르게 크는 카테고리다.
+      글로벌 앱 인앱 매출은 <strong>1년 만에 약 4배</strong>(2024년 1분기 1.78억 달러 → 2025년 1분기 약 7억 달러) 성장했고,
+      딜로이트는 <strong>2026년 인앱 매출이 78억 달러로 전년 대비 2배 이상</strong> 커질 것으로 전망한다.
+      시장은 중국계 양강 <strong>릴숏(ReelShort)·드라마박스(DramaBox)</strong>가 글로벌 인앱 매출의 약 70%(2025.1Q)를 점유한 가운데,
+      국내에서는 <strong>비글루(스푼랩스)</strong>가 토종 대표주자로 빠르게 성장 중이다.
+    </p>
+  </header>
+
+  <!-- ═══════════ 핵심 지표 ═══════════ -->
+  <section>
+    <div class="tiles">
+      <div class="tile">
+        <div class="t-label">글로벌 인앱 매출 전망 (2026, 딜로이트)</div>
+        <div class="t-value">$78억</div>
+        <div class="t-delta"><span class="up">▲ 105%</span> vs 2025년 $38억</div>
+      </div>
+      <div class="tile">
+        <div class="t-label">중국 내수 시장 (2025 추정)</div>
+        <div class="t-value">600억 위안</div>
+        <div class="t-delta"><span class="up">▲ 약 30%</span> · 영화 박스오피스 첫 추월</div>
+      </div>
+      <div class="tile">
+        <div class="t-label">국내 시장 규모 (업계 추산)</div>
+        <div class="t-value">6,500억원</div>
+        <div class="t-delta">2028년 <strong>약 1조원</strong> 전망</div>
+      </div>
+      <div class="tile">
+        <div class="t-label">글로벌 누적 다운로드 (~2025.3)</div>
+        <div class="t-value">9.5억 건</div>
+        <div class="t-delta"><span class="up">▲ 6.2배</span> 2025.1Q 다운로드 YoY</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 1. 시장 규모 ═══════════ -->
+  <section>
+    <h2><span class="num">01</span>시장 규모와 성장성</h2>
+    <div class="sub">중국 내수를 포함한 전체 시장과, 중국 외 글로벌 앱 인앱 매출을 구분해서 봐야 한다.</div>
+    <div class="cols-2">
+      <div class="card">
+        <div class="chart-title">글로벌 숏드라마 시장 규모 추정·전망</div>
+        <div class="chart-sub">중국 내수 포함 전체 시장, 단위: 억 달러 · MPA·리서치앤마켓 등 추정 종합</div>
+        <div class="legend">
+          <span class="key"><span class="swatch" style="background:var(--series-1)"></span>추정치</span>
+          <span class="key"><span class="swatch" style="background:var(--series-1-lt)"></span>전망치</span>
+        </div>
+        <div id="chart-market"></div>
+        <div class="chart-note">2030년까지 연평균 10%대 성장 전망(리서치앤마켓). 기관별 집계 기준에 따라 수치 차이 존재.</div>
+        <details class="tblview"><summary>데이터 표로 보기</summary>
+          <table><tr><th>연도</th><th>시장 규모(억 달러)</th></tr>
+          <tr><td>2023</td><td>50</td></tr><tr><td>2024</td><td>65</td></tr>
+          <tr><td>2025</td><td>110</td></tr><tr><td>2030 (전망)</td><td>260</td></tr></table>
+        </details>
+      </div>
+      <div class="card">
+        <div class="chart-title">글로벌 앱 인앱(IAP) 매출 — 분기 추이와 연간 전망</div>
+        <div class="chart-sub">중국 외 글로벌 앱마켓 기준, 단위: 억 달러 · Sensor Tower / Deloitte</div>
+        <div class="legend">
+          <span class="key"><span class="swatch" style="background:var(--series-1)"></span>실적</span>
+          <span class="key"><span class="swatch" style="background:var(--series-1-lt)"></span>전망치</span>
+        </div>
+        <div id="chart-iap"></div>
+        <div class="chart-note">2025.1Q 매출의 약 49%가 미국에서 발생. 딜로이트는 2026년 미국 비중이 40%로 낮아지며 시장 다변화를 예상.</div>
+        <details class="tblview"><summary>데이터 표로 보기</summary>
+          <table><tr><th>기간</th><th>인앱 매출(억 달러)</th></tr>
+          <tr><td>2024.1Q</td><td>1.78</td></tr><tr><td>2025.1Q</td><td>7.0</td></tr>
+          <tr><td>2025 연간</td><td>38</td></tr><tr><td>2026 연간 (전망)</td><td>78</td></tr></table>
+        </details>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <table class="plain">
+        <tr><th style="width:18%">권역</th><th style="width:32%">규모</th><th>특징</th></tr>
+        <tr><td><strong>중국</strong></td><td class="num">2025년 약 600억 위안(약 11.5조원), 이용자 6.96억명</td><td>2025년 처음으로 영화 박스오피스 매출 추월. 훙궈(红果) 등 무료+광고 모델 급성장(MAU 2.36억, +90% YoY). 2027~28년 1,000억 위안 전망.</td></tr>
+        <tr><td><strong>미국</strong></td><td class="num">글로벌 앱 매출의 약 49% (2025.1Q, 약 3.5억 달러)</td><td>최대 결제 시장. 주요 숏드라마 앱이 미국 앱스토어 다운로드 상위 25위에 상시 진입.</td></tr>
+        <tr><td><strong>한국</strong></td><td class="num">약 6,500억원 (업계 추산) → 2028년 약 1조원 전망</td><td>월 매출 기준 세계 4위권 결제 시장. 2025.9 구글플레이 엔터테인먼트 인앱 매출 상위 20개 중 7개가 숏드라마 앱.</td></tr>
+        <tr><td><strong>신흥 시장</strong></td><td class="num">중남미·동남아 다운로드 급증 (2025.1Q 각 +69%, +61% QoQ)</td><td>다운로드 성장을 주도하는 차기 수익화 지역. 광고 기반 모델로 전환 진행 중.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════ 2. 글로벌 양강 ═══════════ -->
+  <section>
+    <h2><span class="num">02</span>글로벌 1~2위: 릴숏 vs 드라마박스</h2>
+    <div class="sub">두 앱이 글로벌 숏드라마 인앱 매출의 약 70%를 차지한다 (2025.1Q 기준).</div>
+    <div class="co-grid">
+      <div class="card co-card">
+        <div class="co-name">릴숏 ReelShort <span class="badge">글로벌 매출 1위</span></div>
+        <div class="co-parent">Crazy Maple Studio (美 캘리포니아) · 모회사 COL그룹(中文在线, 선전 상장) · 2022.8 출시</div>
+        <dl class="co-stats">
+          <dt>연 매출 (인앱, Sensor Tower)</dt><dd>2023년 $0.36억 → 2024년 $2.14억</dd>
+          <dt>2025년 총 결제액 (Appfigures)</dt><dd>약 $12억 (+119% YoY)</dd>
+          <dt>2025.1Q 인앱 매출</dt><dd>$1.3억 (+31% QoQ, 누적 $4.9억)</dd>
+          <dt>이용자</dt><dd>MAU 약 5,000만+ · 다운로드 1억+</dd>
+          <dt>시장 구성</dt><dd>매출의 약 69~90% 미국 · 여성 ~75%</dd>
+          <dt>수익성</dt><dd>대규모 마케팅비로 아직 적자</dd>
+        </dl>
+      </div>
+      <div class="card co-card orange">
+        <div class="co-name">드라마박스 DramaBox <span class="badge" style="color:var(--series-2);background:rgba(235,104,52,.09)">글로벌 매출 2위 · 유일 흑자</span></div>
+        <div class="co-parent">StoryMatrix (싱가포르) · 모회사 뎬중과기(点众科技, 베이징) · 2023.4 출시</div>
+        <dl class="co-stats">
+          <dt>연 매출 (MPA)</dt><dd>2023년 $0.08억 → 2024년 $3.23억</dd>
+          <dt>순이익 (2024)</dt><dd>$1,000만 — 주요 플랫폼 중 유일한 흑자</dd>
+          <dt>2025.1Q 인앱 매출</dt><dd>$1.2억 (+29% QoQ, 누적 $4.5억)</dd>
+          <dt>이용자</dt><dd>MAU 약 5,000만 · 가입자 9,000만 · 84개국</dd>
+          <dt>시장 구성</dt><dd>미국 ~57% + 브라질·MENA·동남아 분산</dd>
+          <dt>차별화</dt><dd>2025 디즈니 액셀러레이터 선정 · 2026.4 업계 최초 프로그래매틱 광고 도입</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <div class="chart-title">릴숏 vs 드라마박스 매출 비교</div>
+      <div class="chart-sub">단위: 억 달러 · 2023~24년은 연간, 2025.1Q는 분기 인앱 매출</div>
+      <div class="legend">
+        <span class="key"><span class="swatch" style="background:var(--series-1)"></span>릴숏 (ReelShort)</span>
+        <span class="key"><span class="swatch" style="background:var(--series-2)"></span>드라마박스 (DramaBox)</span>
+      </div>
+      <div id="chart-co"></div>
+      <div class="chart-note">집계 기준 차이 주의: 릴숏은 Sensor Tower 인앱 결제 기준, 드라마박스 연매출은 MPA 기준. 릴숏의 2025년 총 결제액은 약 12억 달러로 추정(Appfigures).</div>
+      <details class="tblview"><summary>데이터 표로 보기</summary>
+        <table><tr><th>기간</th><th>릴숏(억 달러)</th><th>드라마박스(억 달러)</th></tr>
+        <tr><td>2023 연간</td><td>0.36</td><td>0.08</td></tr>
+        <tr><td>2024 연간</td><td>2.14</td><td>3.23</td></tr>
+        <tr><td>2025.1Q</td><td>1.30</td><td>1.20</td></tr></table>
+      </details>
+    </div>
+  </section>
+
+  <!-- ═══════════ 3. 국내 시장 ═══════════ -->
+  <section>
+    <h2><span class="num">03</span>국내 시장: 비글루와 K-플레이어</h2>
+    <div class="sub">국내 결제 상위권은 드라마박스 등 외산 앱이 점유한 가운데, 비글루가 토종 대표주자로 TOP5에 진입.</div>
+    <div class="tiles" style="margin-bottom:12px">
+      <div class="tile">
+        <div class="t-label">비글루 MAU (2026.6)</div>
+        <div class="t-value">약 240만</div>
+        <div class="t-delta">오리지널 포함 약 90편 · 7~8개 언어</div>
+      </div>
+      <div class="tile">
+        <div class="t-label">비글루 앱 다운로드 (2025)</div>
+        <div class="t-value" style="color:inherit">+460%</div>
+        <div class="t-delta"><span class="up">▲ YoY</span> · 글로벌 시청 500만 시간+</div>
+      </div>
+      <div class="tile">
+        <div class="t-label">스푼랩스 매출 성장 (2025.1~3Q)</div>
+        <div class="t-value">+250%</div>
+        <div class="t-delta">2026.2Q도 <span class="up">▲ 67.5%</span> YoY — 비글루가 견인</div>
+      </div>
+      <div class="tile">
+        <div class="t-label">크래프톤 투자 유치 (2024)</div>
+        <div class="t-value">1,200억원</div>
+        <div class="t-delta">2025.12 美 LA 지사 설립, 글로벌 확장</div>
+      </div>
+    </div>
+    <div class="card">
+      <table class="plain">
+        <tr><th style="width:16%">플랫폼</th><th style="width:22%">운영사</th><th>포지셔닝·근황</th></tr>
+        <tr><td><strong>비글루 Vigloo</strong></td><td>스푼랩스 (2024.7 출시)</td><td>토종 1위권. 로맨스 중심 오리지널 제작 + AI 번역 기반 다국어 동시 유통. 스푼랩스 매출: 2022년 444억 → 2023년 455억원(영업이익 63.5억) → 비글루 출시 후 2025년 1~3분기 매출 250% 급성장. 핵심 시청층은 35세+ 여성.</td></tr>
+        <tr><td><strong>탑릴스</strong></td><td>폭스미디어</td><td>국내 최초 숏드라마 플랫폼(약 60편 유통). 2024년 앱스토어 무료 앱 1위 경험, 2026년 해외 매각.</td></tr>
+        <tr><td><strong>숏차</strong></td><td>왓챠</td><td>OTT 기반 프리미엄 로맨스·스릴러 라인업의 전용 플랫폼.</td></tr>
+        <tr><td><strong>펄스픽 · 레진스낵 · 킷츠 · 케이숏</strong></td><td>NEW · 레진 · 테이크원 · 토콤미디어</td><td>영화·웹툰·K팝 IP를 각자 무기로 후발 진입. 케이숏은 남미·동남아 특화, 킷츠는 SM과 아이돌 드라마 공동 제작. 티빙 등 대형 OTT도 오리지널 숏드라마 진출.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════ 4. 트렌드와 시사점 ═══════════ -->
+  <section>
+    <h2><span class="num">04</span>산업 트렌드와 시사점</h2>
+    <div class="sub"></div>
+    <div class="insights">
+      <div class="card insight-block">
+        <h3>성장 동력</h3>
+        <p><strong>검증된 결제 모델.</strong> 회차별 코인 결제 + 구독 혼합 모델이 웹소설·웹툰식 수익화를 영상에 이식. 미국 헤비유저 월 ARPU가 80달러에 달할 만큼 지불 의사가 높다.</p>
+        <p><strong>광고 모델로 2차 성장.</strong> 중국 훙궈(무료+광고)의 폭발적 성장에 이어 드라마박스가 2026년 업계 최초로 프로그래매틱 광고를 도입 — 결제 저항이 큰 신흥 시장까지 수익화 확장.</p>
+        <p><strong>제작 경제학.</strong> 편당 수억원 수준의 제작비와 1~2개월의 제작 주기로 빠른 실험·회수가 가능. AI 번역·더빙으로 다국어 동시 유통 비용도 급감(비글루 7개 언어 등).</p>
+      </div>
+      <div class="card insight-block">
+        <h3>리스크 요인</h3>
+        <p><strong>마케팅 의존 구조.</strong> 매출 상위 릴숏조차 유저 획득 비용 탓에 적자. 광고비 경쟁 심화 시 수익성 확보가 관건 — 흑자 달성 사례는 드라마박스 정도.</p>
+        <p><strong>낮은 진입장벽과 경쟁 심화.</strong> 틱톡·넷플릭스·유튜브 등 빅플랫폼과 국내 OTT까지 참전. 콘텐츠 동질화(로맨스 편중)와 IP 확보 경쟁이 심화되는 중.</p>
+        <p><strong>K-콘텐츠의 기회.</strong> 한국은 세계 4위권 결제 시장이자 검증된 드라마 제작 역량 보유국. 다만 내수(6,500억원)만으로는 규모가 제한적이라, 비글루의 미국 진출처럼 <strong>기획 단계부터 글로벌 유통을 전제</strong>하는 전략이 필수적이다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 출처 ═══════════ -->
+  <section class="card sources">
+    <strong style="color:var(--ink-2)">주요 출처</strong>
+    <ul style="margin-top:6px">
+      <li><a href="https://sensortower.com/blog/state-of-short-drama-apps-2025">Sensor Tower, State of Short Drama Apps 2025</a> — 글로벌 인앱 매출·다운로드, 릴숏/드라마박스 분기 실적</li>
+      <li><a href="https://www.deloitte.com/us/en/insights/industry/technology/technology-media-and-telecom-predictions/2026/short-form-video-series.html">Deloitte TMT Predictions 2026</a> — 2025년 38억 달러 → 2026년 78억 달러 인앱 매출 전망</li>
+      <li><a href="https://filmustage.com/blog/short-drama-apps-compared-reelshort-vs-dramabox-in-2026/">Filmustage — ReelShort vs DramaBox 2026</a>, <a href="https://lens.streaming-radar.com/reelshort-vs-dramabox">Streaming Lens</a> — 기업별 매출·MAU·수익성 (MPA/Appfigures 인용)</li>
+      <li><a href="https://www.issueinsight.co.kr/news/articleView.html?idxno=2965">이슈인사이트</a>, <a href="https://www.ajunews.com/view/20251127080613788">아주경제</a>, <a href="https://blog.nasmedia.co.kr/entry/2607naspick">나스미디어</a> — 국내 시장 6,500억원 추산, 국내 플랫폼 경쟁 구도</li>
+      <li><a href="https://www.betanews.net/article/view/beta202601050007">베타뉴스</a>, <a href="https://wowtale.net/2026/07/23/261879/">와우테일</a>, <a href="https://www.etoday.co.kr/news/view/2441377">이투데이</a> — 비글루 2025 연말 결산, 스푼랩스 실적</li>
+      <li><a href="http://www.shanghaibang.com/shanghai//news.php?code=&mode=view&num=72107">상하이저널</a> — 중국 시장 규모·이용자·박스오피스 추월</li>
+    </ul>
+  </section>
+
+  <footer>
+    본 리포트는 공개 자료를 종합한 것으로, 기관별 집계 기준(인앱 결제 vs 총 결제액 vs 웹 결제 포함)에 따라 수치가 다를 수 있습니다. 투자 판단의 근거로 사용하기 전 원자료 확인을 권장합니다.
+  </footer>
+</div>
+
+<script>
+(function () {
+  var css = getComputedStyle(document.documentElement);
+  function v(name) { return css.getPropertyValue(name).trim(); }
+  var tooltip = document.getElementById('tooltip');
+
+  function showTip(evt, html) {
+    tooltip.innerHTML = html;
+    tooltip.style.display = 'block';
+    var x = evt.clientX + 12, y = evt.clientY + 12;
+    var r = tooltip.getBoundingClientRect();
+    if (x + r.width > window.innerWidth - 8) x = evt.clientX - r.width - 12;
+    if (y + r.height > window.innerHeight - 8) y = evt.clientY - r.height - 12;
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = y + 'px';
+  }
+  function hideTip() { tooltip.style.display = 'none'; }
+
+  // 세로 막대차트 렌더러 (단일/그룹)
+  // groups: [{label, bars:[{series, value, forecast}]}]
+  function columnChart(elId, groups, opts) {
+    var el = document.getElementById(elId);
+    var W = 480, plotH = 190, axisBand = 26, topPad = 24, H = topPad + plotH + axisBand;
+    var maxV = opts.max;
+    var n = groups.length;
+    var slotW = W / n;
+    var barW = 24;
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', opts.aria || '');
+
+    // 그리드 (깔끔한 눈금)
+    var ticks = opts.ticks;
+    ticks.forEach(function (t) {
+      var y = topPad + plotH - (t / maxV) * plotH;
+      var ln = document.createElementNS(NS, 'line');
+      ln.setAttribute('x1', 0); ln.setAttribute('x2', W);
+      ln.setAttribute('y1', y); ln.setAttribute('y2', y);
+      ln.setAttribute('stroke', t === 0 ? v('--baseline') : v('--grid'));
+      ln.setAttribute('stroke-width', 1);
+      svg.appendChild(ln);
+      if (t !== 0) {
+        var tl = document.createElementNS(NS, 'text');
+        tl.setAttribute('x', W - 2); tl.setAttribute('y', y - 4);
+        tl.setAttribute('text-anchor', 'end');
+        tl.setAttribute('font-size', '10');
+        tl.setAttribute('fill', v('--ink-muted'));
+        tl.textContent = t;
+        svg.appendChild(tl);
+      }
+    });
+
+    groups.forEach(function (g, gi) {
+      var bars = g.bars;
+      var groupW = bars.length * barW + (bars.length - 1) * 2; // 2px 서피스 갭
+      var x0 = gi * slotW + (slotW - groupW) / 2;
+      bars.forEach(function (b, bi) {
+        var h = Math.max(2, (b.value / maxV) * plotH);
+        var x = x0 + bi * (barW + 2);
+        var y = topPad + plotH - h;
+        var color = b.forecast ? v('--series-1-lt') : (b.color ? v(b.color) : v('--series-1'));
+        var p = document.createElementNS(NS, 'path');
+        var r = Math.min(4, h);
+        p.setAttribute('d',
+          'M' + x + ',' + (topPad + plotH) +
+          ' L' + x + ',' + (y + r) +
+          ' Q' + x + ',' + y + ' ' + (x + r) + ',' + y +
+          ' L' + (x + barW - r) + ',' + y +
+          ' Q' + (x + barW) + ',' + y + ' ' + (x + barW) + ',' + (y + r) +
+          ' L' + (x + barW) + ',' + (topPad + plotH) + ' Z');
+        p.setAttribute('fill', color);
+        svg.appendChild(p);
+
+        // 값 라벨 (막대 위)
+        if (b.label !== false) {
+          var t = document.createElementNS(NS, 'text');
+          t.setAttribute('x', x + barW / 2);
+          t.setAttribute('y', y - 6);
+          t.setAttribute('text-anchor', 'middle');
+          t.setAttribute('font-size', '11');
+          t.setAttribute('font-weight', '650');
+          t.setAttribute('fill', v('--ink-1'));
+          t.textContent = b.display || b.value;
+          svg.appendChild(t);
+        }
+
+        // 히트 영역 + 툴팁
+        var hit = document.createElementNS(NS, 'rect');
+        hit.setAttribute('x', x - 4); hit.setAttribute('y', topPad);
+        hit.setAttribute('width', barW + 8); hit.setAttribute('height', plotH);
+        hit.setAttribute('fill', 'transparent');
+        hit.setAttribute('class', 'bar-hit');
+        var tipHtml = '<span class="tt-k">' + g.label + (b.series ? ' · ' + b.series : '') + '</span><br><strong>' +
+                      (b.display || b.value) + '</strong> ' + (opts.unit || '') + (b.forecast ? ' <span class="tt-k">(전망)</span>' : '');
+        hit.addEventListener('mousemove', function (e) { showTip(e, tipHtml); });
+        hit.addEventListener('mouseleave', hideTip);
+        svg.appendChild(hit);
+      });
+      // X축 라벨
+      var xl = document.createElementNS(NS, 'text');
+      xl.setAttribute('x', gi * slotW + slotW / 2);
+      xl.setAttribute('y', topPad + plotH + 18);
+      xl.setAttribute('text-anchor', 'middle');
+      xl.setAttribute('font-size', '11.5');
+      xl.setAttribute('fill', v('--ink-2'));
+      xl.textContent = g.label;
+      svg.appendChild(xl);
+    });
+    el.appendChild(svg);
+  }
+
+  // 차트 1: 전체 시장 규모 (억 달러)
+  columnChart('chart-market', [
+    { label: '2023', bars: [{ value: 50, display: '50' }] },
+    { label: '2024', bars: [{ value: 65, display: '65' }] },
+    { label: '2025', bars: [{ value: 110, display: '110' }] },
+    { label: '2030 (전망)', bars: [{ value: 260, display: '260', forecast: true }] }
+  ], { max: 280, ticks: [0, 100, 200], unit: '억 달러', aria: '글로벌 숏드라마 시장 규모: 2023년 50억 달러에서 2030년 260억 달러로 성장 전망' });
+
+  // 차트 2: 인앱 매출 (억 달러)
+  columnChart('chart-iap', [
+    { label: '2024.1Q', bars: [{ value: 1.78, display: '1.8' }] },
+    { label: '2025.1Q', bars: [{ value: 7, display: '7.0' }] },
+    { label: '2025 연간', bars: [{ value: 38, display: '38' }] },
+    { label: '2026 연간 (전망)', bars: [{ value: 78, display: '78', forecast: true }] }
+  ], { max: 85, ticks: [0, 40, 80], unit: '억 달러', aria: '글로벌 숏드라마 앱 인앱 매출: 2024년 1분기 1.8억 달러에서 2026년 연간 78억 달러 전망' });
+
+  // 차트 3: 기업 비교 (억 달러)
+  columnChart('chart-co', [
+    { label: '2023 연간', bars: [
+      { series: '릴숏', value: 0.36, display: '0.36', color: '--series-1' },
+      { series: '드라마박스', value: 0.08, display: '0.08', color: '--series-2' }
+    ]},
+    { label: '2024 연간', bars: [
+      { series: '릴숏', value: 2.14, display: '2.14', color: '--series-1' },
+      { series: '드라마박스', value: 3.23, display: '3.23', color: '--series-2' }
+    ]},
+    { label: '2025.1Q (분기)', bars: [
+      { series: '릴숏', value: 1.30, display: '1.30', color: '--series-1' },
+      { series: '드라마박스', value: 1.20, display: '1.20', color: '--series-2' }
+    ]}
+  ], { max: 3.5, ticks: [0, 1, 2, 3], unit: '억 달러', aria: '릴숏과 드라마박스 매출 비교: 2024년 릴숏 2.14억 달러, 드라마박스 3.23억 달러' });
+})();
+</script>
+</body>
+</html>
