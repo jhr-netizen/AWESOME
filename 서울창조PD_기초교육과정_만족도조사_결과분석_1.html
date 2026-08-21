@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>서울창조PD 기초교육과정 강의 통합 만족도 조사 결과</title>
+<style>
+:root{
+  color-scheme: light;
+  --plane:#f9f9f7; --surface:#fcfcfb; --surface-2:#f4f3ef;
+  --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,0.10);
+  --s1:#2a78d6; --s2:#eb6834;
+  --lk1:#184f95; --lk2:#3987e5; --lk3:#898781; --lk4:#d03b3b;
+  --o1:#86b6ef; --o2:#5598e7; --o3:#2a78d6; --o4:#1c5cab; --o5:#0d366b;
+  --p1:#86b6ef; --p2:#2a78d6; --p3:#0d366b;
+  --good:#0ca30c; --warn:#fab219; --crit:#d03b3b;
+  --chipbg:#eceae4;
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --plane:#0d0d0d; --surface:#1a1a19; --surface-2:#222220;
+  --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,0.10);
+  --s1:#3987e5; --s2:#d95926;
+  --lk1:#86b6ef; --lk2:#3987e5; --lk3:#898781; --lk4:#e66767;
+  --o1:#cde2fb; --o2:#9ec5f4; --o3:#6da7ec; --o4:#3987e5; --o5:#184f95;
+  --p1:#cde2fb; --p2:#6da7ec; --p3:#184f95;
+  --good:#0ca30c; --warn:#fab219; --crit:#d03b3b;
+  --chipbg:#2c2c2a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--plane); color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  font-size:15px; line-height:1.65; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px 96px}
+a{color:var(--s1)}
+
+/* ---------- header ---------- */
+header.top{padding:56px 0 28px;border-bottom:1px solid var(--border);margin-bottom:40px}
+.eyebrow{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 14px}
+h1{font-size:clamp(26px,3.6vw,40px);line-height:1.22;margin:0 0 16px;font-weight:700;letter-spacing:-.02em}
+.sub{color:var(--ink-2);font-size:16px;margin:0 0 24px;max-width:66ch}
+.metarow{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center}
+.metapill{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-2);
+  background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:5px 12px}
+.metapill b{color:var(--ink);font-weight:650}
+.toolbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--plane) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--border);margin-bottom:0}
+.toolbar-in{max-width:1120px;margin:0 auto;padding:10px 24px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tnav{display:flex;gap:2px;flex-wrap:nowrap;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.tnav::-webkit-scrollbar{display:none}
+@media(max-width:780px){
+  .toolbar-in{padding:8px 16px}
+  .tnav{flex-basis:100%;order:2;flex:none}
+  .btn{font-size:12px;padding:5px 10px}
+  .wrap{padding:0 16px 72px}
+  header.top{padding:32px 0 22px}
+}
+.tnav a{font-size:13.5px;color:var(--ink-2);text-decoration:none;padding:6px 11px;border-radius:8px;white-space:nowrap}
+.tnav a:hover{background:var(--surface-2);color:var(--ink)}
+.btn{font:inherit;font-size:13px;color:var(--ink-2);background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:6px 12px;cursor:pointer;white-space:nowrap}
+.btn:hover{color:var(--ink);border-color:var(--axis)}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+
+/* ---------- sections ---------- */
+section{margin:0 0 64px;scroll-margin-top:64px}
+.sechead{display:flex;align-items:baseline;gap:12px;margin:0 0 6px}
+.secno{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.1em}
+h2{font-size:22px;font-weight:700;margin:0;letter-spacing:-.01em}
+.secsub{color:var(--ink-2);font-size:14.5px;margin:0 0 24px;max-width:74ch}
+h3{font-size:15.5px;font-weight:650;margin:0 0 4px}
+.note{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 24px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(240px,300px) 1fr;gap:14px;align-items:stretch}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+.herocard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px}
+.herolabel{font-size:13px;color:var(--ink-2);margin:0 0 6px}
+.herofig{font-size:64px;font-weight:700;line-height:1;letter-spacing:-.03em;margin:0}
+.herofig small{font-size:22px;font-weight:600;color:var(--muted);letter-spacing:0}
+.herometa{font-size:12.5px;color:var(--muted);margin:12px 0 0}
+.stars{display:flex;gap:3px;margin:14px 0 0}
+.star{width:100%;height:6px;border-radius:3px;background:var(--grid)}
+.star.on{background:var(--s1)}
+.star.half{background:linear-gradient(90deg,var(--s1) 50%,var(--grid) 50%)}
+
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
+.tile .lab{font-size:13px;color:var(--ink-2);margin:0 0 8px;display:flex;align-items:center;gap:6px}
+.tile .val{font-size:32px;font-weight:700;line-height:1.05;letter-spacing:-.02em;margin:0}
+.tile .val small{font-size:15px;font-weight:600;color:var(--muted)}
+.tile .cap{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.meter{height:6px;border-radius:3px;background:var(--grid);margin:12px 0 0;overflow:hidden}
+.meter i{display:block;height:100%;border-radius:3px;background:var(--s1)}
+
+/* ---------- insight cards ---------- */
+.ins{display:flex;gap:14px;padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.ins .dot{flex:none;width:8px;height:8px;border-radius:50%;margin-top:9px}
+.ins h4{margin:0 0 5px;font-size:15px;font-weight:650}
+.ins p{margin:0;font-size:13.8px;color:var(--ink-2);line-height:1.6}
+.dot.pos{background:var(--good)} .dot.neu{background:var(--s1)} .dot.neg{background:var(--warn)} .dot.act{background:var(--crit)}
+
+/* ---------- likert chart ---------- */
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0 0 20px;font-size:12.5px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.sw{width:11px;height:11px;border-radius:3px;flex:none}
+.qgroup{font-size:12px;font-weight:700;letter-spacing:.09em;color:var(--muted);margin:22px 0 12px;
+  padding-bottom:7px;border-bottom:1px solid var(--grid)}
+.qgroup:first-of-type{margin-top:0}
+.qrow{display:grid;grid-template-columns:minmax(150px,206px) 1fr 52px;gap:14px;align-items:center;padding:7px 0}
+@media(max-width:720px){.qrow{grid-template-columns:1fr;gap:5px}.qrow .qavg{text-align:left}}
+.qlab{font-size:13.5px;color:var(--ink-2);line-height:1.4}
+.qbar{display:flex;height:22px;border-radius:4px;overflow:visible;gap:2px}
+.qseg{height:100%;position:relative;cursor:default;min-width:0}
+.qseg:first-child{border-radius:4px 0 0 4px}
+.qseg:last-child{border-radius:0 4px 4px 0}
+.qseg span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:11.5px;font-weight:650;color:#fff;font-variant-numeric:tabular-nums}
+.qseg.lightfill span{color:#0b0b0b}
+.qavg{font-size:14px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.qavg.low{color:var(--crit)}
+
+/* ---------- session bars ---------- */
+.sesrow{display:grid;grid-template-columns:minmax(140px,230px) 1fr;gap:16px;align-items:center;padding:9px 0;border-bottom:1px solid var(--grid)}
+.sesrow:last-child{border-bottom:0}
+@media(max-width:720px){.sesrow{grid-template-columns:1fr;gap:6px}}
+.sesname{font-size:13.5px;color:var(--ink-2)}
+.sesname b{color:var(--ink);font-weight:650;display:block;font-size:13px}
+.bars{display:flex;flex-direction:column;gap:5px}
+.barline{display:flex;align-items:center;gap:9px}
+.bartrack{flex:1;height:14px;background:transparent;position:relative}
+.barfill{height:14px;border-radius:0 4px 4px 0}
+.barval{font-size:12.5px;font-weight:650;color:var(--ink-2);width:26px;text-align:right;font-variant-numeric:tabular-nums}
+.barkey{font-size:11.5px;color:var(--muted);width:42px;flex:none}
+
+/* ---------- simple hbar ---------- */
+.hb{display:flex;align-items:center;gap:12px;padding:7px 0}
+.hb .k{font-size:13px;color:var(--ink-2);width:112px;flex:none;line-height:1.3;word-break:keep-all}
+.hb .t{flex:1;height:20px;position:relative}
+.hb .f{height:20px;border-radius:0 4px 4px 0;min-width:3px}
+.hb .v{font-size:13px;font-weight:650;width:64px;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.hb .v b{color:var(--ink)}
+
+/* ---------- table ---------- */
+details.tbl{margin:18px 0 0}
+details.tbl summary{cursor:pointer;font-size:13px;color:var(--ink-2);padding:6px 0;list-style:none;display:flex;align-items:center;gap:6px}
+details.tbl summary::-webkit-details-marker{display:none}
+details.tbl summary::before{content:"▸";font-size:11px;color:var(--muted)}
+details.tbl[open] summary::before{content:"▾"}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--grid)}
+th{font-size:11.5px;font-weight:650;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--surface-2)}
+
+/* ---------- comments ---------- */
+.ctrls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 18px;padding:14px 16px;
+  background:var(--surface);border:1px solid var(--border);border-radius:12px}
+.ctrls .lbl{font-size:12px;font-weight:650;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-right:2px}
+.chip{font:inherit;font-size:12.5px;padding:5px 11px;border-radius:999px;border:1px solid var(--border);
+  background:var(--chipbg);color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--s1);border-color:var(--s1);color:#fff}
+input.search{font:inherit;font-size:13.5px;padding:7px 12px;border-radius:9px;border:1px solid var(--border);
+  background:var(--surface);color:var(--ink);min-width:220px;flex:1}
+input.search::placeholder{color:var(--muted)}
+
+.sesblock{margin:0 0 22px;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.sesblock > .h{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;padding:16px 22px;border-bottom:1px solid var(--grid);background:var(--surface-2)}
+.sesblock > .h .n{font-size:12px;font-weight:700;color:var(--s1);letter-spacing:.08em}
+.sesblock > .h .t{font-size:16px;font-weight:650}
+.sesblock > .h .c{font-size:12.5px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}
+.sesbody{padding:6px 22px 18px}
+
+.cm{padding:15px 0;border-bottom:1px solid var(--grid)}
+.cm:last-child{border-bottom:0}
+.cmhead{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:0 0 8px}
+.who{font-size:13px;font-weight:650}
+.when{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tag{font-size:11px;font-weight:650;padding:2px 8px;border-radius:999px;letter-spacing:.02em}
+.tag.help{background:color-mix(in srgb,var(--s1) 14%,transparent);color:var(--s1)}
+.tag.bad{background:color-mix(in srgb,var(--s2) 16%,transparent);color:var(--s2)}
+.tag.topic{background:color-mix(in srgb,var(--good) 14%,transparent);color:var(--good)}
+.tag.free{background:var(--chipbg);color:var(--ink-2)}
+.tag.ses{background:var(--chipbg);color:var(--ink-2);font-weight:600}
+.quote{font-size:14px;line-height:1.72;color:var(--ink);white-space:pre-wrap;word-break:break-word;
+  border-left:2px solid var(--grid);padding:1px 0 1px 14px;margin:0}
+.quote.b{border-left-color:var(--s2)}
+.quote.h{border-left-color:var(--s1)}
+.quote.t{border-left-color:var(--good)}
+.blk{margin:0 0 12px}
+.blk:last-child{margin-bottom:0}
+.blk .bl{font-size:11.5px;font-weight:650;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin:0 0 5px}
+.empty{padding:36px 0;text-align:center;color:var(--muted);font-size:14px}
+
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 22px;margin:0 0 12px}
+.pmeta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 14px}
+.pmeta .tag{font-weight:600}
+
+footer{border-top:1px solid var(--border);padding:26px 0 0;margin-top:56px;font-size:12.5px;color:var(--muted)}
+
+/* ---------- tooltip ---------- */
+#tip{position:fixed;z-index:99;pointer-events:none;opacity:0;transition:opacity .1s;
+  background:var(--ink);color:var(--surface);font-size:12.5px;padding:6px 10px;border-radius:7px;
+  white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.18)}
+#tip.on{opacity:1}
+
+@media print{
+  .toolbar,.ctrls,.btn{display:none!important}
+  body{background:#fff;font-size:11.5px}
+  .card,.tile,.herocard,.sesblock,.pcard,.ins{break-inside:avoid;border-color:#ddd}
+  section{break-inside:auto;margin-bottom:28px}
+  details.tbl{display:none}
+}
+</style>
+</head>
+<body>
+<div id="tip"></div>
+
+<div class="toolbar">
+  <div class="toolbar-in">
+    <nav class="tnav">
+      <a href="#summary">핵심 요약</a>
+      <a href="#items">문항별 만족도</a>
+      <a href="#sessions">회차별 평가</a>
+      <a href="#paid">유료화 가능성</a>
+      <a href="#findings">개선 포인트</a>
+      <a href="#voices">코멘트 원문</a>
+    </nav>
+    <button class="btn" id="maskBtn" aria-pressed="true">이름 마스킹</button>
+    <button class="btn" id="themeBtn">다크 모드</button>
+    <button class="btn" onclick="window.print()">인쇄 / PDF</button>
+  </div>
+</div>
+
+<div class="wrap">
+<header class="top">
+  <p class="eyebrow">서울창조PD · 기초교육과정</p>
+  <h1>강의 통합 만족도 조사 결과 분석</h1>
+  <p class="sub">2026년 서울창조PD 기초교육과정(전 8회차) 수료생을 대상으로 진행한 통합 만족도 조사 결과입니다.
+     정량 지표와 함께, 참여자가 남긴 주관식 응답을 <b>원문 그대로</b> 수록했습니다.</p>
+  <div class="metarow" id="metarow"></div>
+</header>
+
+<section id="summary">
+  <div class="sechead"><span class="secno">01</span><h2>핵심 요약</h2></div>
+  <p class="secsub">13개 만족도 문항 × 28명 = 총 364개 응답을 5점 척도(매우 그렇다 5점 ~ 전혀 그렇지 않다 1점)로 환산했습니다.</p>
+  <div class="hero" id="hero"></div>
+  <div class="grid g4" id="tiles" style="margin-top:14px"></div>
+  <div class="grid g2" id="insights" style="margin-top:14px"></div>
+</section>
+
+<section id="items">
+  <div class="sechead"><span class="secno">02</span><h2>문항별 만족도</h2></div>
+  <p class="secsub">문항별 응답 분포와 5점 환산 평균입니다. 부정 응답(그렇지 않다)은 <b>‘교육 시간·속도’ 단 한 문항</b>에서만 나왔습니다.</p>
+  <div class="card">
+    <div class="legend" id="lkLegend"></div>
+    <div id="likert"></div>
+    <p class="note">막대 안 숫자는 응답 인원(명), 오른쪽 숫자는 5점 환산 평균입니다. 응답자 28명 기준.</p>
+    <details class="tbl"><summary>표로 보기</summary><div id="lkTable"></div></details>
+  </div>
+</section>
+
+<section id="sessions">
+  <div class="sechead"><span class="secno">03</span><h2>회차별 평가</h2></div>
+  <p class="secsub">‘도움이 되었던 회차’와 ‘아쉬움이 남은 회차’를 각각 중복 선택한 결과입니다(각 28명 기준).
+     28명 중 <b id="noneBadN"></b>명은 아쉬운 회차가 <b>없다</b>고 응답했습니다.</p>
+  <div class="card">
+    <div class="legend" id="sesLegend"></div>
+    <div id="sesChart"></div>
+    <p class="note">막대 길이는 해당 회차를 선택한 인원 수입니다(전체 28명 대비 비율).</p>
+    <details class="tbl"><summary>표로 보기</summary><div id="sesTable"></div></details>
+  </div>
+</section>
+
+<section id="paid">
+  <div class="sechead"><span class="secno">04</span><h2>유료 과정 전환 가능성</h2></div>
+  <p class="secsub">동일 과정을 일반 대상 유료 과정으로 개설할 경우의 수요를 확인했습니다.</p>
+  <div class="grid g3">
+    <div class="card"><h3>수강 의향</h3><p class="note" style="margin:0 0 14px">유료 전환 시 수강 의향</p><div id="cPaid"></div></div>
+    <div class="card"><h3>적정 가격대</h3><p class="note" style="margin:0 0 14px">8회차 과정 기준 희망 가격</p><div id="cPrice"></div></div>
+    <div class="card"><h3>선호 형태</h3><p class="note" style="margin:0 0 14px">유료 과정 운영 방식</p><div id="cFormat"></div></div>
+  </div>
+</section>
+
+<section id="findings">
+  <div class="sechead"><span class="secno">05</span><h2>개선 포인트 및 제언</h2></div>
+  <p class="secsub">정량 지표에서 드러난 약점과, 주관식 응답에서 반복적으로 언급된 내용을 교차 확인해 정리했습니다. 각 항목의 인용은 참여자 원문입니다.</p>
+  <div id="findingsBody"></div>
+</section>
+
+<section id="voices">
+  <div class="sechead"><span class="secno">06</span><h2>참여자 코멘트 원문</h2></div>
+  <p class="secsub">주관식 응답 전문을 오·탈자까지 수정 없이 그대로 수록했습니다.
+     회차 태그는 각 응답자가 선택한 회차이며, 서술 내용은 응답자가 선택한 회차 전체를 아우르는 경우가 많습니다.</p>
+
+  <div class="ctrls">
+    <span class="lbl">보기</span>
+    <button class="chip" data-view="session" aria-pressed="true">회차별</button>
+    <button class="chip" data-view="person" aria-pressed="false">응답자별</button>
+    <button class="chip" data-view="topic" aria-pressed="false">희망 주제·자유 의견</button>
+    <input class="search" id="q" type="search" placeholder="코멘트 내용 검색 (예: 시간, 촬영, 섭외)">
+  </div>
+  <div class="ctrls" id="sesFilter">
+    <span class="lbl">회차</span>
+  </div>
+  <div id="voicesBody"></div>
+</section>
+
+<footer>
+  <p>서울창조PD 기초교육과정 강의 통합 만족도 조사 · 응답 28명 · 조사기간 2026.08.11 ~ 08.19<br>
+  개인정보 보호를 위해 연락처는 본 리포트에서 제외했으며, 성함은 기본적으로 마스킹 처리했습니다(상단 버튼으로 해제 가능).<br>
+  본 리포트는 응답 원본 데이터(설문 수집분)를 기준으로 자동 집계·작성되었습니다.</p>
+</footer>
+</div>
+
+<script id="DATA" type="application/json">{"summary": {"n": 28, "overall": 4.5, "content_avg": 4.64, "ops_avg": 4.38, "responses": 364, "period": ["2026-08-11", "2026-08-19"], "sat": 4.43, "sat_pos": 96.4, "again": 4.5, "again_pos": 89.3, "rec": 4.39, "rec_pos": 85.7, "paid_yes_pct": 89.3, "paid_strong_pct": 32.1}, "qs": [{"group": "교육 내용", "label": "교육 내용이 도움되었다.", "avg": 4.75, "dist": [22, 5, 1, 0, 0], "pos": 96.4}, {"group": "교육 내용", "label": "교육 난이도가 적절했다.", "avg": 4.5, "dist": [17, 8, 3, 0, 0], "pos": 89.3}, {"group": "교육 내용", "label": "강의 구성이 이해하기 쉬웠다.", "avg": 4.64, "dist": [19, 8, 1, 0, 0], "pos": 96.4}, {"group": "교육 내용", "label": "강의·실습 자료가 유익했다.", "avg": 4.82, "dist": [24, 3, 1, 0, 0], "pos": 96.4}, {"group": "교육 내용", "label": "실무 활용 가능성이 높다.", "avg": 4.61, "dist": [19, 7, 2, 0, 0], "pos": 92.9}, {"group": "교육 내용", "label": "8회차 구성이 적절했다.", "avg": 4.54, "dist": [18, 7, 3, 0, 0], "pos": 89.3}, {"group": "강의·운영", "label": "강사 설명이 명확했다.", "avg": 4.54, "dist": [17, 9, 2, 0, 0], "pos": 92.9}, {"group": "강의·운영", "label": "강사 소통이 원활했다.", "avg": 4.57, "dist": [18, 8, 2, 0, 0], "pos": 92.9}, {"group": "강의·운영", "label": "교육 시간·속도가 적절했다.", "avg": 3.75, "dist": [9, 6, 10, 3, 0], "pos": 53.6}, {"group": "강의·운영", "label": "운영 지원이 원활했다.", "avg": 4.5, "dist": [16, 10, 2, 0, 0], "pos": 92.9}, {"group": "강의·운영", "label": "전반적으로 만족한다.", "avg": 4.43, "dist": [13, 14, 1, 0, 0], "pos": 96.4}, {"group": "강의·운영", "label": "향후 다시 참여하고 싶다.", "avg": 4.5, "dist": [17, 8, 3, 0, 0], "pos": 89.3}, {"group": "강의·운영", "label": "동료에게 추천하고 싶다.", "avg": 4.39, "dist": [15, 9, 4, 0, 0], "pos": 85.7}], "sessions": [{"no": "1", "title": "유튜브 생태계의 이해", "help": 15, "bad": 4}, {"no": "2", "title": "웹예능·웹드라마 산업 트렌드", "help": 18, "bad": 0}, {"no": "3", "title": "유튜브 콘텐츠 기획 이론", "help": 16, "bad": 2}, {"no": "4", "title": "현직 PD 콘텐츠 섭외", "help": 14, "bad": 1}, {"no": "5", "title": "브랜디드 콘텐츠 기획 이론", "help": 15, "bad": 2}, {"no": "6", "title": "촬영 기초 및 이론", "help": 10, "bad": 7}, {"no": "7", "title": "예능 콘텐츠 구성안 기초 및 트렌드", "help": 16, "bad": 0}, {"no": "8", "title": "웹드라마 대본 구조 기초", "help": 13, "bad": 0}], "people": [{"id": 1, "name": "이혜원", "mask": "이○원", "date": "2026-08-11", "help": ["7"], "bad": ["1"], "helpWhy": "당장 필요한 기획안을 쓰기 위한 팁을 배울 수 있었습니다", "badWhy": "강사님께서 잡는 타깃층과 제가 원하는 타깃층과 달랐습니다.", "topic": "유튜브 산업 외에 방송국이나 외주제작사의 실무도 궁금합니다.", "free": "-", "paid": "고민해보겠다", "price": "10만원 미만", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "그렇다", "강사 소통이 원활했다.": "보통이다", "교육 시간·속도가 적절했다.": "그렇다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "보통이다", "동료에게 추천하고 싶다.": "보통이다"}}, {"id": 2, "name": "이지호", "mask": "이○호", "date": "2026-08-11", "help": ["2", "4", "5"], "bad": ["1", "3"], "helpWhy": "섭외, 브랜디드 콘텐츠 등 평소 쉽게 접하기 어려운 분야에 대해 현직의 구체적인 사례와 실무 이야기를 들을 수 있어 유익했습니다.", "badWhy": "너무나 감사하게도 강사님께서 다양한 내용을 준비해주셨는데, 제한된 시간으로 인해 더 많은 이야기를 듣지 못한 점이 아쉬웠습니다.", "topic": "-", "free": "웹예능 PD를 꿈꾸는 저에게 현직의 이야기를 들으며 진로에 대해 구체적으로 생각해볼 수 있는 소중한 기회를 주셔서 감사합니다.", "paid": "고민해보겠다", "price": "10만원 미만", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "그렇다", "교육 난이도가 적절했다.": "그렇다", "강의 구성이 이해하기 쉬웠다.": "그렇다", "강의·실습 자료가 유익했다.": "그렇다", "실무 활용 가능성이 높다.": "보통이다", "8회차 구성이 적절했다.": "그렇다", "강사 설명이 명확했다.": "그렇다", "강사 소통이 원활했다.": "그렇다", "교육 시간·속도가 적절했다.": "보통이다", "운영 지원이 원활했다.": "그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "그렇다", "동료에게 추천하고 싶다.": "그렇다"}}, {"id": 3, "name": "김지현", "mask": "김○현", "date": "2026-08-11", "help": ["2", "7"], "bad": [], "helpWhy": "예능 콘텐츠 구성안을 포맷별 특징을 알려주고 실제 구성안을 어떻게 쓰는지를 알려줘서 좋았다 특히 그 예시를 토크형, 리얼리티형, 연예인이 나오는 영상 등으로 알려줘서 실무에서 구성안을 어떻게 쓰는지 자세히 알 수 있어서 좋았다", "badWhy": "-", "topic": "유튜브 예산을 가져올 때 광고주측에서 먼저 제안을 하는 경우도 있겠지만 먼저 제안하는 경우도 있다고 생각하는데 그때 더 큰 규모의 상을 제작하기 위해광고주에게투자받아야 할 때 어떻게하면 받을 수 있는지에 대한 것을 알고 싶다 그리고 구성안만이 아닌 아이템을 생각하거나 예능인데 게임을 구성해야 하는 경우 어떻게 구성하는지에 관한 것도 배울 수 있다면 더 좋을 것 같다", "free": "서울pd창조 교육을 들으면서 미디어교육을 학교에서 들었지만 여기서 들었던 게 더 실무에서 유용했던 게 많았던 것 같습니다. 기대를 많이 하진 않았는데 들을 때마다 그렇구나를 남발하게되는 좋은 강의였습니다 감사합니다", "paid": "고민해보겠다", "price": "10만원 미만", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "그렇다", "강사 설명이 명확했다.": "그렇다", "강사 소통이 원활했다.": "그렇다", "교육 시간·속도가 적절했다.": "보통이다", "운영 지원이 원활했다.": "그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "그렇다", "동료에게 추천하고 싶다.": "그렇다"}}, {"id": 4, "name": "이채상", "mask": "이○상", "date": "2026-08-11", "help": ["1", "2", "3", "4", "5", "6", "7", "8"], "bad": [], "helpWhy": "가장 중요한 것을 알려주었기 때문입니다.\n왜 하고 싶은지, 뭘하고 싶은지에 대한 PD관점의 고민거리를 던져주었고. 피디의 역할에서 가장 중요한 것이 뭔지. 내가 일할 세계에 대한 냉철한 이해를 하도록 도와주셨고, 초심자의 우려 기우같은 부분들도 확실하게 설명해주셨습니다. 실무자료도 아낌없이 보여주고, 노하우도 공유해주셔서 많은 도움이 되었고. 망망대해에서 이정표를 만난 느낌이었습니다. 하지만, 분명히 실천은 본인의 몫임도 잊지 않도록 주지해주셔서 좋았습니다.", "badWhy": "-", "topic": "모범답안들만 가지고 하는것도 좋지만, 지원자들의 오답노트를 모범답안으로 바꾸어가거나 개선해나가는 과정을 보여주면 좋을것 같아요. 웹예능 강의에서 말씀하셨던 물어보고 싶었는데 대신 해주는 느낌의 만족도가 생길거 같습니다.", "free": "영상제작 PD를 준비하는 사람들에게 너무나도 귀한 강의 입니다. 내용이 깊어질수록 정말 하고자하는 사람들에게\n도움이 된다고 생각됩니다. 교육과정을 기본. 심화 이렇개 단계적으로 나눈 것도 잘한 일이라고 생각됩니다. 누군가에겐 보물이지만. 누군가에겐 잠시 흥미로운 주제일수도 있으니까요. 행복한 시간이었고. 심화과정도 실력이 된다면 꼭 듣고 싶네요. 준비해주신 모든 분들께 감사드립니다.", "paid": "있다", "price": "20~30만원", "format": "혼합형", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "매우 그렇다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 5, "name": "김다정", "mask": "김○정", "date": "2026-08-11", "help": ["1", "3"], "bad": [], "helpWhy": "-", "badWhy": "-", "topic": "-", "free": "-", "paid": "고민해보겠다", "price": "10만원 미만", "format": "혼합형", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "그렇다", "강의 구성이 이해하기 쉬웠다.": "그렇다", "강의·실습 자료가 유익했다.": "그렇다", "실무 활용 가능성이 높다.": "그렇다", "8회차 구성이 적절했다.": "그렇다", "강사 설명이 명확했다.": "그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "그렇다", "운영 지원이 원활했다.": "그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "그렇다"}}, {"id": 6, "name": "오세헌", "mask": "오○헌", "date": "2026-08-11", "help": ["2", "3", "4", "5", "6", "7", "8"], "bad": [], "helpWhy": "전공 학과와 진로가 광고 영상 제작 연출 PD인데\n어렸을 때 부터 영상을 하는 데 있어 전 분야(영상관련)를 다양하게 알고 있는 것이 좋겠단 생각을 많이 했지만 세밀하고 디테일하게 배울 수 있는 교육은 없이 독학하며 편집과 촬영을 했습니더. 이런 좋은 기회로 웹 예능과 현재 따로 동기들과 공모전 제작중인 웹 드라마에서의 연출과 스토리 라인에 활용 할 수 있는 배움을 받을 수 있어 도움이 많이 되고 있습니다.", "badWhy": "없음", "topic": "광고 분야와 최스 트렌드 분석, 마케팅", "free": "-", "paid": "고민해보겠다", "price": "10만원 미만", "format": "온라인 라이브", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "그렇다", "교육 시간·속도가 적절했다.": "그렇다", "운영 지원이 원활했다.": "그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 7, "name": "권경민", "mask": "권○민", "date": "2026-08-11", "help": ["2", "3", "8"], "bad": [], "helpWhy": "실무에서 적용하기 좋은 내용들을 많이 얻을 수 있었던 회차라 도움이 되었다고 생각해 선택하게 되었습니다!", "badWhy": "없습니다", "topic": "편집 기술(색보정,ai활용) 등과 같은 전문 편집 기술들도 배우는 시간이 있으면 좋을 거 같습니다.", "free": "기초 교육들을 받을 수 있는 기회를 주셔서 정말 감사하고 실무에 적용하는데 많은 도움을 줄 수 있는 인사이트를 많이 얻었던 시간이었습니다 다음 회차에서도 참여할 수 있는 좋은 기회가 있기를 바랍니다!", "paid": "고민해보겠다", "price": "10만원 미만", "format": "VOD 녹화강의", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "매우 그렇다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 8, "name": "김재윤", "mask": "김○윤", "date": "2026-08-11", "help": ["1", "2", "3", "4", "5", "6", "7", "8"], "bad": [], "helpWhy": "부족한 부분과 명확한 트렌드에 대한 부분들이 도움이 되었습니다. 전반적인 강의자체가 데이터 기반 분석 기반으로 유튜브를 운영하는 PD가 되기 위해 반드시 알아야하는 부분들 이라 생각 됩니다.", "badWhy": "없습니다.", "topic": "유튜브 채널을 개설해보는 수업도 있으면 좋을것 같습니다. 그 외엔 다 직접적인 체험을 원해서 기초과정에서는 다루기힘들것 같습니다.", "free": "강의준비를 위해 고생 많이하신 강사님 운영진 분들 유익한 강의를 위해 힘써주셔서 너무 감사합니다", "paid": "있다", "price": "10~20만원", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "매우 그렇다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 9, "name": "김성겸", "mask": "김○겸", "date": "2026-08-11", "help": ["2", "5", "6", "8"], "bad": [], "helpWhy": "웹드라마 감독을 목표로 하는 사람으로서 현재의 유튜브의 트렌드부터 시작해서 웹드라마의 대본의 구조까지 생각해 볼 수 있는 유익한 시간이었습니다", "badWhy": "아쉬운 강의는 없었습니다", "topic": "전반적으로 잘 되어 있어서 하나만 더 뽑자면 숏폼드라마에 대해서도 들어보고 싶습니다", "free": "강의 시간부터 설계 그리고 내용까지 전반적으로 유익한 강의였으며 만약 다시한다면 들어보고 싶을 정도로 좋은 강의였습니다 기초과정을 겪으면서 심화과정에 더욱 참가하고 싶어졌습니다 감사합니다", "paid": "있다", "price": "10만원 미만", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "그렇다", "8회차 구성이 적절했다.": "그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "그렇다", "교육 시간·속도가 적절했다.": "보통이다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "그렇다", "동료에게 추천하고 싶다.": "그렇다"}}, {"id": 10, "name": "박경균", "mask": "박○균", "date": "2026-08-11", "help": ["1", "2", "3", "4", "5", "6", "7"], "bad": [], "helpWhy": "현직 PD님들이 직접 현장에서 느끼고 사용하는 것들을 쉽게 설명해주었기 때문에 대학생 입장에서는 새로 알게 된 점들이 정말 많았습니다. 그러다보니 콘텐츠를 보는 시각도 넓어지고 혼자 기획안을 작성하게 될 때도 이전과는 달리 많은 것들을 고려해보며 작성할 수 있게 되었습니다. 과거에는 콘텐츠 아이디어를 큰 범위에서 생각만 하고 실현하려고 했다면 이제는 세부적으로 계획을 짜고 어떤 포인트를 담을지 생각한다는 점에서 성장했다고 느끼고, 채널을 수익화하기 위해 어떻게 앞으로 운영을 하면 좋을지 생각하게 된 점에서 앞선 강의들이 너무 좋았습니다.", "badWhy": "-", "topic": "편집과 관련된 꿀팀도 있으면 좋을 거 같습니다. 포인트라고 생각한 부분들을 살리기 위해서 어떻게 더 편집을 하는지. 너무 재미 없는데 꼭 살려야 하는 장면일 때는 어떻게 하는지, 팀으로 활동할 때 편집 분담과 역할을 어떻게 나누는지 알게 된다면 좋을 거 같습니다.", "free": "8회차 밖에 없는게 너무 아쉬울 정도로 도움되고 많은 것을 얻어가는 강의였습니다. 기획안을 잘 작성해서 오프라인으로도 강의를 들을 수 있게 되면 좋을 거 같습니다.", "paid": "있다", "price": "10만원 미만", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "매우 그렇다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 11, "name": "김주희", "mask": "김○희", "date": "2026-08-12", "help": ["1", "2", "3", "4", "5", "6", "7", "8"], "bad": [], "helpWhy": "영상 편집이나 제작 실무를 조금 경험해본 입장에서, 단순히 제작 기술을 배우는 수업이 아니라 현재 콘텐츠 산업이 어떤 방식으로 움직이고 있고, 실제 콘텐츠가 기획부터 제작·유통까지 어떤 과정을 거치는지 전반적으로 이해할 수 있었다는 점이 좋았습니다.\n특히 유튜브 생태계, 웹예능·웹드라마 산업 트렌드, 유튜브 콘텐츠 기획, 콘텐츠 섭외, 브랜디드 콘텐츠 기획, 촬영, 예능 콘텐츠 트렌드, 웹드라마 대본 구조 등 평소 개별적으로 찾아보기에는 범위가 넓었던 내용들을 하나의 과정 안에서 연결해서 배울 수 있었던 점이 유익했습니다.\n이미 어느 정도 실무 경험이 있는 입장에서도 알고 있던 내용을 다시 확인하는 데 그치지 않고, '왜 이런 콘텐츠가 만들어지고, 어떤 관점에서 기획해야 하는가'를 생각해볼 수 있었다는 점이 특히 좋았습니다.", "badWhy": "-", "topic": "개인적으로는 이번 과정에서 배운 '기획을 실제 콘텐츠로 발전시키는 과정'을 좀 더 깊게 다뤄보고 싶습니다.\n특히 하나의 아이디어가 실제 콘텐츠로 완성되는 전 과정을 사례 중심으로 보는 수업이 있다면 들어보고 싶습니다.", "free": "평소 콘텐츠 제작과 편집을 조금 경험해본 입장에서, 이번 과정은 단순히 새로운 지식을 얻는 것보다 콘텐츠를 바라보는 시야를 넓힐 수 있었던 점에서 의미가 있었습니다.\n특히 현업에서 실제로 콘텐츠를 기획하고 제작하는 분들의 관점과 경험을 들을 수 있어서 좋았고, 평소에는 막연하게 알고 있던 유튜브와 콘텐츠 산업의 흐름을 보다 구체적으로 이해할 수 있었습니다.\n무엇보다 이런 내용을 무료로 직접 경험할 수 있는 기회가 주어졌다는 것 자체가 정말 감사했습니다.\n콘텐츠 제작을 준비하거나 관심을 가지고 있는 사람들에게 실질적으로 도움이 되는 과정이었다고 생각하며, 앞으로도 이런 기회가 계속 이어졌으면 좋겠습니다.", "paid": "있다", "price": "20~30만원", "format": "혼합형", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "매우 그렇다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 12, "name": "최정혁", "mask": "최○혁", "date": "2026-08-12", "help": ["1", "4"], "bad": ["6"], "helpWhy": "업계에서 통용되는 꿀팁들과 현직 PD에게 듣지 않으면 모를 내용들을 많이 알 수 있었기 때문이다. 또 섭외 같은 부분에서는 자본적인 부분을 떠나서 또 다른 점들을 알 수 있어서 나중에 PD로서 섭외할 때 좋은 팁이 될 수 있을 것 같다고 생각했다.\n\n유튜브 컨텐츠를 제작할 때 무엇을 가장 중요하게 생각해야 하는지 경중을 따지기가 어려웠는데 '썸네일'이라는 포인트를 집어주셔서 기준을 잡고 유튜브 컨텐츠 제작을 할 수 있겠다고 생각했다. 이런 점들이 가장 큰 도움이 됐다고 생각한다.", "badWhy": "매우 유익했지만 개인적으로는 아는 내용이 많아서 아쉬웠다. 촬영 공부를 했었기 때문에 그랬고 이런 개인적인 이유를 제외하고는 너무 좋은 강의였다고 생각한다.", "topic": "유튜브 롱폼을 제외하고도 쇼츠에 관한 이야기도 들어보고 싶다. 요즘 롱폼처럼 쇼츠를 기획해서 제작하는 경우도 많이 보이는데, 이런 경우에서 필요한 팁들은 무엇이 있을지 궁금하다.", "free": "-", "paid": "있다", "price": "10~20만원", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "그렇다", "교육 난이도가 적절했다.": "그렇다", "강의 구성이 이해하기 쉬웠다.": "그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "그렇지 않다", "운영 지원이 원활했다.": "그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 13, "name": "김재훈", "mask": "김○훈", "date": "2026-08-12", "help": ["1", "4", "5", "6"], "bad": ["4", "5", "6"], "helpWhy": "-", "badWhy": "-", "topic": "-", "free": "-", "paid": "있다", "price": "20~30만원", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "그렇다", "교육 시간·속도가 적절했다.": "그렇다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "그렇다"}}, {"id": 14, "name": "진덕영", "mask": "진○영", "date": "2026-08-12", "help": ["1", "3"], "bad": ["6"], "helpWhy": "'유튜브'라는 플랫폼은 쉬워 보일 수도 있지만, 이미 레드 오션이 되어 진입과 성공이 어려운 플랫폼이라고 느꼈습니다. 큰 성과를 이룬 현직 PD들의 쪽집게 강의를 통해 잘못된 통념을 깨주고 단도직입적으로 실무적이고 중요한 부분들을 알려준 것이 큰 도움이 됐습니다. 막연하게만 느껴진 유튜브라는 매체의 제작 및 기획 과정을 이론적으로 이해하게 되는 강의였습니다.", "badWhy": "우선, 강의를 진행해주신 감독님 공들여서 강의 자료를 준비하시고 수강생들의 이해를 도와주셔서 너무 좋았습니다.\n다만 해당 회차 뿐만 아니라 강의 전반적으로 느낀 아쉬운 점 중 하나는, 수강생들의 배경지식 편차가 커서 강의의 수준을 한 군데에 맞추기 어려웠던 것 같습니다. 수강생들의 질문도 강의에서 가지는 비중이 꽤나 컸는데, 강의 시간이 부족할 정도였던 것을 생각하면 개인적으로는 기초적이거나 웹서칭으로도 해결할 수 있는 질문에 할애되는 시간이 많아 아쉬웠습니다.\n수강생마다 경험과 수준이 다른 것은 당연하지만, 차후에는 수강 대상층이나 강의 난이도를 명확히 상정하거나 질의응답 형식을 보완해주신다면 보다 밀도 높고 효율적인 강의가 될 수 있을 것 같습니다. 좋은 강의 만들어주셔서 감사합니다.", "topic": "현실적으로 직접 채널을 개설하기보다는, 유튜브 프로덕션에 취업하는 경우가 많을 것 같아, 개인이 유튜브 채널을 개설하거나 PD가 되는 것 외에도 취업의 관점에서도 다뤘으면 좋겠습니다.\n유튜브 프로덕션에 취업할 때 유리한 포트폴리오와 경험, 그러한 프로덕션에서 원하는 인재상과 능력 같은 부분도 듣고 싶습니다.", "free": "유익한 강의를 무료로 들을 수 있어서 너무 만족스럽고 좋았습니다. 감사합니다.", "paid": "고민해보겠다", "price": "10~20만원", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "그렇다", "교육 난이도가 적절했다.": "보통이다", "강의 구성이 이해하기 쉬웠다.": "그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "그렇다", "강사 설명이 명확했다.": "그렇다", "강사 소통이 원활했다.": "그렇다", "교육 시간·속도가 적절했다.": "보통이다", "운영 지원이 원활했다.": "그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "그렇다", "동료에게 추천하고 싶다.": "그렇다"}}, {"id": 15, "name": "이다이아몬드", "mask": "이○○○○드", "date": "2026-08-12", "help": ["2"], "bad": ["3"], "helpWhy": "되게 논리적이면서 본질에 가깝게 강의해주셔서 많이 도움되었습니다.", "badWhy": "강의 내용에 집중하기보다 시간이 없다는 말을 반복하셔서 다급함을 인조적으로 조성하는 것처럼 느껴졌습니다. 주어진 시간 안에서 강의 자체에 더 집중해 주셨으면 합니다.", "topic": "ai연계 강의 원합니다.", "free": "많은 도움되었습니디", "paid": "없다", "price": "10만원 미만", "format": "혼합형", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "보통이다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "그렇지 않다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 16, "name": "이재우", "mask": "이○우", "date": "2026-08-12", "help": ["1", "2"], "bad": [], "helpWhy": "1회차와 2회차가 가장 도움이 되었습니다. 1회차에서는 유튜브 생태계와 알고리즘, CTR, 시청지속시간 등 콘텐츠의 성과를 판단하는 핵심 지표를 이해할 수 있었고, 단순히 재미있는 콘텐츠를 만드는 것을 넘어 데이터와 수익 구조를 고려해 기획해야 한다는 점이 인상적이었습니다. 특히 유튜브 장르와 포맷을 선택할 때 개인의 취향뿐 아니라 시장성과 타깃을 함께 분석해야 한다는 점이 실질적으로 도움이 되었습니다.\n\n2회차에서는 웹예능·웹드라마의 산업 트렌드를 살펴보면서 트렌드가 형성되고 소비되는 과정과 시청자의 심리를 콘텐츠 기획과 연결해서 생각해볼 수 있었습니다. 특히 ‘무엇이 유행하는가’에서 그치지 않고 사람들이 왜 그 콘텐츠를 계속 소비하는지, 어떤 결핍과 욕구가 그 안에 있는지를 분석하는 방식이 흥미로웠습니다. 두 회차 모두 앞으로 콘텐츠를 기획할 때 어떤 관점으로 시장과 시청자를 바라봐야 하는지 구체적으로 배울 수 있어서 가장 기억에 남았습니다.", "badWhy": "없음.", "topic": "기초적인 이론은 충분히 다뤄진 만큼, 실제 콘텐츠 제작 과정에서 PD가 어떤 방식으로 판단하고 수정하는지에 대한 실습이나 사례 분석을 더 들어보고 싶습니다. 특히 하나의 아이디어가 실제 기획안, 구성안, 촬영, 편집을 거쳐 최종 콘텐츠로 완성되는 전체 제작 과정을 실제 사례를 통해 살펴볼 수 있다면 도움이 될 것 같습니다.", "free": "8회차 동안 유튜브 콘텐츠의 기획부터 트렌드, 촬영, 예능 구성안, 웹드라마 대본까지 콘텐츠 제작 전반을 폭넓게 배울 수 있어서 좋았습니다. 특히 현직 PD님의 경험과 실제 사례를 바탕으로 설명해주신 부분이 이론을 이해하는 데 도움이 되었습니다. 앞으로도 현업에서 실제로 활용되는 사례와 제작 노하우를 접할 수 있는 교육이 계속 운영되었으면 좋겠습니다.", "paid": "고민해보겠다", "price": "10~20만원", "format": "온라인 라이브", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "매우 그렇다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 17, "name": "백한울", "mask": "백○울", "date": "2026-08-12", "help": ["4", "5", "7"], "bad": [], "helpWhy": "실무에 활용했던 자료를 예시로 많이 보여주시거나, 실제로 사용 가능한 자료들을 공유해주시면서.. 실질적으로 도움이 될 수 있는 강의가 되었던 것 같습니다.\n\n물론, 다른 강의도 모두 도움이 되었습니다!", "badWhy": "-", "topic": "유튜브 및 숏폼 플랫폼에서 콘텐츠를 실제로 유통할 때 필요한 썸네일·제목·업로드 전략, 시청 지속시간과 이탈률 등 데이터 분석 방법, 알고리즘을 고려한 콘텐츠 개선 방법을 배우고 싶습니다. 좋은 콘텐츠를 기획하는 것에서 나아가 실제 시청자에게 도달하고 성장시키는 과정까지 다뤄주시면 좋겠습니다.\n\n실제 콘텐츠를 제작할 때 필요한 제작비 산정과 예산 관리, 출연자 계약, 초상권·음원·이미지 저작권, 협찬 및 광고 등 제작자가 반드시 알아야 할 실무적인 내용을 함께 다뤄주시면 좋겠습니다.", "free": "기초과정을 통해 콘텐츠를 바라보는 시각과 기획·구성에 대한 기본기를 체계적으로 정리할 수 있어 유익했습니다. \n또한 과정이 끝난 뒤에도 수강생 간 협업이나 제작으로 연결될 수 있는 네트워킹 기회가 마련될 수 있다면 좋을 것 같습니다.", "paid": "고민해보겠다", "price": "50만원 이상", "format": "혼합형", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "그렇다", "강의 구성이 이해하기 쉬웠다.": "그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "보통이다", "강사 설명이 명확했다.": "그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "보통이다", "운영 지원이 원활했다.": "그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "그렇다", "동료에게 추천하고 싶다.": "보통이다"}}, {"id": 18, "name": "유지은", "mask": "유○은", "date": "2026-08-12", "help": ["7"], "bad": ["6"], "helpWhy": "실제 유튜브 콘텐츠를 기획하고 기획안을 구성하는 과정, 예시까지 강사님께서 제공해주시면서 볼 수 있어서 굉장히 유익했던 것 같습니다. 현업에서 실제 사용되는 자료를 볼 수 있던 점이 가장 도움이 되었던 점인 것 같습니다.", "badWhy": "아무래도 촬영관련된 장르 특성상 카메라를 잘 다뤄본 사람들이 이해할 수 있는 단어들이나 개념을 이해하지 못 하는 부분도 있었던 것 같습니다.\n카메라는 금액적인 부분 등에서 대학생이 접할 수 있는 정도가 한계적이어서 이렇게 느껴졌던 것 같습니다.", "topic": "실제 촬영이 진행되는 현장에 관련된 이야기가 조금 있으면 좋지 않을까 생각합니다.", "free": "콘텐츠 기획에 대해서 기초부터 다양한 방향에서 강의를 들을 수 있어서 정말 도움이 많이 되었습니다.\n좋은 기회로 심화과정에서 뵐 수 있으면 좋을 것 같습니다. 감사합니다.", "paid": "고민해보겠다", "price": "10만원 미만", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "그렇다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 19, "name": "백지훈", "mask": "백○훈", "date": "2026-08-12", "help": ["1", "2", "3", "4", "5", "6", "7", "8"], "bad": [], "helpWhy": "모든 강의가 쉽게 찾아보기 힘든 자료이거나 실제로 실무에서 사용했던 강의를 보여주셨던 거라서 혼자 공부할 때와는 달리 도움이 확실히 됐던 것 같습니다.\n단순히 교안으로 설명하는 것이 아닌 시청각 자료나 실제로 사용했던 기획안, 대본 등을 예시로 보여주셨기 때문에 참고할 거리도 많았던 것 같습니다.", "badWhy": "아쉬운 회차는 없었습니다만 전체적인 교육 구성이 조금 아쉬웠던 것 같습니다.\n이유는 하단 추가로 남기고 싶은 말에 적도록 하겠습니다.", "topic": "업로드 후 반응을 지켜보며 후속 대응은 어떤식으로 진행되는지 들을 수 있으면 좋겠습니다.\n기획을 배우다보면 편집까지는 레퍼런스를 참고한다면 감이 어느정도 잡히며 공부할 방향이 보이는데 후속 대응은 실무에서 어떤 식으로 진행되는지 알지 못해 조금 아쉬웠습니다.", "free": "8회 중 7회가 웹예능으로 진행된 것 같아 조금 아쉬웠습니다. 저는 웹예능을 만들고 싶었던 취준생이라 내용 자체는 충분히 유익했지만, 웹드라마에도 관심이 아예 없는 건 아니어서 구성이 조금 아쉽다는 생각이 들었습니다.\n\n만약 웹드라마 교육을 3~4회 중 한 번이라도 들어 구성에 대략적인 감을 잡을 수 있었다면, 상대적으로 경쟁자가 적은 웹드라마 쪽에 도전해봤을 수도 있을 것 같습니다. 웹드라마를 기대하고 들어오신 분들은 아쉬움이 더 크셨을 것 같습니다.\n\n다만 전체적인 강의 내용 자체는 새롭고 유익한 경험이었습니다. 감사합니다.", "paid": "고민해보겠다", "price": "10~20만원", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "그렇다", "교육 난이도가 적절했다.": "그렇다", "강의 구성이 이해하기 쉬웠다.": "그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "그렇다", "8회차 구성이 적절했다.": "보통이다", "강사 설명이 명확했다.": "보통이다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "보통이다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "그렇다"}}, {"id": 20, "name": "김유신", "mask": "김○신", "date": "2026-08-12", "help": ["1", "2", "3", "4", "5", "6", "7", "8"], "bad": [], "helpWhy": "모든 강의가 고르기 어려울만큼 전부 유익했습니다…… 기획,제작자로서 고려해야하는 부분들과 간과할 수 있는 부분 등 선배님들의 시행착오부터 성공 결과물까지 보여주시고 프롬프트 , 실제 기획안 , 섭외 예시 , 실제 사례 등을 보여주시면서  실무에서 써먹을 수 있도록 진심을 다해 알려주시고 도와주셨는데 비유하자면 고인물이 뉴비에게 강력한 무기를 양손에 쥐어주신 기분이었습니다. \n\n처음에는 컨텐츠 제작에 대한 흥미만 있던 상태로 시작했지만 컨텐츠 시장에 대한 이해, 컨텐츠별 성격과 수요,수익,방향성 등을 학습하며 조금은 더 심도있는 기획을 할 수 있게 된 것 같습니다. \n또 섭외에대한 마인드 또한 180도 바뀌게 되어 구걸이아닌 섭외는 윈윈의 구조로 간다는 마인드가 생겨서 두려움이 사라졌습니다.\n특히 브랜디드 콘텐츠!! 어렴풋이 느끼고있던 광고 방식이 브랜디드 콘텐츠 라는 개념이라는것을 처음알게되어 너무 설레고 재밌었습니다. 브랜디드 콘텐츠에 대한 아이디어도 많이 생각해볼수있게되었고\n촬영기초 수업에서는 대학 교양에서 배웠던 개념들을 더 심도있게 알게되어 한번더 정리할수있게되어서 좋았습니다.\n그리고 기획안 평가를 앞두고 고민이많고 두려움도 많았는데 정해진 폼을 주시고  7,8회 수업을 통해 기획 전 고려할부분들을 많이 알려주시고 예시를 많이 보여주셔서 용기도 많이생겨 덕분에 다양한 아이디어가 나올 수 있었습니다 !", "badWhy": "-", "topic": "-", "free": "교육을 처음 신청할때도 느꼈지만 교육을 마치고 되돌아보니 정말 하나부터 열까지 빼놓을수 없는 영양가있는 수업이었습니다… 항상 매 강의때마다 열정으로 이끌어주신 강사님들 그리고 늦은시간까지 원활한 수업을 위해 매번 힘써주신 매니저님들 그리고 이런 귀한 경험 할 수 있도록 기회를 주신 서울창조PD 팀께도 감사를 드립니다! 심화과정에도 채택 될 수 있도록 기획안 평가를 열심히 준비해서 또 인사드릴 수 있도록 노력하겠습니다 ㅎㅎㅎ 감사합니다!", "paid": "있다", "price": "20~30만원", "format": "온라인 라이브", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "매우 그렇다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 21, "name": "정성원", "mask": "정○원", "date": "2026-08-13", "help": ["7", "8"], "bad": [], "helpWhy": "예능 콘텐츠 구성안 기초 및 트렌드 수업을 통해 최신 예능의 흐름을 이해하고, 아이디어를 실제 콘텐츠로 구체화하는 방법을 배울 수 있어 도움이 되었다. 또한 웹드라마 대본 구조 기초 수업에서는 드라마 기획안에 관한 기본 원리를 익힐 수 있었다. 두 수업 모두 막연한 아이디어를 체계적인 기획안과 대본으로 발전시키는 데 필요한 실질적인 역량을 키워 주었다고 생각한다.", "badWhy": "-", "topic": "편집과 후반작업 - 컷 편집, 자막, 음악, 효과음을 활용한 스킬에 대해서 좀 자세히 배우고 싶습니다. 물론 실무에 합격하면 배우게 될 수 있겠지만, 기초 과정에서도 들으면 좋을 거 같다고 생각합니다.\n또한 저작권에 대해서도 약간 배울 수 있으면 좋을 거 같다고 생각했습니다.", "free": "좋은 수업 해주셔서 정말 감사합니다!!", "paid": "고민해보겠다", "price": "10만원 미만", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "보통이다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 22, "name": "김민준", "mask": "김○준", "date": "2026-08-14", "help": ["2", "8"], "bad": ["5"], "helpWhy": "웹드라마에 대해 자세히 알 수 있었다", "badWhy": "낯설었던 개념들이라ㅜ그랬던 것 같아ㅔ", "topic": "-", "free": "-", "paid": "고민해보겠다", "price": "10만원 미만", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "매우 그렇다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 23, "name": "이재원", "mask": "이○원", "date": "2026-08-15", "help": ["1", "2", "3", "4", "5", "6", "7", "8"], "bad": ["6"], "helpWhy": "왜 이 분들이 업계 최고의 PD·감독님인지 단번에 이해가 가는 강의입니다.\n\n실제로 모든 강사님들이 채팅방을 계속해서 놓치지 않고 소통해주셨고\n\n현직에서 실제로 사용되는 꿀팁과 자료들을 아낌없이 제공해주시며 기초 이론부터 지루하지 않고 열정있게 그리고 또 재미있게 설명해주시는 모든 내용들이 유익했던 거 같습니다. \n\n유료로 들어 마땅할법한 수업들을 이렇게 좋은 기회로 잘 듣게 되어서 너무 감사할 따름입니다.", "badWhy": "평소 촬영에도 관심이 많아서 다른 수업보다 조금 더 집중해서 들었던 수업이었는데\n\n따라서 2시간이라는 수업시간이 너무 아쉬웠습니다.\n\n최소 3시간은 되었다면 좋았을텐데.. 하는 아쉬움이 있습니다 :)", "topic": "편집적인 부분에서 자막 템플릿이라던지 주로 사용하는 폰트 및 구독형 플랫폼 소개 등도 자세하게 다룬다면 더 좋을 거 같습니다 :)", "free": "꼭 심화과정 그 너머를 향해 최선을 다해 열심히 달려가보겠습니다 감사합니다!", "paid": "있다", "price": "30~50만원", "format": "VOD 녹화강의", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "매우 그렇다", "운영 지원이 원활했다.": "매우 그렇다", "전반적으로 만족한다.": "매우 그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 24, "name": "최영은", "mask": "최○은", "date": "2026-08-16", "help": ["2", "3", "5", "7"], "bad": [], "helpWhy": "평소 예능 콘텐츠 기획에 관심이 많았는데, 7회차 강의를 통해 실제 구성안을 작성하는 기초를 다질 수 있어 흥미로웠습니다. 여기에 2회차의 산업 트렌드 분석과 3, 5회차의 기획 이론 강의가 더해져, 단순한 아이디어를 넘어 실제 시장에 맞는 기획안으로 발전시키는 뼈대를 잡는 데 큰 도움이 되었습니다.", "badWhy": "-", "topic": "-", "free": "-", "paid": "없다", "price": "10만원 미만", "format": "혼합형", "scores": {"교육 내용이 도움되었다.": "그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "그렇다", "운영 지원이 원활했다.": "그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "보통이다", "동료에게 추천하고 싶다.": "보통이다"}}, {"id": 25, "name": "강현지", "mask": "강○지", "date": "2026-08-17", "help": ["3"], "bad": ["1"], "helpWhy": "유튜브 기획에 대해 알고 싶었는데, 어떤 방식으로 기획을 진행하면 되는지를 알게 되어 좋았습니다.", "badWhy": "강사님이 딴 이야기가 너무 많아서 지루하기도 하고, 시간이 좀 아깝다는 생각이 들었습니다.", "topic": "웹드라마 편집 및 송출 뒤 피드백 과정", "free": "감사했습니다.", "paid": "고민해보겠다", "price": "10만원 미만", "format": "오프라인 집중과정", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "매우 그렇다", "강사 설명이 명확했다.": "그렇다", "강사 소통이 원활했다.": "그렇다", "교육 시간·속도가 적절했다.": "보통이다", "운영 지원이 원활했다.": "그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "그렇다", "동료에게 추천하고 싶다.": "그렇다"}}, {"id": 26, "name": "최민재", "mask": "최○재", "date": "2026-08-17", "help": ["1", "3", "8"], "bad": [], "helpWhy": "1,3은 강사님이 인상 깊었고 8회차는 내 관심사와 일치했다", "badWhy": "-", "topic": "-", "free": "-", "paid": "없다", "price": "10만원 미만", "format": "혼합형", "scores": {"교육 내용이 도움되었다.": "보통이다", "교육 난이도가 적절했다.": "보통이다", "강의 구성이 이해하기 쉬웠다.": "보통이다", "강의·실습 자료가 유익했다.": "보통이다", "실무 활용 가능성이 높다.": "보통이다", "8회차 구성이 적절했다.": "보통이다", "강사 설명이 명확했다.": "보통이다", "강사 소통이 원활했다.": "보통이다", "교육 시간·속도가 적절했다.": "보통이다", "운영 지원이 원활했다.": "보통이다", "전반적으로 만족한다.": "보통이다", "향후 다시 참여하고 싶다.": "보통이다", "동료에게 추천하고 싶다.": "보통이다"}}, {"id": 27, "name": "이소미", "mask": "이○미", "date": "2026-08-18", "help": ["1", "2", "3", "4", "5", "7"], "bad": ["1", "6"], "helpWhy": "현직자들의 생생한 유튜브 업계 현황과 실제 업무에 적용할 수 있는 방향을 전달해 주신 것 같아 너무 도움되었습니다. 사실 전 회차가 모두 도움되었으나,  제가 나아가고자 하는 방향과 일치하는 회차를 우선적으로 선택했습니다. 그동안 유튜브에 대해, 또 PD의 역할과 실제 마케팅 관점에서의 유튜브 콘텐츠 접근성에 대해 '카더라 통신'을 많이 접해 막막하기도 하고 확실한 정보를 접할 수 없었는데, 현장 실무진 PD님들의 생생한 경험과 아낌없는 커뮤니케이션에 속이 탁 트이는 것 같았습니다. 사실 8회차보다 그 이상의 수업을 듣고 싶었지만, 정해진 교육 시스템이 있다보니 어쩔 수 없었던 부분이 있었다고 생각합니다. \n\n유튜브 콘텐츠의 방향성 뿐만 아니라 데이터적으로 분석해야 한다는 점, 썸네일의 구조 등 유튜브 콘텐츠를 제작하는 크리에이터 또는 PD의 입장에서 무엇부터 준비해야 하고, 무엇을 할 줄 알아야 하는 지 충분한 가이드라인이 되었습니다. 앞으로도 더욱 발전하는 어썸엔터테인먼트가 되길 바라고, 나아가 저와도 인연이 닿았으면 하는 바람입니다. 열정적이고 알찬 강의 감사드립니다.", "badWhy": "1회차의 경우, 교육 내용이 부족했다기 보다 활발한 커뮤니케이션을 위해 시간을 소요하는 과정이 다소 아쉬웠습니다. 이유는 나눠주실 인사이트가 많은 데 비해 시간이 너무 부족했고, 유의미한 질문은 따로 모아 강의 후반부나 다음 강의 때 짚어주시면 좋겠다는 생각이 들었습니다. 시간 분배가 다소 아쉬웠습니다.\n\n6회차의 경우, 실무적인 부분이 크다 보니 줌 강의만으로는 한계가 있었던 점이 아쉽습니다.", "topic": "유튜브의 오해와 진실, 많은 사람들이 알고 있는 잘못된 지식을 바로 잡아주는 주제도 있으면 좋을 것 같습니다.\n기존 주제도 워낙 풍부해 시간 배분 등이 효율적으로 개선된다면 충분히 좋을 것 같습니다.", "free": "그동안 모든 교육이 원활하게 진행될 수 있도록 지원해 주시고 배려해 주신 모든 분들과, 직접 현장에서 경험한 실무적인 내용들을 아낌없이 전해주시려고 했던 모든 PD님들의 열정에 감사를 드립니다. 앞으로도 한국 유튜브계의 TOP 자리를 권고히 유지하시길 진심으로 바라며, 기회가 된다면 저도 함께 하는 꿈이 이뤄지길 바랍니다. 그동안 고생 많으셨습니다! PD님들을 보니, 유튜브의 미래가 밝다는 걸 다시금 느꼈습니다! 감사합니다!", "paid": "고민해보겠다", "price": "10~20만원", "format": "혼합형", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "그렇다", "강의 구성이 이해하기 쉬웠다.": "그렇다", "강의·실습 자료가 유익했다.": "매우 그렇다", "실무 활용 가능성이 높다.": "그렇다", "8회차 구성이 적절했다.": "그렇다", "강사 설명이 명확했다.": "그렇다", "강사 소통이 원활했다.": "그렇다", "교육 시간·속도가 적절했다.": "보통이다", "운영 지원이 원활했다.": "그렇다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "매우 그렇다", "동료에게 추천하고 싶다.": "매우 그렇다"}}, {"id": 28, "name": "김재현", "mask": "김○현", "date": "2026-08-19", "help": ["1", "2", "3", "4", "5", "7", "8"], "bad": ["6"], "helpWhy": "강의하면 실질적인것보다 허상이나 달콤한 말들만 많지만 팩트기반 현실적인 이야기를 해주심. 심지어 섭외수업은 다음날 고대로 적용해서 섭외 성공함.", "badWhy": "현업시선보단 보다 통괄적인 기초강의 였던듯한", "topic": "타팀과의 협업관련?", "free": "몇 달간 좋은 교육 감사합니다. 수고하셨습니다!", "paid": "고민해보겠다", "price": "10만원 미만", "format": "VOD 녹화강의", "scores": {"교육 내용이 도움되었다.": "매우 그렇다", "교육 난이도가 적절했다.": "매우 그렇다", "강의 구성이 이해하기 쉬웠다.": "매우 그렇다", "강의·실습 자료가 유익했다.": "그렇다", "실무 활용 가능성이 높다.": "매우 그렇다", "8회차 구성이 적절했다.": "그렇다", "강사 설명이 명확했다.": "매우 그렇다", "강사 소통이 원활했다.": "매우 그렇다", "교육 시간·속도가 적절했다.": "그렇지 않다", "운영 지원이 원활했다.": "보통이다", "전반적으로 만족한다.": "그렇다", "향후 다시 참여하고 싶다.": "그렇다", "동료에게 추천하고 싶다.": "그렇다"}}], "noneBad": 16, "paid": [{"k": "있다", "v": 9}, {"k": "고민해보겠다", "v": 16}, {"k": "없다", "v": 3}], "price": [{"k": "10만원 미만", "v": 16}, {"k": "10~20만원", "v": 6}, {"k": "20~30만원", "v": 4}, {"k": "30~50만원", "v": 1}, {"k": "50만원 이상", "v": 1}], "format": [{"k": "오프라인 집중과정", "v": 14}, {"k": "혼합형", "v": 8}, {"k": "온라인 라이브", "v": 3}, {"k": "VOD 녹화강의", "v": 3}]}</script>
+<script>
+const D = JSON.parse(document.getElementById('DATA').textContent);
+const N = D.summary.n;
+const LIK = ['매우 그렇다','그렇다','보통이다','그렇지 않다','전혀 그렇지 않다'];
+const LKV = ['--lk1','--lk2','--lk3','--lk4','--lk4'];
+const pct = v => Math.round(v*1000)/10;
+
+/* ---------- tooltip ---------- */
+const tip = document.getElementById('tip');
+function bindTip(el, text){
+  el.addEventListener('mouseenter', e => { tip.textContent = text; tip.classList.add('on'); });
+  el.addEventListener('mousemove', e => {
+    tip.style.left = Math.min(e.clientX+14, innerWidth-tip.offsetWidth-10)+'px';
+    tip.style.top = (e.clientY-36)+'px';
+  });
+  el.addEventListener('mouseleave', () => tip.classList.remove('on'));
+  el.tabIndex = 0;
+  el.addEventListener('focus', () => { const r=el.getBoundingClientRect();
+    tip.textContent=text; tip.classList.add('on'); tip.style.left=r.left+'px'; tip.style.top=(r.top-36)+'px'; });
+  el.addEventListener('blur', () => tip.classList.remove('on'));
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- meta ---------- */
+document.getElementById('metarow').innerHTML = [
+  ['조사기간', D.summary.period[0].replace(/-/g,'.')+' ~ '+D.summary.period[1].replace(/-/g,'.')],
+  ['응답 인원', N+'명'],
+  ['만족도 문항', D.qs.length+'개 (5점 척도)'],
+  ['주관식 문항', '4개'],
+  ['교육 구성', '전 8회차'],
+].map(([k,v])=>`<span class="metapill">${k} <b>${v}</b></span>`).join('');
+
+/* ---------- hero + tiles ---------- */
+const S = D.summary;
+const filled = S.overall;
+let stars=''; for(let i=1;i<=5;i++){ stars += `<div class="star ${filled>=i?'on':(filled>i-1?'half':'')}"></div>`; }
+document.getElementById('hero').innerHTML = `
+  <div class="herocard">
+    <p class="herolabel">종합 만족도 (5점 환산)</p>
+    <p class="herofig">${S.overall.toFixed(2)}<small> / 5.00</small></p>
+    <div class="stars">${stars}</div>
+    <p class="herometa">13개 문항 · 총 ${S.responses}개 응답 평균</p>
+  </div>
+  <div class="grid g2" style="gap:14px">
+    <div class="tile"><p class="lab">교육 내용 영역 평균</p><p class="val">${S.content_avg.toFixed(2)}<small> / 5</small></p>
+      <div class="meter"><i style="width:${S.content_avg/5*100}%"></i></div>
+      <p class="cap">내용 도움 · 난이도 · 구성 · 자료 · 실무활용 · 회차구성 6문항</p></div>
+    <div class="tile"><p class="lab">강의·운영 영역 평균</p><p class="val">${S.ops_avg.toFixed(2)}<small> / 5</small></p>
+      <div class="meter"><i style="width:${S.ops_avg/5*100}%"></i></div>
+      <p class="cap">설명 · 소통 · 시간·속도 · 운영지원 · 전반만족 · 재참여 · 추천 7문항</p></div>
+  </div>`;
+
+document.getElementById('tiles').innerHTML = [
+  ['전반적 만족', S.sat_pos+'%', S.sat.toFixed(2)+'점 · 긍정 응답(그렇다 이상) 27명', S.sat_pos],
+  ['재참여 의향', S.again_pos+'%', S.again.toFixed(2)+'점 · 25명이 다시 참여 희망', S.again_pos],
+  ['동료 추천 의향', S.rec_pos+'%', S.rec.toFixed(2)+'점 · 24명이 추천 의향', S.rec_pos],
+  ['유료 전환 수요', S.paid_yes_pct+'%', '‘있다’ '+S.paid_strong_pct+'% 포함 · 부정 3명', S.paid_yes_pct],
+].map(([l,v,c,m])=>`<div class="tile"><p class="lab">${l}</p><p class="val">${v}</p>
+  <div class="meter"><i style="width:${m}%"></i></div><p class="cap">${c}</p></div>`).join('');
+
+document.getElementById('insights').innerHTML = [
+  ['pos','전 문항 부정 응답 1% 미만 — 콘텐츠 만족도는 확실한 강점',
+   '364개 응답 중 부정(그렇지 않다) 응답은 3건(0.8%)이며 모두 ‘교육 시간·속도’ 문항입니다. 특히 <b>강의·실습 자료 4.82점</b>, <b>내용 도움 4.75점</b>으로 현직 PD의 실무 자료 공개가 만족의 핵심 동인으로 확인됩니다.'],
+  ['neg','유일한 약점은 ‘시간·속도’ 3.75점 — 콘텐츠가 아니라 시간 설계의 문제',
+   '13개 문항 중 유일하게 4점 미만이며, 2위 문항과 0.63점 차이입니다. 주관식에서도 “시간이 부족했다”, “Q&amp;A에 시간이 많이 소요됐다”는 지적이 반복됩니다. 강의 내용에 대한 불만이 아니라 <b>분량 대비 시수 부족</b>이라는 점이 중요합니다.'],
+  ['neu','6회차(촬영)는 도움 선택 최저·아쉬움 최다 — 온라인 한계가 원인',
+   '도움 선택 10명(최저), 아쉬움 선택 7명(최다)으로 유일하게 아쉬움이 두드러진 회차입니다. 다만 원문을 보면 “매우 유익했지만 아는 내용이 많아서”, “2시간이 너무 아쉬웠다, 최소 3시간”처럼 <b>강의 품질이 아닌 형식·시수·수강생 편차</b>가 이유입니다.'],
+  ['act','89.3%가 유료 전환에 열려 있으나 가격 민감 — 오프라인 집중과정 선호 50%',
+   '‘있다’ 32.1% + ‘고민해보겠다’ 57.1%. 다만 희망 가격대는 <b>10만원 미만 57.1%</b>에 집중돼 있어 초기에는 저가·단기 오프라인 집중형(선호 50%)이 현실적입니다. 20만원 이상을 제시한 6명 중 5명은 종합 만족도 4.69점 이상(상위 13명 이내)으로, <b>만족도가 곧 지불 의향</b>으로 이어집니다.'],
+].map(([c,t,p])=>`<div class="ins"><span class="dot ${c}"></span><div><h4>${t}</h4><p>${p}</p></div></div>`).join('');
+
+/* ---------- likert ---------- */
+const LKC = { light:['#184f95','#3987e5','#898781','#d03b3b'], dark:['#86b6ef','#3987e5','#898781','#e66767'] };
+function lum(h){const f=c=>{c/=255;return c<=.04045?c/12.92:Math.pow((c+.055)/1.055,2.4)};
+  return .2126*f(parseInt(h.slice(1,3),16))+.7152*f(parseInt(h.slice(3,5),16))+.0722*f(parseInt(h.slice(5,7),16));}
+function inkOn(h){const L=lum(h); return (1.05/(L+0.05)) >= ((L+0.05)/0.05) ? '#ffffff' : '#0b0b0b';}
+
+function renderLikert(){
+  const C = LKC[document.documentElement.dataset.theme==='dark'?'dark':'light'];
+  document.getElementById('lkLegend').innerHTML = LIK.slice(0,4).map((l,i)=>
+    `<span><i class="sw" style="background:${C[i]}"></i>${l}</span>`).join('')
+    + `<span style="margin-left:auto;color:var(--muted)">전혀 그렇지 않다 응답 0건</span>`;
+  let lkHtml=''; let lastG=null;
+  D.qs.forEach(q=>{
+    if(q.group!==lastG){ lastG=q.group; lkHtml += `<div class="qgroup">${q.group==='교육 내용'?'교육 내용 만족도':'강의 및 운영 만족도'}</div>`; }
+    const segs = q.dist.map((c,i)=>{
+      if(!c) return '';
+      const w = c/N*100;
+      return `<div class="qseg" data-t="${esc(LIK[i])} ${c}명 (${pct(c/N)}%)" style="width:${w}%;background:${C[i]}">${w>7?`<span style="color:${inkOn(C[i])}">${c}</span>`:''}</div>`;
+    }).join('');
+    lkHtml += `<div class="qrow"><div class="qlab">${esc(q.label.replace(/\.$/,''))}</div>
+      <div class="qbar">${segs}</div>
+      <div class="qavg${q.avg<4?' low':''}">${q.avg.toFixed(2)}</div></div>`;
+  });
+  document.getElementById('likert').innerHTML = lkHtml;
+  document.querySelectorAll('.qseg').forEach(el=>bindTip(el, el.dataset.t));
+}
+renderLikert();
+
+document.getElementById('lkTable').innerHTML = `<table><thead><tr><th>영역</th><th>문항</th>
+  ${LIK.slice(0,4).map(l=>`<th class="num">${l}</th>`).join('')}<th class="num">평균</th><th class="num">긍정률</th></tr></thead><tbody>
+  ${D.qs.map(q=>`<tr><td>${q.group}</td><td>${esc(q.label)}</td>
+   ${q.dist.slice(0,4).map(c=>`<td class="num">${c}</td>`).join('')}
+   <td class="num"><b>${q.avg.toFixed(2)}</b></td><td class="num">${q.pos}%</td></tr>`).join('')}
+  </tbody></table>`;
+
+/* ---------- sessions ---------- */
+document.getElementById('noneBadN').textContent = D.noneBad;
+document.getElementById('sesLegend').innerHTML =
+  `<span><i class="sw" style="background:var(--s1)"></i>도움이 되었던 회차</span>
+   <span><i class="sw" style="background:var(--s2)"></i>아쉬움이 남은 회차</span>`;
+const maxS = Math.max(...D.sessions.map(s=>s.help));
+document.getElementById('sesChart').innerHTML = D.sessions.map(s=>`
+  <div class="sesrow">
+    <div class="sesname"><b>${s.no}회차</b>${esc(s.title)}</div>
+    <div class="bars">
+      <div class="barline"><span class="barkey">도움</span><div class="bartrack">
+        <div class="barfill" data-t="${s.no}회차 도움 ${s.help}명 (${pct(s.help/N)}%)" style="width:${s.help/N*100}%;background:var(--s1)"></div></div><span class="barval">${s.help}</span></div>
+      <div class="barline"><span class="barkey">아쉬움</span><div class="bartrack">
+        <div class="barfill" data-t="${s.no}회차 아쉬움 ${s.bad}명 (${pct(s.bad/N)}%)" style="width:${s.bad/N*100}%;background:var(--s2)"></div></div><span class="barval">${s.bad}</span></div>
+    </div>
+  </div>`).join('');
+document.querySelectorAll('.barfill').forEach(el=>bindTip(el, el.dataset.t));
+document.getElementById('sesTable').innerHTML = `<table><thead><tr><th>회차</th><th>주제</th>
+  <th class="num">도움(명)</th><th class="num">도움 비율</th><th class="num">아쉬움(명)</th><th class="num">순선호(도움−아쉬움)</th></tr></thead><tbody>
+  ${D.sessions.map(s=>`<tr><td>${s.no}회차</td><td>${esc(s.title)}</td><td class="num">${s.help}</td>
+   <td class="num">${pct(s.help/N)}%</td><td class="num">${s.bad}</td><td class="num"><b>${s.help-s.bad>0?'+':''}${s.help-s.bad}</b></td></tr>`).join('')}
+  </tbody></table>`;
+
+/* ---------- paid charts ---------- */
+function hbar(el, items, colors, total){
+  const mx = Math.max(...items.map(d=>d.v));
+  el.innerHTML = items.map((d,i)=>`
+    <div class="hb"><span class="k">${esc(d.k)}</span>
+      <div class="t"><div class="f" data-t="${esc(d.k)} ${d.v}명 (${pct(d.v/total)}%)" style="width:${d.v/mx*100}%;background:${colors[i]}"></div></div>
+      <span class="v"><b>${d.v}</b>명 ${pct(d.v/total)}%</span></div>`).join('');
+  el.querySelectorAll('.f').forEach(x=>bindTip(x, x.dataset.t));
+}
+hbar(document.getElementById('cPaid'), D.paid, ['var(--p3)','var(--p2)','var(--p1)'], N);
+hbar(document.getElementById('cPrice'), D.price, ['var(--o1)','var(--o2)','var(--o3)','var(--o4)','var(--o5)'], N);
+hbar(document.getElementById('cFormat'), D.format, ['var(--s1)','var(--s1)','var(--s1)','var(--s1)'], N);
+
+/* ---------- findings ---------- */
+const FIND = [
+  { sev:'act', h:'① 강의 시수·시간 배분 재설계 (최우선)',
+    body:'‘교육 시간·속도가 적절했다’ 3.75점으로 유일한 4점 미만 문항이며, 부정 응답 3건이 모두 여기서 나왔습니다. 주관식에서도 시간 부족·Q&A 시간 관리에 대한 언급이 6건 이상 반복됩니다.',
+    act:['회차당 시수 확대(2시간 → 2.5~3시간) 또는 회차 수 증설 검토','Q&A를 강의 후반 15분으로 고정 배치하고, 기초 질문은 사전 취합·서면 답변으로 분리','강의 자료 분량 대비 실제 소화 가능한 시수를 강사와 사전 합의'],
+    quotes:[['진덕영','수강생들의 질문도 강의에서 가지는 비중이 꽤나 컸는데, 강의 시간이 부족할 정도였던 것을 생각하면 개인적으로는 기초적이거나 웹서칭으로도 해결할 수 있는 질문에 할애되는 시간이 많아 아쉬웠습니다.'],
+             ['이소미','나눠주실 인사이트가 많은 데 비해 시간이 너무 부족했고, 유의미한 질문은 따로 모아 강의 후반부나 다음 강의 때 짚어주시면 좋겠다는 생각이 들었습니다. 시간 분배가 다소 아쉬웠습니다.'],
+             ['이재원','따라서 2시간이라는 수업시간이 너무 아쉬웠습니다. 최소 3시간은 되었다면 좋았을텐데.. 하는 아쉬움이 있습니다 :)']] },
+  { sev:'neg', h:'② 6회차(촬영) — 온라인 강의의 형식적 한계',
+    body:'아쉬움 선택 7명(최다)·도움 선택 10명(최저). 다만 원문을 보면 강의 품질에 대한 지적은 없고, ‘줌으로는 한계’, ‘시간이 짧다’, ‘수강생 간 배경지식 편차’가 공통 원인입니다.',
+    act:['촬영 회차만 오프라인 실습 또는 장비 시연 세션으로 전환','대학생 접근 가능한 장비(스마트폰·보급형 카메라) 기준의 예시 추가','카메라 용어 사전 자료를 사전 배포해 배경지식 편차 완화'],
+    quotes:[['이소미','6회차의 경우, 실무적인 부분이 크다 보니 줌 강의만으로는 한계가 있었던 점이 아쉽습니다.'],
+             ['유지은','아무래도 촬영관련된 장르 특성상 카메라를 잘 다뤄본 사람들이 이해할 수 있는 단어들이나 개념을 이해하지 못 하는 부분도 있었던 것 같습니다.\n카메라는 금액적인 부분 등에서 대학생이 접할 수 있는 정도가 한계적이어서 이렇게 느껴졌던 것 같습니다.'],
+             ['최정혁','매우 유익했지만 개인적으로는 아는 내용이 많아서 아쉬웠다. 촬영 공부를 했었기 때문에 그랬고 이런 개인적인 이유를 제외하고는 너무 좋은 강의였다고 생각한다.']] },
+  { sev:'neg', h:'③ 수강생 배경지식 편차 — 난이도 타깃 명확화 필요',
+    body:'‘교육 난이도가 적절했다’ 4.50점으로 교육 내용 영역 중 가장 낮습니다. 이미 실무 경험이 있는 응답자와 완전 입문자가 한 강의실에 섞여 있어, 같은 회차가 누군가에겐 ‘아는 내용’, 누군가에겐 ‘낯선 개념’으로 갈립니다.',
+    act:['모집 공고에 수강 대상·선수 지식 수준을 명시','사전 설문으로 경험 수준을 파악해 트랙(입문/경험자) 분리 또는 보충 자료 제공','회차별 난이도 표기(입문/중급)를 커리큘럼에 병기'],
+    quotes:[['진덕영','다만 해당 회차 뿐만 아니라 강의 전반적으로 느낀 아쉬운 점 중 하나는, 수강생들의 배경지식 편차가 커서 강의의 수준을 한 군데에 맞추기 어려웠던 것 같습니다.'],
+             ['김민준','낯설었던 개념들이라ㅜ그랬던 것 같아ㅔ'],
+             ['이혜원','강사님께서 잡는 타깃층과 제가 원하는 타깃층과 달랐습니다.']] },
+  { sev:'neu', h:'④ 커리큘럼 균형 — 웹드라마 비중 확대 요구',
+    body:'8회차 중 웹드라마를 정면으로 다룬 회차는 1개(8회차)입니다. 웹드라마를 기대하고 참여한 수강생에게는 구성 불균형으로 체감됐습니다.',
+    act:['웹예능 / 웹드라마 트랙 비중을 6:2에서 5:3 수준으로 조정 검토','또는 모집 단계에서 “웹예능 중심 과정”임을 명확히 고지'],
+    quotes:[['백지훈','8회 중 7회가 웹예능으로 진행된 것 같아 조금 아쉬웠습니다. 저는 웹예능을 만들고 싶었던 취준생이라 내용 자체는 충분히 유익했지만, 웹드라마에도 관심이 아예 없는 건 아니어서 구성이 조금 아쉽다는 생각이 들었습니다.\n\n만약 웹드라마 교육을 3~4회 중 한 번이라도 들어 구성에 대략적인 감을 잡을 수 있었다면, 상대적으로 경쟁자가 적은 웹드라마 쪽에 도전해봤을 수도 있을 것 같습니다. 웹드라마를 기대하고 들어오신 분들은 아쉬움이 더 크셨을 것 같습니다.']] },
+  { sev:'pos', h:'⑤ 이어지는 과정에 대한 수요 — 심화·실습·네트워킹',
+    body:'만족도가 높은 응답자일수록 “8회차로는 부족하다”, “심화과정을 듣고 싶다”는 반응을 보입니다. 희망 주제 응답 21건은 대부분 <b>기초 이론 이후 단계</b>(편집·후반작업, 저작권·계약, 채널 운영·데이터 분석, 취업·포트폴리오)에 집중돼 있습니다.',
+    act:['심화과정 커리큘럼에 편집/후반작업, 저작권·제작비·계약 실무, 업로드 후 데이터 분석 편성','수료생 네트워킹·협업 매칭 프로그램 신설 검토','유료 전환 시 10만원대 오프라인 집중형을 1차 상품으로 설계'],
+    quotes:[['백한울','기초과정을 통해 콘텐츠를 바라보는 시각과 기획·구성에 대한 기본기를 체계적으로 정리할 수 있어 유익했습니다. \n또한 과정이 끝난 뒤에도 수강생 간 협업이나 제작으로 연결될 수 있는 네트워킹 기회가 마련될 수 있다면 좋을 것 같습니다.'],
+             ['박경균','8회차 밖에 없는게 너무 아쉬울 정도로 도움되고 많은 것을 얻어가는 강의였습니다. 기획안을 잘 작성해서 오프라인으로도 강의를 들을 수 있게 되면 좋을 거 같습니다.'],
+             ['이채상','교육과정을 기본. 심화 이렇개 단계적으로 나눈 것도 잘한 일이라고 생각됩니다. 누군가에겐 보물이지만. 누군가에겐 잠시 흥미로운 주제일수도 있으니까요. 행복한 시간이었고. 심화과정도 실력이 된다면 꼭 듣고 싶네요.']] },
+];
+function renderFindings(){
+  document.getElementById('findingsBody').innerHTML = FIND.map(f=>`
+    <div class="card" style="margin-bottom:14px">
+      <div style="display:flex;gap:12px"><span class="dot ${f.sev}" style="flex:none;width:8px;height:8px;border-radius:50%;margin-top:9px;background:var(--${f.sev==='act'?'crit':f.sev==='neg'?'warn':f.sev==='pos'?'good':'s1'})"></span>
+      <div style="flex:1">
+        <h3 style="font-size:16.5px;margin-bottom:8px">${f.h}</h3>
+        <p style="margin:0 0 14px;font-size:14px;color:var(--ink-2);line-height:1.65">${f.body}</p>
+        <p class="bl" style="font-size:11.5px;font-weight:650;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin:0 0 6px">제언</p>
+        <ul style="margin:0 0 16px;padding-left:18px;font-size:13.8px;color:var(--ink-2);line-height:1.7">${f.act.map(a=>`<li>${a}</li>`).join('')}</ul>
+        <p class="bl" style="font-size:11.5px;font-weight:650;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin:0 0 8px">근거 — 참여자 원문</p>
+        ${f.quotes.map(([nm,q])=>`<div class="blk"><p class="quote b" style="font-size:13.6px">${esc(q)}</p>
+          <p style="margin:5px 0 0 14px;font-size:12px;color:var(--muted)">— <span class="nm" data-n="${esc(nm)}"></span></p></div>`).join('')}
+      </div></div>
+    </div>`).join('');
+  applyMask();
+}
+
+/* ---------- masking ---------- */
+let masked = true;
+function maskName(n){ return n.length<=2 ? n[0]+'○' : n[0]+'○'.repeat(n.length-2)+n[n.length-1]; }
+function applyMask(){
+  document.querySelectorAll('.nm').forEach(el=>{
+    const n = el.dataset.n; el.textContent = masked ? maskName(n) : n;
+  });
+}
+document.getElementById('maskBtn').addEventListener('click', e=>{
+  masked = !masked;
+  e.target.setAttribute('aria-pressed', masked);
+  e.target.textContent = masked ? '이름 마스킹' : '실명 표시 중';
+  applyMask();
+});
+
+/* ---------- theme ---------- */
+document.getElementById('themeBtn').addEventListener('click', e=>{
+  const dark = document.documentElement.dataset.theme === 'dark';
+  document.documentElement.dataset.theme = dark ? 'light' : 'dark';
+  e.target.textContent = dark ? '다크 모드' : '라이트 모드';
+  renderLikert();
+});
+
+/* ---------- comments ---------- */
+const SESMAP = Object.fromEntries(D.sessions.map(s=>[s.no, s.title]));
+let view='session', selSes=null, query='';
+
+document.getElementById('sesFilter').innerHTML = '<span class="lbl">회차</span>' +
+  `<button class="chip" data-ses="" aria-pressed="true">전체</button>` +
+  D.sessions.map(s=>`<button class="chip" data-ses="${s.no}" aria-pressed="false">${s.no}회차 · ${esc(s.title)}</button>`).join('');
+
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{
+  view=b.dataset.view;
+  document.querySelectorAll('[data-view]').forEach(x=>x.setAttribute('aria-pressed', x===b));
+  document.getElementById('sesFilter').style.display = view==='topic' ? 'none' : 'flex';
+  render();
+}));
+document.querySelectorAll('[data-ses]').forEach(b=>b.addEventListener('click',()=>{
+  selSes = b.dataset.ses || null;
+  document.querySelectorAll('[data-ses]').forEach(x=>x.setAttribute('aria-pressed', x===b));
+  render();
+}));
+document.getElementById('q').addEventListener('input', e=>{ query=e.target.value.trim(); render(); });
+
+const nonEmpty = s => { const t=String(s||'').trim(); return (t && t!=='-' && t!=='없음' && t!=='없음.' && t!=='없습니다' && t!=='없습니다.' && t!=='아쉬운 강의는 없었습니다' && t!=='없다') ? t : ''; };
+const hit = p => !query || [p.helpWhy,p.badWhy,p.topic,p.free,p.name].join(' ').toLowerCase().includes(query.toLowerCase());
+const nameTag = p => `<span class="who nm" data-n="${esc(p.name)}"></span>`;
+const sesTags = (arr,cls) => arr.length===0 ? ''
+  : arr.length<=3 ? arr.map(x=>`<span class="tag ${cls}">${x}회차</span>`).join('')
+  : `<span class="tag ${cls}">외 ${arr.length}개 회차 함께 선택</span>`;
+
+function personBlocks(p, opts={}){
+  let h='';
+  const hw=nonEmpty(p.helpWhy), bw=nonEmpty(p.badWhy), tp=nonEmpty(p.topic), fr=nonEmpty(p.free);
+  if(hw && opts.help!==false) h+=`<div class="blk"><p class="bl">도움이 된 이유 ${p.help.length?'· '+p.help.map(x=>x+'회차').join(', '):''}</p><p class="quote h">${esc(hw)}</p></div>`;
+  if(bw && opts.bad!==false) h+=`<div class="blk"><p class="bl">아쉬운 점·개선 의견 ${p.bad.length?'· '+p.bad.map(x=>x+'회차').join(', '):''}</p><p class="quote b">${esc(bw)}</p></div>`;
+  if(tp && opts.topic!==false) h+=`<div class="blk"><p class="bl">듣고 싶은 주제</p><p class="quote t">${esc(tp)}</p></div>`;
+  if(fr && opts.free!==false) h+=`<div class="blk"><p class="bl">자유 의견</p><p class="quote">${esc(fr)}</p></div>`;
+  return h;
+}
+
+function render(){
+  const box = document.getElementById('voicesBody');
+  const pool = D.people.filter(hit);
+  let html='';
+
+  if(view==='session'){
+    const list = D.sessions.filter(s=>!selSes || s.no===selSes);
+    list.forEach(s=>{
+      const hs = pool.filter(p=>p.help.includes(s.no) && nonEmpty(p.helpWhy));
+      const bs = pool.filter(p=>p.bad.includes(s.no) && nonEmpty(p.badWhy));
+      const cnt = D.sessions.find(x=>x.no===s.no);
+      html += `<div class="sesblock"><div class="h"><span class="n">${s.no}회차</span><span class="t">${esc(s.title)}</span>
+        <span class="c">도움 ${cnt.help}명 · 아쉬움 ${cnt.bad}명</span></div><div class="sesbody">`;
+      if(!hs.length && !bs.length){ html += `<p class="empty">해당 조건의 코멘트가 없습니다.</p>`; }
+      hs.forEach(p=>{ html += `<div class="cm"><div class="cmhead">${nameTag(p)}<span class="tag help">도움</span>
+        ${sesTags(p.help.filter(x=>x!==s.no),'ses')}<span class="when">${p.date}</span></div>
+        <p class="quote h">${esc(nonEmpty(p.helpWhy))}</p></div>`; });
+      bs.forEach(p=>{ html += `<div class="cm"><div class="cmhead">${nameTag(p)}<span class="tag bad">아쉬움</span>
+        ${sesTags(p.bad.filter(x=>x!==s.no),'ses')}<span class="when">${p.date}</span></div>
+        <p class="quote b">${esc(nonEmpty(p.badWhy))}</p></div>`; });
+      html += `</div></div>`;
+    });
+  }
+
+  if(view==='person'){
+    const list = pool.filter(p=>!selSes || p.help.includes(selSes) || p.bad.includes(selSes));
+    if(!list.length) html = `<p class="empty">해당 조건의 응답자가 없습니다.</p>`;
+    list.forEach(p=>{
+      const body = personBlocks(p);
+      html += `<div class="pcard">
+        <div class="cmhead">${nameTag(p)}<span class="when">${p.date}</span></div>
+        <div class="pmeta">
+          ${p.help.length?`<span class="tag help">도움 ${p.help.map(x=>x+'회차').join(' · ')}</span>`:''}
+          ${p.bad.length?`<span class="tag bad">아쉬움 ${p.bad.map(x=>x+'회차').join(' · ')}</span>`:`<span class="tag ses">아쉬운 회차 없음</span>`}
+          <span class="tag ses">유료 수강 ${esc(p.paid)}</span>
+          <span class="tag ses">${esc(p.price)}</span>
+          <span class="tag ses">${esc(p.format)}</span>
+        </div>
+        ${body || '<p class="note" style="margin:0">주관식 응답 없음</p>'}</div>`;
+    });
+  }
+
+  if(view==='topic'){
+    const tp = pool.filter(p=>nonEmpty(p.topic));
+    const fr = pool.filter(p=>nonEmpty(p.free));
+    html += `<div class="sesblock"><div class="h"><span class="n">희망 주제</span>
+      <span class="t">기초과정에서 듣고 싶은 다른 주제</span><span class="c">${tp.length}건</span></div><div class="sesbody">`;
+    html += tp.length ? tp.map(p=>`<div class="cm"><div class="cmhead">${nameTag(p)}<span class="when">${p.date}</span></div>
+      <p class="quote t">${esc(nonEmpty(p.topic))}</p></div>`).join('') : `<p class="empty">해당 조건의 코멘트가 없습니다.</p>`;
+    html += `</div></div>`;
+    html += `<div class="sesblock"><div class="h"><span class="n">자유 의견</span>
+      <span class="t">추가로 남기고 싶은 의견</span><span class="c">${fr.length}건</span></div><div class="sesbody">`;
+    html += fr.length ? fr.map(p=>`<div class="cm"><div class="cmhead">${nameTag(p)}<span class="when">${p.date}</span></div>
+      <p class="quote">${esc(nonEmpty(p.free))}</p></div>`).join('') : `<p class="empty">해당 조건의 코멘트가 없습니다.</p>`;
+    html += `</div></div>`;
+  }
+
+  box.innerHTML = html;
+  applyMask();
+}
+
+renderFindings();
+render();
+</script>
+</body>
+</html>
